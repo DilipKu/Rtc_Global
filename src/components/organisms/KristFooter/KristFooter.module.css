@@ -1,0 +1,402 @@
+/* ── Footer Shell ── */
+.footer {
+  background: var(--color-bg-dark);
+  color: var(--text-secondary);
+  position: relative;
+  overflow: hidden;
+  border-top: 1px solid var(--color-border);
+}
+
+/* ── Top CTA Strip ── */
+.ctaStrip {
+  background: linear-gradient(135deg, var(--color-primary-900) 0%, var(--color-bg-section) 100%);
+  padding: 3rem 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.stripContainer {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2.5rem;
+  flex-wrap: wrap;
+}
+
+.stripTitle {
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin: 0 0 0.5rem;
+  letter-spacing: -0.01em;
+}
+
+.stripSub {
+  font-size: var(--text-base);
+  color: var(--text-secondary);
+  margin: 0;
+  font-weight: 500;
+}
+
+.stripActions {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.stripPrimary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 1rem 2.25rem;
+  background: var(--color-gold-500);
+  color: var(--color-primary-900);
+  text-decoration: none;
+  border-radius: 100px;
+  font-size: var(--text-sm);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: var(--shadow-sm);
+}
+
+.stripPrimary:hover {
+  background: var(--color-gold-400);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 8px 25px var(--color-glass-glow);
+}
+
+.stripWhatsapp {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 1rem 2.25rem;
+  background: var(--color-whatsapp);
+  color: #FFFFFF;
+  text-decoration: none;
+  border-radius: 100px;
+  font-size: var(--text-sm);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+}
+
+.stripWhatsapp:hover {
+  background: var(--color-whatsapp-dark);
+  transform: translateY(-3px) scale(1.02);
+}
+
+/* ── Main Footer ── */
+.main {
+  padding: 4rem 0 3rem;
+}
+
+.container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 3rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1.8fr 1fr 1fr 1.3fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+/* ── Brand Column ── */
+.brandCol {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.logoMarkImg {
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: -0.5rem;
+}
+
+.logoImage {
+  height: 100%;
+  width: auto;
+  object-fit: contain;
+}
+
+.brandDesc {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0;
+  max-width: 320px;
+}
+
+.presenceTag {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-gold-500);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: -0.5rem;
+}
+
+.contactList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.contactList li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.contactList li svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: var(--color-gold-500);
+  width: 16px;
+  height: 16px;
+}
+
+.contactList a,
+.contactList address {
+  color: inherit;
+  text-decoration: none;
+  font-style: normal;
+  line-height: 1.4;
+  transition: all 0.3s ease;
+}
+
+.contactList a:hover { 
+  color: var(--color-gold-500); 
+}
+
+.socialLinks {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.socialLink {
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+  text-decoration: none;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.socialLink:hover {
+  color: var(--color-primary-900);
+  border-color: var(--color-gold-500);
+  background-color: var(--color-gold-500);
+  transform: translateY(-3px) rotate(8deg);
+  box-shadow: 0 5px 15px var(--color-glass-glow);
+}
+
+.socialWhatsapp:hover {
+  background-color: var(--color-whatsapp);
+  border-color: var(--color-whatsapp);
+  color: #FFFFFF;
+}
+
+/* ── Link Columns ── */
+.linksCol {
+  display: flex;
+  flex-direction: column;
+}
+
+.colTitle {
+  font-family: var(--font-serif);
+  font-size: 0.9375rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin: 0 0 1.25rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding-bottom: 0.75rem;
+  position: relative;
+}
+
+.colTitle::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 25px;
+  height: 2px;
+  background: var(--color-gold-500);
+}
+
+.linkList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+.link {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  text-decoration: none;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: inherit;
+  text-align: left;
+  transition: all 0.3s ease;
+  line-height: 1.4;
+}
+
+.link:hover {
+  color: var(--color-gold-500);
+  transform: translateX(6px);
+}
+
+/* ── Enquiry Column ── */
+.enquiryCol {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.enquiryText {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.catalogBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 0.875rem 1.75rem;
+  background: var(--color-primary-500);
+  color: var(--color-primary-900);
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  border-radius: 100px;
+  font-size: 0.8125rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: var(--shadow-sm);
+}
+
+.catalogBtn:hover {
+  background: var(--color-gold-500);
+  color: var(--color-primary-900);
+  transform: scale(1.05) translateY(-2px);
+  box-shadow: 0 10px 20px var(--color-glass-glow);
+}
+
+.businessHours {
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  box-shadow: var(--shadow-sm);
+}
+
+.hoursLabel {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  margin: 0 0 0.375rem;
+}
+
+.hoursValue {
+  font-size: 0.875rem;
+  color: var(--text-primary);
+  margin: 0;
+  font-weight: 600;
+}
+
+/* ── Bottom Bar ── */
+.bottomBar {
+  border-top: 1px solid var(--color-border);
+  padding: 1.5rem 0;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.bottomContainer {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.copyright {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.poweredBy {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  margin: 0;
+  opacity: 0.7;
+}
+
+/* ── Responsive ── */
+@media (max-width: 1200px) {
+  .grid { gap: 2rem; }
+  .container, .stripContainer, .bottomContainer { padding-left: 2rem; padding-right: 2rem; }
+}
+
+@media (max-width: 1024px) {
+  .grid { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+}
+
+@media (max-width: 768px) {
+  .stripTitle { font-size: 1.5rem; text-align: center; }
+  .stripSub { text-align: center; }
+  .stripContainer { justify-content: center; }
+  .main { padding: 3rem 0 2rem; }
+  .grid { gap: 2rem; }
+  .bottomContainer { flex-direction: column; gap: 0.75rem; text-align: center; }
+}
+
+@media (max-width: 640px) {
+  .grid { grid-template-columns: 1fr; gap: 2.5rem; text-align: center; }
+  .brandCol, .enquiryCol { align-items: center; }
+  .logoMarkImg { justify-content: center; }
+  .contactList li { justify-content: center; }
+  .colTitle::after { left: 50%; transform: translateX(-50%); }
+  .link { text-align: center; }
+  .link:hover { transform: translateY(-2px); }
+  .stripActions { width: 100%; justify-content: center; }
+  .stripPrimary, .stripWhatsapp { flex: 1; justify-content: center; padding: 0.875rem; }
+}

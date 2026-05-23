@@ -1,0 +1,177 @@
+.section {
+  background-color: var(--color-bg);
+  overflow: hidden;
+  padding: 100px 0;
+}
+
+.container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.eyebrow {
+  display: block;
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--color-gold-500);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  margin-bottom: 12px;
+}
+
+.title {
+  font-family: var(--font-serif);
+  font-size: clamp(2.2rem, 5vw, 3.2rem);
+  color: var(--text-primary);
+  margin-bottom: 20px;
+}
+
+.subtitle {
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Ticker Logic */
+.tickerContainer {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  padding: 40px 0;
+}
+
+.tickerTrack {
+  display: flex;
+  gap: 32px;
+  width: max-content;
+  animation: scroll 60s linear infinite;
+  padding: 0 16px;
+}
+
+.tickerContainer:hover .tickerTrack {
+  animation-play-state: paused;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-33.3333% - 10.66px));
+  }
+}
+
+.card {
+  min-width: 400px;
+  max-width: 400px;
+  background: rgba(255, 255, 255, 0.02);
+  padding: 40px;
+  border-radius: 24px;
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  transition: all 0.4s ease;
+  cursor: grab;
+}
+
+.card:active {
+  cursor: grabbing;
+}
+
+.card:hover {
+  transform: translateY(-8px) scale(1.02);
+  border-color: var(--color-gold-500);
+  box-shadow: 0 10px 40px var(--color-glass-glow);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.quoteIcon {
+  color: var(--color-gold-500);
+  opacity: 0.15;
+}
+
+.review {
+  font-size: 16px;
+  line-height: 1.8;
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: auto;
+}
+
+.avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid var(--color-border);
+}
+
+.avatarWrapper {
+  position: relative;
+}
+
+.avatarBadge {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 18px;
+  height: 18px;
+  background: #25D366;
+  color: white;
+  border-radius: 50%;
+  border: 2px solid var(--color-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.name {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+}
+
+.role {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.stars {
+  display: flex;
+  gap: 4px;
+}
+
+@media (max-width: 768px) {
+  .tickerTrack {
+    animation-duration: 40s;
+  }
+  .card {
+    min-width: 300px;
+    padding: 30px;
+  }
+  .title {
+    font-size: 1.8rem;
+  }
+}

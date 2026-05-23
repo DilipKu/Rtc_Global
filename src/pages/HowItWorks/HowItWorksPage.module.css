@@ -1,0 +1,80 @@
+.page {
+  padding-top: var(--space-navbar-offset, 80px);
+  min-height: 100vh;
+  background-color: var(--color-bg-light);
+}
+
+.header {
+  padding: var(--space-12) 0 var(--space-10);
+  text-align: center;
+  background-color: var(--color-bg-white);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.content {
+  padding: var(--space-16) 0;
+}
+
+.stepsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-8);
+  margin-bottom: var(--space-16);
+}
+
+@media (min-width: 600px) {
+  .stepsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1000px) {
+  .stepsGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.stepCard {
+  background-color: var(--color-bg-white);
+  padding: var(--space-8);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--color-border);
+  text-align: center;
+  position: relative;
+}
+
+.iconWrapper {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto var(--space-6);
+  background-color: var(--color-bg-subtle);
+  color: var(--color-primary);
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ctaSection {
+  text-align: center;
+  padding: var(--space-12);
+  background-color: var(--color-bg-white);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+}
+
+.ctaBtn {
+  display: inline-block;
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
+  padding: var(--space-3) var(--space-8);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  font-weight: 500;
+  transition: background-color var(--transition-fast);
+}
+
+.ctaBtn:hover {
+  background-color: var(--color-primary-hover);
+}

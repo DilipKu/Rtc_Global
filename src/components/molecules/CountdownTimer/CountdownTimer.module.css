@@ -1,0 +1,43 @@
+.timer {
+  display: flex;
+  gap: 0.625rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 76px;
+  padding: 0.875rem 1rem;
+  background-color: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: var(--radius-md);
+  backdrop-filter: blur(4px);
+  transition: background-color 0.2s ease;
+}
+
+.unit:hover {
+  background-color: rgba(255,255,255,0.12);
+}
+
+.value {
+  font-size: var(--font-size-3xl);
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  transition: transform 0.15s ease;
+}
+
+.label {
+  font-size: var(--font-size-xs);
+  color: rgba(255,255,255,0.5);
+  margin-top: 0.3rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+}
+
