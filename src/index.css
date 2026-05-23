@@ -7,6 +7,9 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  /* Smooth color transitions when switching themes */
+  transition: background-color 0.35s ease, color 0.35s ease,
+              border-color 0.35s ease, box-shadow 0.35s ease;
 }
 
 html, body {
@@ -22,7 +25,7 @@ body {
   font-family: var(--font-sans);
   color: var(--text-primary);
   background-color: var(--color-bg);
-  background-image: radial-gradient(circle at 50% 0%, rgba(6, 182, 212, 0.08) 0%, transparent 50%),
+  background-image: radial-gradient(circle at 50% 0%, var(--color-glass-glow) 0%, transparent 50%),
                     radial-gradient(circle at 10% 30%, rgba(59, 130, 246, 0.03) 0%, transparent 40%);
   background-attachment: fixed;
   -webkit-font-smoothing: antialiased;

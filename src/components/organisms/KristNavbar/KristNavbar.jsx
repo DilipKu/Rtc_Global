@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Phone, MessageSquare, ChevronDown, Menu, X, FileText } from 'lucide-react';
+import { Phone, MessageSquare, ChevronDown, Menu, X, FileText, Moon, Sun } from 'lucide-react';
 import { brandConfig } from '../../../config/brandConfig';
+import { useTheme } from '../../../context/ThemeContext';
 import { useCategories } from '../../../hooks/useCategories';
 import styles from './KristNavbar.module.css';
 
@@ -43,8 +44,10 @@ const WhatsAppIcon = ({ size = 16 }) => (
 const KristNavbar = () => {
   const navigate = useNavigate();
   const { categories } = useCategories();
+  const { theme, toggleTheme } = useTheme();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const isDark = theme === 'dark';
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 10);
@@ -113,7 +116,7 @@ const KristNavbar = () => {
             </nav>
           </div>
 
-          {/* Actions */}
+            {/* Actions */}
           <div className={styles.actions}>
             {/* Phone Icon */}
             <a href={`tel:${phoneNumbers[0]}`} className={styles.iconBtn} aria-label="Call us">
@@ -130,6 +133,22 @@ const KristNavbar = () => {
             >
               <WhatsAppIcon size={18} />
             </a>
+
+            {/* Theme Toggle */}
+            <button
+              className={styles.themeToggle}
+              onClick={toggleTheme}
+              aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+              title={isDark ? 'Light mode' : 'Dark mode'}
+            >
+              <span className={styles.toggleIcons}>
+                <Moon size={10} className={styles.toggleIconMoon} />
+                <Sun size={10} className={styles.toggleIconSun} />
+              </span>
+              <span className={`${styles.toggleKnob} ${!isDark ? styles.toggleKnobLight : ''}`}>
+                {isDark ? <Moon size={12} /> : <Sun size={12} />}
+              </span>
+            </button>
 
             {/* Bulk Enquiry CTA */}
             <Link to="/enquiry" className={styles.enquiryBtn} aria-label="Start bulk enquiry">
@@ -207,7 +226,26 @@ const KristNavbar = () => {
             <MessageSquare size={18} />
             Start Bulk Enquiry
           </Link>
+          {/* Mobile Theme Toggle Row */}
+          <button
+            className={styles.mobileThemeToggle}
+            onClick={toggleTheme}
+            aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+          >
+            {isDark ? <Sun size={16} /> : <Moon size={16} />}
+            <span>{isDark ? 'Light Mode' : 'Dark Mode'}</span>
+            <span className={`${styles.themeToggle} ${styles.themeToggleMini}`} style={{ pointerEvents: 'none', marginLeft: 'auto' }}>
+              <span className={styles.toggleIcons}>
+                <Moon size={9} className={styles.toggleIconMoon} />
+                <Sun size={9} className={styles.toggleIconSun} />
+              </span>
+              <span className={`${styles.toggleKnob} ${!isDark ? styles.toggleKnobLight : ''}`} style={{ width: 18, height: 18 }}>
+                {isDark ? <Moon size={10} /> : <Sun size={10} />}
+              </span>
+            </span>
+          </button>
         </div>
+
 
         <div className={styles.drawerContact}>
           <a href={`tel:${phoneNumbers[0]}`}>

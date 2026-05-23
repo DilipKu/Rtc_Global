@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { MapPin, Phone, ChevronRight, User, Globe, Grid, Map as MapIcon, Search, Send, Loader2 } from 'lucide-react';
+import { MapPin, Phone, ChevronRight, User, Globe, Grid, Map as MapIcon, Search, Send } from 'lucide-react';
 import styles from './BranchesPage.module.css';
 import { useBranches } from '../../hooks/useBranches';
 
@@ -43,10 +43,19 @@ const BranchesPage = () => {
   if (loading && branches.length === 0) {
     return (
       <div className={styles.loaderWrapper} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '60vh' }}>
-        <Loader2 className="animate-spin" size={48} style={{ color: 'var(--color-gold-500)' }} />
+        <div style={{
+          width: 48,
+          height: 48,
+          borderRadius: '50%',
+          border: '3px solid var(--color-border)',
+          borderTopColor: 'var(--color-gold-500)',
+          animation: 'spin 0.8s linear infinite',
+        }} />
+        <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
       </div>
     );
   }
+
 
   // Filter branches based on region and search query
   const filteredBranches = branches.filter((loc) => {

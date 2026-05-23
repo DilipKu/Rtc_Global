@@ -126,9 +126,57 @@
 }
 
 @keyframes pulse-glow {
-  0% { box-shadow: 0 0 0 0 rgba(212, 168, 67, 0.4); }
-  70% { box-shadow: 0 0 0 15px rgba(212, 168, 67, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(212, 168, 67, 0); }
+  0% { box-shadow: 0 0 0 0 rgba(6, 182, 212, 0.4); }
+  70% { box-shadow: 0 0 0 15px rgba(6, 182, 212, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(6, 182, 212, 0); }
+}
+
+/* ── Light Theme Overrides ── */
+[data-theme="light"] {
+  /* Background */
+  --color-bg:         #F0F4FA;
+  --color-bg-section: #E8EDF6;
+  --color-bg-card:    #FFFFFF;
+  --color-bg-dark:    #D8E2F0;
+
+  /* Primary / Accent stays cyan-blue – just darker shade for contrast */
+  --color-primary-900: #EEF2FF;
+  --color-primary-800: #E0E7FF;
+  --color-primary-700: #C7D2FE;
+  --color-primary-600: #1D4ED8;
+  --color-primary-500: #2563EB;
+  --color-primary-100: #1E40AF;
+  --color-primary-50:  #1E3A8A;
+
+  /* Cyan accent */
+  --color-gold-600:  #0891B2;
+  --color-gold-500:  #0284C7;
+  --color-gold-400:  #0369A1;
+  --color-gold-100:  #E0F2FE;
+
+  /* Borders */
+  --color-border:       rgba(30, 64, 175, 0.12);
+  --color-border-dark:  rgba(30, 64, 175, 0.25);
+  --color-glass-glow:   rgba(2, 132, 199, 0.20);
+
+  /* Text */
+  --text-primary:   #0F172A;
+  --text-secondary: #334155;
+  --text-muted:     #64748B;
+  --text-white:     #FFFFFF;
+  --text-gold:      #0284C7;
+
+  /* Glass */
+  --glass-bg:     rgba(255, 255, 255, 0.75);
+  --glass-border: rgba(30, 64, 175, 0.10);
+
+  /* Shadows */
+  --shadow-xs:     0 1px 2px rgba(0, 0, 0, 0.06);
+  --shadow-sm:     0 2px 8px rgba(0, 0, 0, 0.10);
+  --shadow-md:     0 4px 20px rgba(0, 0, 0, 0.12);
+  --shadow-lg:     0 10px 30px rgba(0, 0, 0, 0.14), 0 0 15px rgba(2, 132, 199, 0.06);
+  --shadow-xl:     0 20px 50px rgba(0, 0, 0, 0.16), 0 0 30px rgba(2, 132, 199, 0.10);
+  --shadow-navbar: 0 4px 30px rgba(0, 0, 0, 0.10);
 }
 
 @keyframes float {

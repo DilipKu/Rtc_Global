@@ -1,0 +1,39 @@
+import React, { createContext, useContext, useEffect, useState } from 'react';
+
+const ThemeContext = createContext(null);
+
+export const ThemeProvider = ({ children }) => {
+  const [theme, setTheme] = useState(() => {
+    // Restore from localStorage; default to 'dark'
+    try {
+      return localStorage.getItem('rtc-theme') || 'dark';
+    } catch {
+      return 'dark';
+    }
+  });
+
+  useEffect(() => {
+    // Apply theme attribute to <html> so CSS variables cascade everywhere
+    document.documentElement.setAttribute('data-theme', theme);
+    try {
+      localStorage.setItem('rtc-theme', theme);
+    } catch {
+      // ignore storage errors (private browsing)
+    }
+  }, [theme]);
+
+  const toggleTheme = () =>
+    setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
+
+  return (
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+      {children}
+    </ThemeContext.Provider>
+  );
+};
+
+export const useTheme = () => {
+  const ctx = useContext(ThemeContext);
+  if (!ctx) throw new Error('useTheme must be used within ThemeProvider');
+  return ctx;
+};

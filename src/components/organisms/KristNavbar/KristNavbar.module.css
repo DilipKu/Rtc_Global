@@ -5,16 +5,17 @@
   left: 0;
   width: 100%;
   z-index: 1000;
-  background-color: rgba(6, 9, 19, 0.85);
+  background-color: var(--glass-bg);
   backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--color-border);
   box-shadow: var(--shadow-navbar);
   transition: all 0.3s ease;
 }
 
 .scrolled {
-  background-color: rgba(6, 9, 19, 0.95);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  background-color: var(--glass-bg);
+  box-shadow: var(--shadow-lg);
 }
 
 .container {
@@ -329,7 +330,70 @@
   background: rgba(255, 255, 255, 0.05);
 }
 
-/* ── Mobile Overlay ── */
+/* ── Theme Toggle ── */
+.themeToggle {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 56px;
+  height: 28px;
+  background: var(--color-bg-section);
+  border: 1px solid var(--color-border-dark);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  padding: 3px;
+  transition: background 0.35s ease, border-color 0.35s ease;
+  flex-shrink: 0;
+}
+
+.themeToggle:hover {
+  border-color: var(--color-gold-500);
+  box-shadow: 0 0 0 2px var(--color-glass-glow);
+}
+
+.toggleKnob {
+  position: absolute;
+  left: 3px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-gold-500), var(--color-primary-500));
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+}
+
+.toggleKnobLight {
+  transform: translateX(28px);
+  background: linear-gradient(135deg, #FBBF24, #F59E0B);
+  color: #FFFFFF;
+}
+
+.toggleIcons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 4px;
+  pointer-events: none;
+}
+
+.toggleIconMoon {
+  color: var(--text-secondary);
+  opacity: 0.6;
+  font-size: 11px;
+}
+
+.toggleIconSun {
+  color: var(--text-secondary);
+  opacity: 0.6;
+  font-size: 11px;
+}
+
+
 .overlay {
   position: fixed;
   inset: 0;
@@ -455,6 +519,34 @@
   background: var(--color-primary-500);
   text-decoration: none;
   border-radius: 12px;
+}
+
+.mobileThemeToggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  background: var(--color-bg-section);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.mobileThemeToggle:hover {
+  background: var(--color-bg-card);
+  border-color: var(--color-gold-500);
+}
+
+.themeToggleMini {
+  width: 44px;
+  height: 24px;
+  border: 1px solid var(--color-border);
 }
 
 .drawerContact {
