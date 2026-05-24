@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Phone, MessageSquare, ChevronDown, Menu, X, FileText, Moon, Sun } from 'lucide-react';
+import { Phone, ChevronDown, Menu, X, Moon, Sun } from 'lucide-react';
 import { brandConfig } from '../../../config/brandConfig';
 import { useTheme } from '../../../context/ThemeContext';
 import { useCategories } from '../../../hooks/useCategories';
@@ -8,17 +8,14 @@ import styles from './KristNavbar.module.css';
 
 const mainNavLinks = [
   { label: 'Home', href: '/' },
-  { label: 'Collections', href: '/collections', hasDropdown: true },
-  { label: 'Events', href: '/gallery' },
+  { label: 'Categories', href: '/collections', hasDropdown: true },
+  { label: 'Fair', href: '/gallery' },
   { label: 'Branches', href: '/branches' },
   { label: 'About Us', href: '/about' },
   { label: 'Contact', href: '/contact' },
 ];
 
-const secondaryLinks = [
-  { label: 'T&C', href: '/terms' },
-  { label: 'Privacy', href: '/privacy' },
-];
+const secondaryLinks = [];
 
 const BrandLogo = () => (
   <Link to="/" className={styles.logoLink} aria-label={`${brandConfig.brand_name} Home`}>
@@ -97,7 +94,7 @@ const KristNavbar = () => {
                         </a>
                       ))}
                       <Link to="/collections" className={styles.dropdownItem} style={{fontWeight: 'bold', borderTop: '1px solid #eee', marginTop: '5px', paddingTop: '8px'}}>
-                        View All Collections
+                        View All Categories
                       </Link>
                     </div>
                   )}
@@ -149,12 +146,6 @@ const KristNavbar = () => {
                 {isDark ? <Moon size={12} /> : <Sun size={12} />}
               </span>
             </button>
-
-            {/* Bulk Enquiry CTA */}
-            <Link to="/enquiry" className={styles.enquiryBtn} aria-label="Start bulk enquiry">
-              <FileText size={16} />
-              <span>Bulk Enquiry</span>
-            </Link>
 
             <button
               className={styles.menuBtn}
@@ -222,10 +213,6 @@ const KristNavbar = () => {
             <WhatsAppIcon size={18} />
             Chat on WhatsApp
           </a>
-          <Link to="/enquiry" className={styles.mobileEnquiry}>
-            <MessageSquare size={18} />
-            Start Bulk Enquiry
-          </Link>
           {/* Mobile Theme Toggle Row */}
           <button
             className={styles.mobileThemeToggle}

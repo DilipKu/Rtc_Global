@@ -33,8 +33,7 @@ const CategorySection = () => {
           </div>
           <div className={styles.headerRight}>
             <Link to="/collections" className={styles.viewAllLink}>
-              View All Collections
-              <ArrowUpRight size={16} strokeWidth={2} />
+              View All Categories <ArrowRight size={15} />
             </Link>
           </div>
         </div>

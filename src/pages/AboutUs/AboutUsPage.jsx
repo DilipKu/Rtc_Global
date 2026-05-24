@@ -4,6 +4,19 @@ import styles from "./AboutUsPage.module.css";
 import storyBanner from "../../assets/images/story_banner.png"; // New story banner
 import brandConfig from "../../config/brandConfig";
 
+const fairImages = [
+  {
+    id: 1,
+    src: '/fair-photo-1.jpg',
+    caption: 'RTC Global at the trade fair',
+  },
+  {
+    id: 2,
+    src: '/fair-photo-2.jpg',
+    caption: 'Wholesale event highlights',
+  },
+];
+
 // Helper to map icon string to Lucide icon component
 const IconMapper = ({ iconName, ...props }) => {
   switch (iconName) {
@@ -49,6 +62,32 @@ const AboutUsPage = () => {
                   />
                 ))}
               </div>
+            </div>
+          </div>
+
+          {/* Fair Showcase Section */}
+          <div className={`${styles.fairSection} reveal stagger-1`}>
+            <div className={styles.fairSectionHeader}>
+              <span className={styles.fairLabel}>Fair & Exhibition</span>
+              <h2 className={styles.fairHeading}>Our Fair Presence in Action</h2>
+              <p className={styles.fairIntro}>
+                Explore a few moments from our trade fair participation and wholesale showcase events.
+              </p>
+            </div>
+            <div className={styles.fairGallery}>
+              {fairImages.map((image) => (
+                <div key={image.id} className={styles.fairCard}>
+                  <div className={styles.fairImageWrapper}>
+                    <img
+                      src={image.src}
+                      alt={image.caption}
+                      className={styles.fairImage}
+                      loading="lazy"
+                    />
+                  </div>
+                  <p className={styles.fairCaption}>{image.caption}</p>
+                </div>
+              ))}
             </div>
           </div>
 

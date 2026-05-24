@@ -27,7 +27,7 @@ const CollectionDetailPage = () => {
         <nav className={styles.breadcrumb}>
           <Link to="/">Home</Link>
           <span className={styles.separator}>/</span>
-          <Link to="/collections">Collections</Link>
+          <Link to="/collections">Categories</Link>
           <span className={styles.separator}>/</span>
           <span className={styles.current}>{product.collection}</span>
         </nav>

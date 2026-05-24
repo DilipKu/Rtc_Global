@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Phone, Mail, MapPin, FileDown, MessageSquare } from 'lucide-react';
+import { Phone, Mail, MapPin, MessageSquare } from 'lucide-react';
 import { brandConfig } from '../../../config/brandConfig';
 import styles from './KristFooter.module.css';
 
@@ -26,12 +26,12 @@ const InstagramIcon = ({ size = 16 }) => (
 );
 
 const collectionsLinks = [
-  { label: "Ladies Collection", href: '/collections?category=ladies' },
-  { label: "Men's Wholesale", href: '/collections?category=men' },
-  { label: "Kids Bulk Buy", href: '/collections?category=kids' },
-  { label: "Saree Collection", href: '/collections?category=saree' },
-  { label: "Blanket Collection", href: '/collections?category=blanket' },
-  { label: "Ethnic Collection", href: '/collections?category=ethnic' },
+  { label: "Women's Collection", href: '/collections?category=ladies' },
+  { label: "Men's Collection", href: '/collections?category=men' },
+  { label: "Kids Collection", href: '/collections?category=kids' },
+  { label: "Sarees", href: '/collections?category=saree' },
+  { label: "Blankets & Home", href: '/collections?category=blanket' },
+  { label: "Ethnic Wear", href: '/collections?category=ethnic' },
 ];
 
 const quickLinks = [
@@ -44,21 +44,13 @@ const quickLinks = [
 
 const BrandLogoFooter = () => (
   <div className={styles.logoWrapper}>
-    <svg className={styles.logoSvg} viewBox="0 0 210 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <g transform="translate(2, 4)">
-        <circle cx="16" cy="16" r="14" stroke="url(#logo-grad-f)" strokeWidth="2.5" />
-        <path d="M5 16H27" stroke="url(#logo-grad-f)" strokeWidth="1.5" strokeLinecap="round" />
-        <path d="M16 5C20 9 20 23 16 27C12 23 12 9 16 5Z" stroke="url(#logo-grad-f)" strokeWidth="1.5" strokeLinejoin="round" />
-      </g>
-      <text x="44" y="22" fill="#FFFFFF" fontSize="15" fontWeight="800" fontFamily="'Outfit', sans-serif" letterSpacing="0.08em">RTC GLOBAL</text>
-      <text x="44" y="32" fill="#06B6D4" fontSize="8" fontWeight="700" fontFamily="'Inter', sans-serif" letterSpacing="0.12em">APPARELS PVT. LTD.</text>
-      <defs>
-        <linearGradient id="logo-grad-f" x1="2" y1="2" x2="30" y2="30" gradientUnits="userSpaceOnUse">
-          <stop stopColor="#3B82F6" />
-          <stop offset="1" stopColor="#06B6D4" />
-        </linearGradient>
-      </defs>
-    </svg>
+    <a href="/" aria-label={`${brandConfig.brand_name} Home`}>
+      <img
+        src="/rtc_logo.png"
+        alt={brandConfig.brand_name}
+        style={{ maxWidth: 200, height: 'auto', display: 'block' }}
+      />
+    </a>
   </div>
 );
 
@@ -146,9 +138,9 @@ const KristFooter = () => {
               </div>
             </div>
 
-            {/* Collections */}
+            {/* Categories */}
             <div className={styles.linksCol}>
-              <h3 className={styles.colTitle}>Collections</h3>
+              <h3 className={styles.colTitle}>Categories</h3>
               <ul className={styles.linkList}>
                 {collectionsLinks.map(({ label, href }) => (
                   <li key={label}>
@@ -187,15 +179,6 @@ const KristFooter = () => {
                 Connect with our B2B sales team for bulk enquiries and custom manufacturing orders.
               </p>
 
-              <button onClick={handleCatalogClick} className={styles.catalogBtn}>
-                <FileDown size={16} />
-                {brandConfig.cta_catalog}
-              </button>
-
-              {/* <a href="/dealer" className={styles.dealerBtn}>
-                <ArrowRight size={15} />
-                {brandConfig.cta_become_dealer}
-              </a> */}
 
               <div className={styles.businessHours}>
                 <p className={styles.hoursLabel}>Business Hours</p>
