@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import {
-  Truck, Users, Package, MapPin, Clock,
+  Users, Package, MapPin, Clock,
   ChevronLeft, ChevronRight
 } from 'lucide-react';
 import styles from './HeroSection.module.css';
@@ -100,8 +100,8 @@ const HeroSection = () => {
               <Link to="/enquiry" className={styles.ctaPrimary} aria-label="Get bulk pricing">
                 ENQUIRY NOW
               </Link>
-              <Link to="/collections" className={styles.ctaSecondary} aria-label="View Collections">
-                View Collections
+              <Link to="/collections" className={styles.ctaSecondary} aria-label="View Categories">
+                View Categories
               </Link>
             </div>
 
@@ -129,11 +129,7 @@ const HeroSection = () => {
         <ChevronRight size={20} strokeWidth={1.5} aria-hidden="true" />
       </button>
 
-      <div className={styles.floatingBadge} aria-label="Orders dispatched within 24 to 48 hours">
-        <span className={styles.badgePulse} aria-hidden="true" />
-        <Truck size={16} className={styles.badgeIcon} aria-hidden="true" />
-        <span>Dispatch in <strong>24–48 Hours</strong></span>
-      </div>
+
 
       <div className={styles.trustStrip} aria-label="Key business statistics">
         <div className={styles.trustContainer}>

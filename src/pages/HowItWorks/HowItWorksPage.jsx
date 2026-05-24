@@ -6,7 +6,7 @@ import styles from './HowItWorksPage.module.css';
 const steps = [
   {
     icon: Search,
-    title: '1. Browse Collections',
+    title: '1. Browse Categories',
     description: 'Explore our latest catalog of premium wholesale fashion. Filter by categories, check MOQ, and view product details.'
   },
   {

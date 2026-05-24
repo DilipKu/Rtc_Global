@@ -43,19 +43,19 @@ const CollectionsPage = () => {
   // ── Display labels ───────────────────────────────────────────
   const currentCategoryName = categoryId === 'all'
     ? 'All'
-    : categories.find(c => c.id === categoryId)?.name || 'Collection';
+    : categories.find(c => c.id === categoryId)?.name || 'Category';
 
   const activeBrandName = brandSlug === 'all' ? 'All Brands' : (brandName || brandSlug);
 
   const pageSubtitle = brandSlug !== 'all'
     ? `Showing ${activeBrandName} products${categoryId !== 'all' ? ` in ${currentCategoryName}` : ''}`
-    : `Browse our premium wholesale ${currentCategoryName.toLowerCase()} collections`;
+    : `Browse our premium wholesale ${currentCategoryName.toLowerCase()} categories`;
 
   return (
     <main className={styles.page}>
       <header className={styles.header}>
         <div className="container">
-          <h1 className="heading-xl">Our Collections</h1>
+          <h1 className="heading-xl">Our Categories</h1>
           <p className="text-body text-dim">{pageSubtitle}</p>
         </div>
       </header>

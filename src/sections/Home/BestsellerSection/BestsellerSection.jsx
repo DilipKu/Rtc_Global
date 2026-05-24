@@ -32,7 +32,7 @@ const BestsellerSection = () => {
             </p>
           </div>
           <Link to="/collections" className={`${styles.viewAll} reveal stagger-1`}>
-            View All Collections <ArrowRight size={18} />
+            View All Categories <ArrowRight size={18} />
           </Link>
         </div>
 
