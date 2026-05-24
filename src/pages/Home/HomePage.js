@@ -7,13 +7,13 @@ import BestsellerSection from '../../sections/Home/BestsellerSection/BestsellerS
 import TrustSection from '../../sections/Home/TrustSection/TrustSection';
 import TestimonialsSection from '../../sections/Home/TestimonialsSection/TestimonialsSection';
 import InstagramSection from '../../sections/Home/InstagramSection/InstagramSection';
-import FeaturesSection from '../../sections/Home/FeaturesSection/FeaturesSection';
+
 const HomePage = () => {
   return (
     <div>
       <HeroSection />
       <BrandTrustSection />
-      <FeaturesSection />
+
       <CategorySection />
       <BestsellerSection />
       <ValuePropositionSection />

@@ -1,22 +1,11 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, ArrowRight } from 'lucide-react';
-import CategoryCard from '../../../components/molecules/CategoryCard/CategoryCard';
+import { ArrowUpRight } from 'lucide-react';
 import { useCategories } from '../../../hooks/useCategories';
 import styles from './CategorySection.module.css';
 
 const CategorySection = () => {
   const { categories, loading } = useCategories();
-  const trackRef = useRef(null);
-
-  const scroll = (direction) => {
-    if (!trackRef.current) return;
-    const itemWidth = trackRef.current.querySelector('[class]')?.offsetWidth || 260;
-    trackRef.current.scrollBy({
-      left: direction === 'next' ? itemWidth + 24 : -(itemWidth + 24),
-      behavior: 'smooth',
-    });
-  };
 
   if (loading && categories.length === 0) {
     return (
@@ -31,48 +20,64 @@ const CategorySection = () => {
   }
 
   return (
-    <section className={styles.section} aria-label="Shop by wholesale categories">
+    <section className={`${styles.section} reveal`} aria-label="Luxury Catalogue">
       <div className={styles.container}>
+        {/* ── Section Header ── */}
         <div className={styles.header}>
           <div className={styles.headerLeft}>
-            <span className={styles.eyebrow}>Our Catalogue</span>
+            <div className={styles.eyebrowRow}>
+              <span className={styles.eyebrowDot} />
+              <span className={styles.eyebrow}>THE COLLECTION</span>
+            </div>
             <h2 className={styles.title}>Shop by Category</h2>
-            <p className={styles.subtitle}>Bulk collections across all major fashion verticals — tailored for retailers.</p>
           </div>
           <div className={styles.headerRight}>
             <Link to="/collections" className={styles.viewAllLink}>
-              View All Collections <ArrowRight size={15} />
+              View All Collections
+              <ArrowUpRight size={16} strokeWidth={2} />
             </Link>
-            <div className={styles.navButtons}>
-              <button
-                className={styles.navBtn}
-                onClick={() => scroll('prev')}
-                aria-label="Previous categories"
-              >
-                <ArrowLeft size={18} />
-              </button>
-              <button
-                className={`${styles.navBtn} ${styles.navBtnActive}`}
-                onClick={() => scroll('next')}
-                aria-label="Next categories"
-              >
-                <ArrowRight size={18} />
-              </button>
-            </div>
           </div>
         </div>
 
-        <div className={styles.track} ref={trackRef}>
-          {categories.map((cat) => (
-            <CategoryCard
-              key={cat.id}
-              name={cat.name}
-              label={cat.label}
-              tag={cat.tag}
-              image={cat.image}
-              moq={cat.moq}
-            />
-          ))}
+        {/* ── Bento Grid ── */}
+        <div className={styles.bentoGrid}>
+          {categories.slice(0, 6).map((cat, idx) => {
+            const isHero = idx === 0;
+            return (
+              <Link 
+                to="/collections" 
+                key={cat.id} 
+                className={`${styles.categoryCard} ${isHero ? styles.cardHero : ''} reveal stagger-${(idx % 6) + 1}`}
+              >
+                {/* Cinematic Image */}
+                <img src={cat.image} alt={cat.name} className={styles.image} loading="lazy" />
+                
+                {/* Gradient Overlay for Text Contrast */}
+                <div className={styles.overlay} />
+
+                {/* Floating Top Badges */}
+                <div className={styles.topBadges}>
+                  <span className={styles.moqBadge}>MOQ: {cat.moq}</span>
+                  {cat.tag && (
+                    <span className={`${styles.tagBadge} ${cat.tag === 'Best Seller' ? styles.tagGold : ''}`}>
+                      {cat.tag}
+                    </span>
+                  )}
+                </div>
+
+                {/* Bottom Content */}
+                <div className={styles.bottomContent}>
+                  <div className={styles.textWrap}>
+                    <h3 className={styles.categoryTitle}>{cat.name}</h3>
+                    <span className={styles.categoryLabel}>{cat.label}</span>
+                  </div>
+                  <div className={styles.actionCircle}>
+                    <ArrowUpRight size={20} className={styles.actionIcon} />
+                  </div>
+                </div>
+              </Link>
+            );
+          })}
         </div>
       </div>
     </section>

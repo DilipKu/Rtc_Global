@@ -1,118 +1,132 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useBrands } from '../../../hooks/useBrands';
+import { ArrowUpRight, Star, Sparkles, Zap } from 'lucide-react';
 import styles from './BrandTrustSection.module.css';
+
+/* ── Premium badge config for each card slot ── */
+const BADGES = ['Premium Partner', 'Top Seller', 'Exclusive Brand', 'New Collection', 'Luxury Brand'];
+
+/* ── Accent colours cycling across cards ── */
+const ACCENTS = ['#D4A017', '#06B6D4', '#8B5CF6', '#10B981', '#F59E0B'];
 
 const BrandTrustSection = () => {
   const navigate = useNavigate();
   const { brands, loading } = useBrands();
-  const [current, setCurrent] = useState(0);
+  const trackRef = useRef(null);
   const [paused, setPaused] = useState(false);
-  const intervalRef = useRef(null);
 
-  const pageCount = Math.ceil(brands.length / 2);
+  if (loading || brands.length === 0) return null;
 
-  const prev = () => setCurrent((c) => (c - 1 + pageCount) % pageCount);
-  const next = () => setCurrent((c) => (c + 1) % pageCount);
+  /* Duplicate brands so the seamless loop works across all viewport widths */
+  const loopBrands = [...brands, ...brands, ...brands];
 
-  // ── Auto-scroll every 3 seconds, pause on hover ──
-  // ALL hooks must be before any early return (Rules of Hooks)
-  useEffect(() => {
-    if (paused || pageCount <= 1) return;
-    intervalRef.current = setInterval(() => {
-      setCurrent((c) => (c + 1) % pageCount);
-    }, 3000);
-    return () => clearInterval(intervalRef.current);
-  }, [paused, pageCount]);
-
-  const handleBrandClick = (brand) => {
+  const handleClick = (brand) => {
     navigate(`/collections?brand=${encodeURIComponent(brand.slug)}&brandName=${encodeURIComponent(brand.name)}`);
   };
 
-  const handlePrev = () => {
-    clearInterval(intervalRef.current);
-    prev();
-  };
-  const handleNext = () => {
-    clearInterval(intervalRef.current);
-    next();
-  };
-
-  // Early return AFTER all hooks
-  if (loading || brands.length === 0) {
-    return null;
-  }
-
-  const visibleBrands = brands.slice(current * 2, current * 2 + 2);
-
   return (
-    <section className={styles.section} aria-label="Brands that trust us">
-      <div className={styles.container}>
-        <div className={styles.header}>
-          <div className={styles.trustStats}>
-            <span>NATIONWIDE RETAIL PARTNERS</span>
-          </div>
-          <h2 className={styles.title}>Trusted Wholesale Network</h2>
-          <p className={styles.subtitle}>Our partners represent the elite multi-brand outlets of India.</p>
+    <section className={styles.section} aria-label="Brand partners showcase">
+
+      {/* ── Section Header ── */}
+      <div className={styles.header}>
+        <div className={styles.eyebrowRow}>
+          <span className={styles.eyebrowDot} />
+          <span className={styles.eyebrow}>BRAND PARTNERSHIPS</span>
         </div>
+        <h2 className={styles.title}>
+          Trusted Wholesale<br />
+          <span className={styles.titleAccent}>Network</span>
+        </h2>
+        <p className={styles.subtitle}>
+          Curated partnerships with India's most sought-after wholesale brands — sourced, verified, and delivered.
+        </p>
+        <div className={styles.accentLine} />
+      </div>
 
-        {/* Flat 2-brand slider with arrows */}
+      {/* ── Infinite Marquee Carousel ── */}
+      <div
+        className={styles.marqueeOuter}
+        onMouseEnter={() => setPaused(true)}
+        onMouseLeave={() => setPaused(false)}
+        aria-label="Scrolling brand showcase"
+      >
+        {/* Left and right fade edges */}
+        <div className={styles.fadeLeft}  aria-hidden="true" />
+        <div className={styles.fadeRight} aria-hidden="true" />
+
         <div
-          className={styles.sliderWrapper}
-          onMouseEnter={() => setPaused(true)}
-          onMouseLeave={() => setPaused(false)}
+          ref={trackRef}
+          className={`${styles.marqueeTrack} ${paused ? styles.marqueePaused : ''}`}
+          aria-live="off"
         >
-          <button
-            className={`${styles.arrowBtn} ${styles.arrowLeft}`}
-            onClick={handlePrev}
-            aria-label="Previous brands"
-          >
-            &#8592;
-          </button>
-
-          <div className={styles.sliderTrack}>
-            {visibleBrands.map((logo) => (
+          {loopBrands.map((brand, idx) => {
+            const accent = ACCENTS[idx % ACCENTS.length];
+            const badge  = BADGES[idx % BADGES.length];
+            return (
               <div
-                key={logo.id}
-                className={styles.logoCard}
-                onClick={() => handleBrandClick(logo)}
+                key={`${brand.id}-${idx}`}
+                className={styles.brandCard}
+                onClick={() => handleClick(brand)}
                 role="button"
                 tabIndex={0}
-                aria-label={`View ${logo.name} products`}
-                onKeyDown={(e) => e.key === 'Enter' && handleBrandClick(logo)}
+                aria-label={`View ${brand.name} collections`}
+                onKeyDown={(e) => e.key === 'Enter' && handleClick(brand)}
+                style={{ '--accent': accent }}
               >
-                <img
-                  src={logo.src}
-                  alt={logo.name}
-                  className={styles.logoImg}
-                  loading="lazy"
-                />
+                {/* Background image */}
+                <div className={styles.cardBg}>
+                  <img
+                    src={brand.src}
+                    alt={brand.name}
+                    className={styles.cardImg}
+                    loading="lazy"
+                  />
+                  <div className={styles.cardOverlay} />
+                  <div className={styles.cardGlow} />
+                </div>
+
+                {/* Badge */}
+                <span className={styles.cardBadge} style={{ borderColor: `${accent}40`, color: accent }}>
+                  <Star size={9} fill={accent} />
+                  {badge}
+                </span>
+
+                {/* Brand name */}
+                <div className={styles.cardFooter}>
+                  <span className={styles.cardName}>{brand.name}</span>
+                  <span className={styles.cardAction}>
+                    <ArrowUpRight size={13} />
+                  </span>
+                </div>
+
+                {/* Hover accent border */}
+                <div className={styles.cardBorder} />
               </div>
-            ))}
-          </div>
-
-          <button
-            className={`${styles.arrowBtn} ${styles.arrowRight}`}
-            onClick={handleNext}
-            aria-label="Next brands"
-          >
-            &#8594;
-          </button>
+            );
+          })}
         </div>
+      </div>
 
-        {/* Dot indicators */}
-        {pageCount > 1 && (
-          <div className={styles.dots}>
-            {Array.from({ length: pageCount }).map((_, i) => (
-              <button
-                key={i}
-                className={`${styles.dot} ${i === current ? styles.dotActive : ''}`}
-                onClick={() => setCurrent(i)}
-                aria-label={`Go to slide ${i + 1}`}
-              />
-            ))}
-          </div>
-        )}
+      {/* ── Bottom Trust Metrics ── */}
+      <div className={styles.metricsRow}>
+        <div className={styles.metric}>
+          <Sparkles size={14} className={styles.metricIcon} />
+          <span className={styles.metricValue}>800+</span>
+          <span className={styles.metricLabel}>Retail Partners</span>
+        </div>
+        <div className={styles.metricDivider} />
+        <div className={styles.metric}>
+          <Zap size={14} className={styles.metricIcon} />
+          <span className={styles.metricValue}>25K+</span>
+          <span className={styles.metricLabel}>Orders Fulfilled</span>
+        </div>
+        <div className={styles.metricDivider} />
+        <div className={styles.metric}>
+          <Star size={14} className={styles.metricIcon} fill="currentColor" />
+          <span className={styles.metricValue}>11+</span>
+          <span className={styles.metricLabel}>Years Network</span>
+        </div>
       </div>
     </section>
   );

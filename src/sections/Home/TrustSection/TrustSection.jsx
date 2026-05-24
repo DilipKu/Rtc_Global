@@ -1,92 +1,64 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { brandConfig } from '../../../config/brandConfig';
+import { ArrowUpRight } from 'lucide-react';
 import styles from './TrustSection.module.css';
 
 const stats = [
-  { value: brandConfig.trust_stat_retailers, label: brandConfig.trust_stat_retailers_label, desc: 'Boutiques & shops across India', icon: '🏪' },
-  { value: brandConfig.trust_stat_cities, label: brandConfig.trust_stat_cities_label, desc: 'Active delivery locations', icon: '📍' },
-  { value: brandConfig.trust_stat_orders, label: brandConfig.trust_stat_orders_label, desc: 'Successfully fulfilled', icon: '📦' },
-  { value: brandConfig.trust_stat_experience, label: brandConfig.trust_stat_experience_label, desc: 'In wholesale fashion supply', icon: '🏆' },
+  { value: brandConfig.trust_stat_retailers, label: 'RETAILERS' },
+  { value: brandConfig.trust_stat_cities, label: 'CITIES' },
+  { value: brandConfig.trust_stat_orders, label: 'ORDERS' },
+  { value: brandConfig.trust_stat_experience, label: 'YEARS EXP' },
 ];
 
 const TrustSection = () => {
   return (
-    <section className={`${styles.section} section-pad`} aria-label="Why retailers trust us">
+    <section className={`${styles.section} reveal`} aria-label="Company Leadership & Trust">
+      {/* Immersive Cinematic Background */}
+      <div className={styles.bgImageWrapper}>
+        <img
+          src="https://images.pexels.com/photos/4507154/pexels-photo-4507154.jpeg?auto=compress&cs=tinysrgb&w=1920&q=80"
+          alt="Fashion logistics and distribution"
+          className={styles.bgImage}
+          loading="lazy"
+        />
+        <div className={styles.bgOverlay} aria-hidden="true" />
+      </div>
+
       <div className={styles.container}>
-        {/* Left: Image collage */}
-        <div className={`${styles.imageCol} reveal`}>
-          <div className={styles.imageGrid}>
-            <div className={styles.imgWrap} data-size="tall">
-              <img
-                src="https://images.pexels.com/photos/4507154/pexels-photo-4507154.jpeg?auto=compress&cs=tinysrgb&w=500"
-                alt="Wholesale fashion warehouse"
-                className={styles.gridImg}
-                loading="lazy"
-              />
-            </div>
-            <div className={styles.imgCol2}>
-              <div className={`${styles.imgWrap} reveal stagger-1`}>
-                <img
-                  src="https://images.pexels.com/photos/8584606/pexels-photo-8584606.jpeg"
-                  alt="Bulk packaging and dispatch"
-                  className={styles.gridImg}
-                  loading="lazy"
-                />
-              </div>
-              <div className={`${styles.imgWrap} reveal stagger-2`}>
-                <img
-                  src="https://images.pexels.com/photos/31452289/pexels-photo-31452289.jpeg?auto=compress&cs=tinysrgb&w=400"
-                  alt="Retail store clothing display"
-                  className={styles.gridImg}
-                  loading="lazy"
-                />
-              </div>
-            </div>
+        {/* Floating Glassmorphism Content Panel */}
+        <div className={styles.glassPanel}>
+          <div className={styles.eyebrowRow}>
+            <span className={styles.eyebrowDot} />
+            <span className={styles.eyebrow}>Why 500+ Retailers Choose Us</span>
           </div>
-
-          {/* Floating badge */}
-          <div className={`${styles.floatBadge} reveal stagger-3`}>
-            <span className={styles.floatIcon}>✅</span>
-            <div>
-              <p className={styles.floatTitle}>Quality Verified</p>
-              <p className={styles.floatSub}>Every piece inspected</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Right: Stats + Text */}
-        <div className={styles.contentCol}>
-          <span className={`${styles.eyebrow} reveal`}>Why 500+ Retailers Choose Us</span>
-          <h2 className={`${styles.title} reveal stagger-1`}>
-            Your Most Trusted<br />
-            <span className={styles.italicTitle}>Wholesale Partner</span>
+          
+          <h2 className={styles.title}>
+            Your Most Trusted <br />
+            <span className={styles.titleItalic}>Wholesale Partner</span>
           </h2>
-          <p className={`${styles.desc} reveal stagger-2`}>
-            Since {brandConfig.established_year}, we've been the go-to wholesale supply partner for retailers, boutique owners, and resellers across India. Factory-direct pricing, trending designs, and reliable delivery — every time.
+          
+          <p className={styles.description}>
+            Since {brandConfig.established_year}, we’ve engineered the supply chain for India’s top boutiques and resellers. Factory-direct pricing, curated trending designs, and zero-friction logistics.
           </p>
 
-          {/* Stats grid */}
-          <div className={`${styles.statsGrid} reveal stagger-3`}>
-            {stats.map(({ value, label, desc, icon }) => (
-              <div key={label} className={styles.statCard}>
-                <div className={styles.statHeader}>
-                  <span className={styles.statIcon}>{icon}</span>
+          {/* Minimal Editorial Stats */}
+          <div className={styles.statsBar}>
+            {stats.map(({ value, label }, idx) => (
+              <React.Fragment key={label}>
+                <div className={styles.statItem}>
                   <span className={styles.statValue}>{value}</span>
+                  <span className={styles.statLabel}>{label}</span>
                 </div>
-                <span className={styles.statLabel}>{label}</span>
-                <span className={styles.statDesc}>{desc}</span>
-              </div>
+                {idx < stats.length - 1 && <div className={styles.statDivider} />}
+              </React.Fragment>
             ))}
           </div>
 
-          {/* CTAs */}
-          <div className={`${styles.ctaContainer} reveal stagger-4`} style={{ display: 'flex', gap: '16px', marginTop: '32px' }}>
-            <Link to="/enquiry" className={styles.ctaPrimaryBtn}>
-              Start Journey
-            </Link>
-            <Link to="/collections" className={styles.ctaSecondaryBtn}>
-              Browse Catalog
+          <div className={styles.actionRow}>
+            <Link to="/enquiry" className={styles.primaryBtn}>
+              Partner With Us
+              <ArrowUpRight size={18} strokeWidth={2.5} />
             </Link>
           </div>
         </div>
