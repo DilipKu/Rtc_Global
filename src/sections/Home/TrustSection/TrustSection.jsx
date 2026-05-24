@@ -1,23 +1,26 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { brandConfig } from '../../../config/brandConfig';
-import { ArrowUpRight } from 'lucide-react';
-import styles from './TrustSection.module.css';
+import React from "react";
+import { Link } from "react-router-dom";
+import { brandConfig } from "../../../config/brandConfig";
+import { ArrowUpRight } from "lucide-react";
+import styles from "./TrustSection.module.css";
 
 const stats = [
-  { value: brandConfig.trust_stat_retailers, label: 'RETAILERS' },
-  { value: brandConfig.trust_stat_cities, label: 'CITIES' },
-  { value: brandConfig.trust_stat_orders, label: 'ORDERS' },
-  { value: brandConfig.trust_stat_experience, label: 'YEARS EXP' },
+  { value: brandConfig.trust_stat_retailers, label: "RETAILERS" },
+  { value: brandConfig.trust_stat_cities, label: "CITIES" },
+  { value: brandConfig.trust_stat_orders, label: "ORDERS" },
+  { value: brandConfig.trust_stat_experience, label: "YEARS EXP" },
 ];
 
 const TrustSection = () => {
   return (
-    <section className={`${styles.section} reveal`} aria-label="Company Leadership & Trust">
+    <section
+      className={`${styles.section} reveal`}
+      aria-label="Company Leadership & Trust"
+    >
       {/* Immersive Cinematic Background */}
       <div className={styles.bgImageWrapper}>
         <img
-          src="https://images.pexels.com/photos/4507154/pexels-photo-4507154.jpeg?auto=compress&cs=tinysrgb&w=1920&q=80"
+          src="https://images.pexels.com/photos/6086614/pexels-photo-6086614.jpeg"
           alt="Fashion logistics and distribution"
           className={styles.bgImage}
           loading="lazy"
@@ -32,14 +35,16 @@ const TrustSection = () => {
             <span className={styles.eyebrowDot} />
             <span className={styles.eyebrow}>Why 500+ Retailers Choose Us</span>
           </div>
-          
+
           <h2 className={styles.title}>
             Your Most Trusted <br />
             <span className={styles.titleItalic}>Wholesale Partner</span>
           </h2>
-          
+
           <p className={styles.description}>
-            Since {brandConfig.established_year}, we’ve engineered the supply chain for India’s top boutiques and resellers. Factory-direct pricing, curated trending designs, and zero-friction logistics.
+            Since {brandConfig.established_year}, we’ve engineered the supply
+            chain for India’s top boutiques and resellers. Factory-direct
+            pricing, curated trending designs, and zero-friction logistics.
           </p>
 
           {/* Minimal Editorial Stats */}
@@ -50,7 +55,9 @@ const TrustSection = () => {
                   <span className={styles.statValue}>{value}</span>
                   <span className={styles.statLabel}>{label}</span>
                 </div>
-                {idx < stats.length - 1 && <div className={styles.statDivider} />}
+                {idx < stats.length - 1 && (
+                  <div className={styles.statDivider} />
+                )}
               </React.Fragment>
             ))}
           </div>

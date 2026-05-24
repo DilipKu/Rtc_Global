@@ -6,6 +6,9 @@ import {
 } from 'lucide-react';
 import styles from './HeroSection.module.css';
 import { brandConfig } from '../../../config/brandConfig';
+import hero1 from '../../../assets/images/hero1.webp';
+import hero2 from '../../../assets/images/hero2.webp';
+import hero3 from '../../../assets/images/hero3.webp';
 
 /* ── Stat cards data ── */
 const stats = [
@@ -21,7 +24,7 @@ const slides = [
     heading:      'Enterprise\nFashion\nSourcing.',
     highlight:    'All Leading Brands',
     sub:          'A structured, transparent distribution network operating across 800+ District Headquarters in India.',
-    image:        'https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=1600&q=80',
+    image:        hero1,
     accent:       '#D4A017',
   },
   {
@@ -29,7 +32,7 @@ const slides = [
     heading:      'Scale Your\nRetail\nNetwork.',
     highlight:    'Direct Purchase Desk',
     sub:          'Get direct mobile contact channels to regional purchase managers to source high-margin inventories.',
-    image:        'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1600&q=80',
+    image:        hero2,
     accent:       '#06B6D4',
   },
   {
@@ -37,7 +40,7 @@ const slides = [
     heading:      'Verified\nAccounts &\nDispatch.',
     highlight:    '100% Transparency',
     sub:          'Strict quality control on every cargo batch. Direct billing and dedicated accounts helpdesk.',
-    image:        'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1600&q=80',
+    image:        hero3,
     accent:       '#8B5CF6',
   },
 ];
