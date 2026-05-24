@@ -1,10 +1,23 @@
 import React, { useState } from 'react';
 import styles from './GalleryPage.module.css';
 
-// Events removed — images deleted. Show placeholder message when empty.
-const eventsData = [];
+// Fair images added back via public assets
+const eventsData = [
+  {
+    id: 1,
+    category: 'Fair',
+    title: 'RTC Global Fair Showcase',
+    image: '/fair-photo-1.jpg',
+  },
+  {
+    id: 2,
+    category: 'Fair',
+    title: 'Trade Fair Highlights',
+    image: '/fair-photo-2.jpg',
+  },
+];
 
-const categories = ['All'];
+const categories = ['All', 'Fair'];
 
 const GalleryPage = () => {
   const [activeTab, setActiveTab] = useState('All');
