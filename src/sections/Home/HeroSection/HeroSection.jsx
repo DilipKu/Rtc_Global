@@ -5,7 +5,6 @@ import {
   ChevronLeft, ChevronRight
 } from 'lucide-react';
 import styles from './HeroSection.module.css';
-import { brandConfig } from '../../../config/brandConfig';
 import hero1 from '../../../assets/images/hero1.webp';
 import hero2 from '../../../assets/images/hero2.webp';
 import hero3 from '../../../assets/images/hero3.webp';
@@ -54,7 +53,7 @@ const useCounter = (target, duration = 1200) => {
     if (started.current) return;
     started.current = true;
     // Skip animation for range values like '24–48h' or non-numeric strings
-    if (/[–\-]/.test(target) || !/\d+/.test(target)) { setCount(target); return; }
+    if (/[–-]/.test(target) || !/\d+/.test(target)) { setCount(target); return; }
     const numericTarget = parseInt(target.replace(/\D/g, ''), 10);
     if (!numericTarget) { setCount(target); return; }
     const suffix = target.replace(/[\d,]/g, '');
