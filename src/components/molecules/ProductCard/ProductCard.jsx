@@ -24,7 +24,7 @@ const ProductCard = ({
   const handleEnquiryNavigation = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    navigate(`/enquiry?product=${encodeURIComponent(collection)}&sku=${sku}`);
+    navigate(`/enquiry?product=${encodeURIComponent(collection)}&sku=${sku}&category=${encodeURIComponent(category)}&image=${encodeURIComponent(image)}`);
   };
 
   return (

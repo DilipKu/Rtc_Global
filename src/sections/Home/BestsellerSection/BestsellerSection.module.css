@@ -71,7 +71,7 @@
   background: linear-gradient(90deg, var(--color-primary-800) 0%, var(--color-primary-900) 100%);
   border-radius: var(--radius-xl);
   padding: var(--space-8) var(--space-10);
-  color: #FFFFFF;
+  color: var(--text-primary);
   border: 1px solid var(--color-border);
   box-shadow: var(--shadow-lg);
   position: relative;

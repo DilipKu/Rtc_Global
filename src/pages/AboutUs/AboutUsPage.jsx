@@ -1,21 +1,10 @@
 import React from "react";
-import { Eye, Star, Users, Globe } from "lucide-react";
+import { Eye, Star, Users } from "lucide-react";
 import styles from "./AboutUsPage.module.css";
-import storyBanner from "../../assets/images/story_banner.png"; // New story banner
+import storyBanner from "../../assets/images/story_banner.png";
+import ownerImage from "../../assets/images/rtc_about.png";
 import brandConfig from "../../config/brandConfig";
 
-const fairImages = [
-  {
-    id: 1,
-    src: '/fair-photo-1.jpg',
-    caption: 'RTC Global at the trade fair',
-  },
-  {
-    id: 2,
-    src: '/fair-photo-2.jpg',
-    caption: 'Wholesale event highlights',
-  },
-];
 
 // Helper to map icon string to Lucide icon component
 const IconMapper = ({ iconName, ...props }) => {
@@ -65,31 +54,6 @@ const AboutUsPage = () => {
             </div>
           </div>
 
-          {/* Fair Showcase Section */}
-          <div className={`${styles.fairSection} reveal stagger-1`}>
-            <div className={styles.fairSectionHeader}>
-              <span className={styles.fairLabel}>Fair & Exhibition</span>
-              <h2 className={styles.fairHeading}>Our Fair Presence in Action</h2>
-              <p className={styles.fairIntro}>
-                Explore a few moments from our trade fair participation and wholesale showcase events.
-              </p>
-            </div>
-            <div className={styles.fairGallery}>
-              {fairImages.map((image) => (
-                <div key={image.id} className={styles.fairCard}>
-                  <div className={styles.fairImageWrapper}>
-                    <img
-                      src={image.src}
-                      alt={image.caption}
-                      className={styles.fairImage}
-                      loading="lazy"
-                    />
-                  </div>
-                  <p className={styles.fairCaption}>{image.caption}</p>
-                </div>
-              ))}
-            </div>
-          </div>
 
           {/* 2.5 MISSION & VISION SECTION */}
           <div className={`${styles.essenceSection} reveal stagger-1`}>
@@ -142,7 +106,7 @@ const AboutUsPage = () => {
           {/* 3. FOUNDER SECTION */}
           <div className={`${styles.founderSection} reveal stagger-1`}>
             <div className={styles.founderTextContent}>
-              <p
+              <div
                 className={styles.founderQuote}
                 dangerouslySetInnerHTML={{ __html: about_us.founder_quote }}
               />
@@ -154,14 +118,7 @@ const AboutUsPage = () => {
             </div>
 
             <div className={styles.founderImageWrapper}>
-              <div className={styles.founderGlowPanel}>
-                <Globe size={48} className={styles.founderGlowIcon} />
-                <h4>RTC Global Sourcing Council</h4>
-                <p>
-                  Governing quality, operations, and direct logistics networks
-                  across 800+ District Headquarters in India.
-                </p>
-              </div>
+              <img src={ownerImage} alt={about_us.founder_name} className={styles.founderImage} />
             </div>
           </div>
 

@@ -89,13 +89,13 @@
 }
 
 .actionBtnSecondary {
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--color-bg-card);
   color: var(--text-primary);
   border: 1px solid var(--color-border);
 }
 
 .actionBtnSecondary:hover {
-  background: rgba(255, 255, 255, 0.15);
+  background: var(--color-bg-card);
 }
 
 /* ── Badges ── */
@@ -111,7 +111,7 @@
   letter-spacing: 0.05em;
   border-radius: var(--radius-sm);
   z-index: 5;
-  color: #FFFFFF;
+  color: var(--text-primary);
   box-shadow: var(--shadow-sm);
   /* Safety to ensure text never cuts */
   width: fit-content;
@@ -131,7 +131,7 @@
   right: var(--space-4);
   background: rgba(13, 17, 23, 0.8);
   backdrop-filter: blur(4px);
-  color: #FFFFFF;
+  color: var(--text-primary);
   padding: 0.35rem 0.7rem;
   border-radius: var(--radius-full);
   font-size: 0.65rem;
@@ -207,7 +207,7 @@
   margin-top: var(--space-4);
   width: 100%;
   padding: 0.875rem;
-  background: rgba(255, 255, 255, 0.02);
+  background: var(--color-bg-card);
   color: var(--text-primary);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
@@ -320,7 +320,7 @@
   gap: var(--space-3);
   padding: 1rem;
   background: var(--color-whatsapp);
-  color: #FFFFFF;
+  color: var(--text-primary);
   text-decoration: none;
   font-weight: 700;
   border-radius: var(--radius-lg);
@@ -335,7 +335,7 @@
   justify-content: center;
   padding: 1rem;
   background: var(--color-primary-600);
-  color: #FFFFFF;
+  color: var(--text-primary);
   text-decoration: none;
   font-weight: 700;
   border-radius: var(--radius-lg);

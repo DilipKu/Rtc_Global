@@ -9,8 +9,9 @@ import styles from './KristNavbar.module.css';
 const mainNavLinks = [
   { label: 'Home', href: '/' },
   { label: 'Categories', href: '/collections', hasDropdown: true },
-  { label: 'Fair', href: '/gallery' },
   { label: 'Branches', href: '/branches' },
+  { label: 'Garment Fair', href: '/gallery' },
+  { label: 'Blog', href: '/blog' },
   { label: 'About Us', href: '/about' },
   { label: 'Contact', href: '/contact' },
 ];

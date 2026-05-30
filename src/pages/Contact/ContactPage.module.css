@@ -17,7 +17,7 @@
   font-family: var(--font-serif);
   font-size: clamp(2rem, 5vw, 3.5rem);
   font-weight: 800;
-  color: #FFFFFF;
+  color: var(--text-primary);
   margin-bottom: var(--space-3);
   letter-spacing: -0.02em;
 }
@@ -51,11 +51,11 @@
 }
 
 .quickCard {
-  background: rgba(16, 22, 47, 0.45);
+  background: var(--color-bg-card);
   backdrop-filter: var(--glass-blur);
   border-radius: var(--radius-lg);
   padding: var(--space-6);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--color-border);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -73,9 +73,9 @@
 .quickIconWrapper {
   width: 52px;
   height: 52px;
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--color-bg-card);
   color: var(--color-gold-500);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-full);
   display: flex;
   align-items: center;
@@ -86,7 +86,7 @@
 
 .quickCard:hover .quickIconWrapper {
   background: var(--color-primary-500);
-  color: #FFFFFF;
+  color: var(--text-primary);
   box-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
   border-color: var(--color-primary-500);
 }
@@ -94,7 +94,7 @@
 .quickTitle {
   font-size: var(--text-base);
   font-weight: 700;
-  color: #FFFFFF;
+  color: var(--text-primary);
   margin: 0 0 var(--space-1);
 }
 
@@ -157,7 +157,7 @@
   font-family: var(--font-serif);
   font-size: var(--text-2xl);
   font-weight: 700;
-  color: #FFFFFF;
+  color: var(--text-primary);
   margin: 0 0 var(--space-3);
 }
 
@@ -177,11 +177,11 @@
   display: flex;
   align-items: flex-start;
   gap: var(--space-4);
-  background: rgba(16, 22, 47, 0.45);
+  background: var(--color-bg-card);
   backdrop-filter: var(--glass-blur);
   padding: var(--space-5);
   border-radius: var(--radius-lg);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--color-border);
   transition: all var(--transition-fast);
 }
 
@@ -193,9 +193,9 @@
 .infoIcon {
   width: 40px;
   height: 40px;
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--color-bg-card);
   color: var(--color-gold-500);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   display: flex;
   align-items: center;
@@ -220,7 +220,7 @@
 .infoCardValue {
   font-size: var(--text-sm);
   font-weight: 500;
-  color: #FFFFFF;
+  color: var(--text-primary);
   line-height: 1.4;
 }
 
@@ -257,11 +257,11 @@
 
 /* --- 4. CONTACT FORM (RIGHT) --- */
 .formSection {
-  background: rgba(16, 22, 47, 0.45);
+  background: var(--color-bg-card);
   backdrop-filter: var(--glass-blur);
   padding: var(--space-8);
   border-radius: var(--radius-xl);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--color-border);
 }
 
 @media (min-width: 768px) {
@@ -274,7 +274,7 @@
   font-family: var(--font-serif);
   font-size: var(--text-xl);
   font-weight: 700;
-  color: #FFFFFF;
+  color: var(--text-primary);
   margin-bottom: var(--space-2);
 }
 
@@ -309,10 +309,10 @@
   width: 100%;
   height: 52px;
   padding: 22px 14px 6px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
-  color: #FFFFFF;
+  color: var(--text-primary);
   font-size: var(--text-sm);
   font-family: inherit;
   transition: all var(--transition-fast);
@@ -339,7 +339,7 @@
 .inputField:focus,
 .inputField:not(:placeholder-shown) {
   border-color: var(--color-gold-500);
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--color-bg-card);
   box-shadow: 0 0 12px rgba(6, 182, 212, 0.15);
   outline: none;
 }
@@ -387,14 +387,14 @@
 .accountsSection {
   margin-top: var(--space-8);
   padding-top: var(--space-12);
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  border-top: 1px solid var(--color-border);
 }
 
 .accountsHeading {
   font-family: var(--font-serif);
   font-size: var(--text-2xl);
   font-weight: 700;
-  color: #FFFFFF;
+  color: var(--text-primary);
   margin: 0 0 var(--space-2);
 }
 
@@ -424,9 +424,9 @@
 }
 
 .accountsCard {
-  background: rgba(16, 22, 47, 0.45);
+  background: var(--color-bg-card);
   backdrop-filter: var(--glass-blur);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   padding: var(--space-5);
   display: flex;
@@ -449,7 +449,7 @@
 .accountsName {
   font-size: var(--text-base);
   font-weight: 600;
-  color: #FFFFFF;
+  color: var(--text-primary);
   margin: 0;
 }
 
@@ -498,13 +498,13 @@
 }
 
 .accountsCallBtn {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  color: #FFFFFF;
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  color: var(--text-primary);
 }
 
 .accountsCallBtn:hover {
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--color-bg-card);
 }
 
 .accountsWaBtn {
@@ -515,7 +515,7 @@
 
 .accountsWaBtn:hover {
   background: var(--color-whatsapp);
-  color: #FFFFFF;
+  color: var(--text-primary);
   box-shadow: 0 0 10px rgba(37, 211, 102, 0.25);
 }
 
@@ -529,8 +529,8 @@
 }
 
 .successCard {
-  background: rgba(16, 22, 47, 0.55);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
   backdrop-filter: var(--glass-blur);
   padding: 50px 30px;
   border-radius: var(--radius-xl);
@@ -545,7 +545,7 @@
 }
 
 .successCard h1 {
-  color: #FFFFFF;
+  color: var(--text-primary);
   font-size: var(--text-2xl);
   margin: 0 0 10px;
 }
@@ -593,5 +593,5 @@
 }
 
 .backBtn:hover {
-  color: #FFFFFF;
+  color: var(--text-primary);
 }

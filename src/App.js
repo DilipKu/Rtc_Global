@@ -13,6 +13,8 @@ import GalleryPage from './pages/Gallery/GalleryPage';
 import BranchesPage from './pages/Branches/BranchesPage';
 import TermsAndConditionsPage from './pages/TermsAndConditions/TermsAndConditions';
 import PrivacyPolicyPage from './pages/PrivacyPolicy/PrivacyPolicy';
+import BlogPage from './pages/Blog/BlogPage';
+import BlogDetailPage from './pages/BlogDetail/BlogDetailPage';
 import ScrollToTop from './components/atoms/ScrollToTop';
 
 function App() {
@@ -31,6 +33,8 @@ function App() {
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/how-it-works" element={<HowItWorksPage />} />
             <Route path="/gallery" element={<GalleryPage />} />
+            <Route path="/blog" element={<BlogPage />} />
+            <Route path="/blog/:id" element={<BlogDetailPage />} />
             <Route path="/terms" element={<TermsAndConditionsPage />} />
             <Route path="/privacy" element={<PrivacyPolicyPage />} />
           </Routes>

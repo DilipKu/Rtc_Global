@@ -34,6 +34,21 @@ const getBranchRegion = (cityName) => {
   return 'north';
 };
 
+const getMonumentImage = (cityName) => {
+  const name = cityName.toLowerCase();
+  if (name.includes('delhi') || name.includes('gandhi') || name.includes('chandni') || name.includes('tank') || name.includes('ncr')) return 'https://images.unsplash.com/photo-1587474260584-136574528ed5?auto=format&fit=crop&w=400&q=80'; // India Gate
+  if (name.includes('mumbai') || name.includes('ulhas')) return 'https://images.unsplash.com/photo-1522262590532-a991489a0253?auto=format&fit=crop&w=400&q=80'; // Gateway of India
+  if (name.includes('jaipur')) return 'https://images.unsplash.com/photo-1599661559684-25e1fc5863c1?auto=format&fit=crop&w=400&q=80'; // Hawa Mahal
+  if (name.includes('bengaluru') || name.includes('bangalore') || name.includes('south')) return 'https://images.unsplash.com/photo-1596176530529-78163a4f7af2?auto=format&fit=crop&w=400&q=80'; // Vidhana Soudha
+  if (name.includes('kolkata')) return 'https://images.unsplash.com/photo-1558431382-27e303142255?auto=format&fit=crop&w=400&q=80'; // Victoria Memorial
+  if (name.includes('kanpur')) return 'https://images.unsplash.com/photo-1622308644420-b3101bf8d951?auto=format&fit=crop&w=400&q=80'; // Generic Indian Temple
+  if (name.includes('surat')) return 'https://images.unsplash.com/photo-1605333190807-de74df0cf1e2?auto=format&fit=crop&w=400&q=80'; // Generic Modern/Textile city
+  if (name.includes('ahmedabad')) return 'https://images.unsplash.com/photo-1604085572504-a392ddf0d86a?auto=format&fit=crop&w=400&q=80'; // Adalaj/Gujarat
+  
+  // Default generic Indian architecture/monument
+  return 'https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=400&q=80'; // Taj Mahal or generic
+};
+
 const BranchesPage = () => {
   const { branches, loading } = useBranches();
   const [viewMode, setViewMode] = useState('grid'); // 'grid' or 'map'
@@ -158,11 +173,12 @@ const BranchesPage = () => {
                     `}
                     style={{ animationDelay: `${index * 0.05}s` }}
                   >
-                    {/* Background Image & Elite Overlay */}
-                    <div className={styles.cardBg}>
-                      <img src={loc.image} alt={loc.city} className={styles.cityImg} />
-                      <div className={styles.bgOverlay} />
-                    </div>
+                    {/* Monument Image in corner */}
+                    <img 
+                      src={getMonumentImage(loc.city)} 
+                      alt={`Monument representing ${loc.city}`} 
+                      className={styles.monumentImg} 
+                    />
 
                     {/* Content */}
                     <div className={styles.cardContent}>

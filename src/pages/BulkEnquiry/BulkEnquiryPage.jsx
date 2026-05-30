@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Send, CheckCircle, Package, Loader2 } from 'lucide-react';
+import { products } from '../../data/mockData';
 import brandConfig from '../../config/brandConfig';
 import { enquiryService } from '../../services/enquiryService';
 import styles from './BulkEnquiryPage.module.css';
@@ -8,6 +9,8 @@ import styles from './BulkEnquiryPage.module.css';
 const BulkEnquiryPage = () => {
   const [searchParams] = useSearchParams();
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [zoomStyle, setZoomStyle] = useState({ display: 'none' });
+  const [fullProduct, setFullProduct] = useState(null);
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -21,17 +24,46 @@ const BulkEnquiryPage = () => {
   useEffect(() => {
     const product = searchParams.get('product');
     const sku = searchParams.get('sku');
+    const category = searchParams.get('category');
+    const image = searchParams.get('image');
+    
+    if (sku) {
+      const found = products.find(p => p.sku === sku);
+      if (found) setFullProduct(found);
+    }
+
     if (product) {
       setFormData(prev => ({
         ...prev,
         itemOfInterest: product + (sku ? ` (SKU: ${sku})` : '')
       }));
+
+      if (image || category) {
+        // Do nothing with image or category for now
+      }
     }
   }, [searchParams]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleMouseMove = (e) => {
+    if (!fullProduct) return;
+    const { left, top, width, height } = e.currentTarget.getBoundingClientRect();
+    const x = ((e.clientX - left) / width) * 100;
+    const y = ((e.clientY - top) / height) * 100;
+    
+    setZoomStyle({
+      display: 'block',
+      backgroundImage: `url(${fullProduct.image})`,
+      backgroundPosition: `${x}% ${y}%`
+    });
+  };
+
+  const handleMouseLeave = () => {
+    setZoomStyle({ display: 'none' });
   };
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -71,6 +103,97 @@ const BulkEnquiryPage = () => {
     }
   };
 
+  const enquiryForm = (
+    <form onSubmit={handleSubmit} className={styles.form}>
+      
+      {!fullProduct && formData.itemOfInterest ? (
+        <div className={styles.selectedProductBanner}>
+          <Package size={20} className={styles.packageIcon} />
+          <div>
+            <span className={styles.bannerLabel}>Enquiring for:</span>
+            <span className={styles.bannerValue}>{formData.itemOfInterest}</span>
+          </div>
+        </div>
+      ) : null}
+
+      <div className={styles.formGrid}>
+        <div className={styles.formGroup}>
+          <label htmlFor="name">Full Name *</label>
+          <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} required placeholder="Your Name" />
+        </div>
+        
+        <div className={styles.formGroup}>
+          <label htmlFor="phone">Mobile Number *</label>
+          <input type="tel" id="phone" name="phone" value={formData.phone} onChange={handleChange} required placeholder="10-digit number" />
+        </div>
+
+        <div className={styles.formGroup}>
+          <label htmlFor="businessName">Business / Shop Name *</label>
+          <input type="text" id="businessName" name="businessName" value={formData.businessName} onChange={handleChange} required placeholder="e.g. Trends Fashion" />
+        </div>
+
+        <div className={styles.formGroup}>
+          <label htmlFor="quantity">Quantity (Approx) *</label>
+          <input type="number" id="quantity" name="quantity" value={formData.quantity} onChange={handleChange} required placeholder="MOQ: 50 Pieces" />
+        </div>
+      </div>
+
+      {!formData.itemOfInterest && (
+        <div className={styles.formGroup}>
+          <label htmlFor="itemOfInterest">Collection / Item of Interest</label>
+          <input type="text" id="itemOfInterest" name="itemOfInterest" value={formData.itemOfInterest} onChange={handleChange} placeholder="e.g. Summer Kurtis Collection" />
+        </div>
+      )}
+
+      <div className={styles.formGroup}>
+        <label htmlFor="message">Any Special Requirements?</label>
+        <textarea id="message" name="message" value={formData.message} onChange={handleChange} rows="4" placeholder="Tell us about your requirements..." />
+      </div>
+
+      <div className={styles.formFooter}>
+        <button type="submit" className={styles.submitBtn} disabled={isSubmitting}>
+          {isSubmitting ? <Loader2 size={18} className="animate-spin" /> : <Send size={18} />}
+          <span>{isSubmitting ? 'Submitting...' : 'Submit & Connect on WhatsApp'}</span>
+        </button>
+        <p className={styles.formDisclaimer}>Instant reply guaranteed within business hours (10 AM - 8 PM)</p>
+      </div>
+    </form>
+  );
+
+  const infoCardContent = (
+    <div className={styles.infoCard}>
+      <h3 className={styles.infoTitle}>Expert B2B Support</h3>
+      <div className={styles.benefits}>
+        <div className={styles.benefitItem}>
+          <div className={styles.benefitPoint}>01</div>
+          <div>
+            <h4>Factory-Direct Rates</h4>
+            <p>Cut out the middleman and get the best margins for your retail business.</p>
+          </div>
+        </div>
+        <div className={styles.benefitItem}>
+          <div className={styles.benefitPoint}>02</div>
+          <div>
+            <h4>Pan-India Logistics</h4>
+            <p>Reliable shipping with trusted partners like BlueDart and Delhivery.</p>
+          </div>
+        </div>
+        <div className={styles.benefitItem}>
+          <div className={styles.benefitPoint}>03</div>
+          <div>
+            <h4>Sample Available</h4>
+            <p>Enquire about sample sets before placing bulk container orders.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div className={styles.contactFooter}>
+        <p><strong>Hotline:</strong> {brandConfig.phone_number}</p>
+        <p><strong>Email:</strong> {brandConfig.email}</p>
+      </div>
+    </div>
+  );
+
   if (isSubmitted) {
     return (
       <main className={styles.page}>
@@ -84,7 +207,7 @@ const BulkEnquiryPage = () => {
             </div>
          </section>
       </main>
-    )
+    );
   }
 
   return (
@@ -99,98 +222,42 @@ const BulkEnquiryPage = () => {
 
       <section className={styles.content}>
         <div className="container">
-          <div className={styles.formContainer}>
-            
-            {/* Left: Form */}
-            <form onSubmit={handleSubmit} className={styles.form}>
-              
-              {formData.itemOfInterest && (
-                <div className={styles.selectedProductBanner}>
-                  <Package size={20} className={styles.packageIcon} />
-                  <div>
-                    <span className={styles.bannerLabel}>Enquiring for:</span>
-                    <span className={styles.bannerValue}>{formData.itemOfInterest}</span>
-                  </div>
-                </div>
-              )}
-
-              <div className={styles.formGrid}>
-                <div className={styles.formGroup}>
-                  <label htmlFor="name">Full Name *</label>
-                  <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} required placeholder="Your Name" />
-                </div>
-                
-                <div className={styles.formGroup}>
-                  <label htmlFor="phone">Mobile Number *</label>
-                  <input type="tel" id="phone" name="phone" value={formData.phone} onChange={handleChange} required placeholder="10-digit number" />
-                </div>
-
-                <div className={styles.formGroup}>
-                  <label htmlFor="businessName">Business / Shop Name *</label>
-                  <input type="text" id="businessName" name="businessName" value={formData.businessName} onChange={handleChange} required placeholder="e.g. Trends Fashion" />
-                </div>
-
-                <div className={styles.formGroup}>
-                  <label htmlFor="quantity">Quantity (Approx) *</label>
-                  <input type="number" id="quantity" name="quantity" value={formData.quantity} onChange={handleChange} required placeholder="MOQ: 50 Pieces" />
-                </div>
-              </div>
-
-              {!formData.itemOfInterest && (
-                <div className={styles.formGroup}>
-                  <label htmlFor="itemOfInterest">Collection / Item of Interest</label>
-                  <input type="text" id="itemOfInterest" name="itemOfInterest" value={formData.itemOfInterest} onChange={handleChange} placeholder="e.g. Summer Kurtis Collection" />
-                </div>
-              )}
-
-              <div className={styles.formGroup}>
-                <label htmlFor="message">Any Special Requirements?</label>
-                <textarea id="message" name="message" value={formData.message} onChange={handleChange} rows="4" placeholder="Tell us about your requirements..." />
-              </div>
-
-              <div className={styles.formFooter}>
-                <button type="submit" className={styles.submitBtn} disabled={isSubmitting}>
-                  {isSubmitting ? <Loader2 size={18} className="animate-spin" /> : <Send size={18} />}
-                  <span>{isSubmitting ? 'Submitting...' : 'Submit & Connect on WhatsApp'}</span>
-                </button>
-                <p className={styles.formDisclaimer}>Instant reply guaranteed within business hours (10 AM - 8 PM)</p>
-              </div>
-            </form>
-            
-            {/* Right: Info */}
-            <div className={styles.infoCard}>
-              <h3 className={styles.infoTitle}>Expert B2B Support</h3>
-              <div className={styles.benefits}>
-                <div className={styles.benefitItem}>
-                  <div className={styles.benefitPoint}>01</div>
-                  <div>
-                    <h4>Factory-Direct Rates</h4>
-                    <p>Cut out the middleman and get the best margins for your retail business.</p>
-                  </div>
-                </div>
-                <div className={styles.benefitItem}>
-                  <div className={styles.benefitPoint}>02</div>
-                  <div>
-                    <h4>Pan-India Logistics</h4>
-                    <p>Reliable shipping with trusted partners like BlueDart and Delhivery.</p>
-                  </div>
-                </div>
-                <div className={styles.benefitItem}>
-                  <div className={styles.benefitPoint}>03</div>
-                  <div>
-                    <h4>Sample Available</h4>
-                    <p>Enquire about sample sets before placing bulk container orders.</p>
-                  </div>
-                </div>
-              </div>
-              
-              <div className={styles.contactFooter}>
-                <p><strong>Hotline:</strong> {brandConfig.phone_number}</p>
-                <p><strong>Email:</strong> {brandConfig.email}</p>
-              </div>
+          
+          {fullProduct ? (
+            <>
+            <div className={styles.productLayout}>
+               <div className={styles.gallerySection}>
+                 <div 
+                   className={styles.magnifierContainer} 
+                   onMouseMove={handleMouseMove}
+                   onMouseLeave={handleMouseLeave}
+                 >
+                   <img src={fullProduct.image} className={styles.mainImage} alt={fullProduct.collection} />
+                   <div className={styles.magnifierOverlay} style={zoomStyle} />
+                 </div>
+               </div>
+               <div className={styles.detailsSection}>
+                 <span className={styles.category}>{fullProduct.category}</span>
+                 <h2 className={styles.productTitle}>{fullProduct.collection}</h2>
+                 <p className={styles.sku}>SKU: {fullProduct.sku}</p>
+                 <div className={styles.pricingBox}>
+                   <div className={styles.priceLabel}>Wholesale Price</div>
+                   <div className={styles.priceValue}>Contact for Quote</div>
+                 </div>
+                 {enquiryForm}
+               </div>
             </div>
-
-          </div>
+            <div style={{ marginTop: '40px' }}>
+              {infoCardContent}
+            </div>
+          </>
+          ) : (
+            <div className={styles.formContainer}>
+              {enquiryForm}
+              {infoCardContent}
+            
+            </div>
+          )}
         </div>
       </section>
     </main>

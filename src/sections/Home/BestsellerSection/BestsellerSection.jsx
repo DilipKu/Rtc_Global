@@ -40,7 +40,7 @@ const BestsellerSection = () => {
           {products.map((product, idx) => (
             <div key={product.id} className={`reveal stagger-${(idx % 4) + 1}`} style={{position: 'relative'}}>
               <Link 
-                to={`/enquiry?product=${encodeURIComponent(product.collection)}&sku=${product.sku}`} 
+                to={`/enquiry?product=${encodeURIComponent(product.collection)}&sku=${product.sku}&category=${encodeURIComponent(product.category)}&image=${encodeURIComponent(product.image)}`} 
                 style={{position: 'absolute', inset: 0, zIndex: 10}} 
                 aria-label={`Enquiry for ${product.collection}`}
               />

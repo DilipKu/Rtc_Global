@@ -12,21 +12,21 @@
   justify-content: center;
   min-width: 76px;
   padding: 0.875rem 1rem;
-  background-color: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.15);
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   backdrop-filter: blur(4px);
   transition: background-color 0.2s ease;
 }
 
 .unit:hover {
-  background-color: rgba(255,255,255,0.12);
+  background: var(--color-bg-card);
 }
 
 .value {
   font-size: var(--font-size-3xl);
   font-weight: 800;
-  color: #ffffff;
+  color: var(--text-primary);
   line-height: 1;
   letter-spacing: -0.02em;
   transition: transform 0.15s ease;

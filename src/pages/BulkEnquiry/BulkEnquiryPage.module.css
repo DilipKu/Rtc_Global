@@ -45,11 +45,11 @@
 
 /* Form Styling */
 .form {
-  background: rgba(16, 22, 47, 0.45);
+  background: var(--color-bg-card);
   backdrop-filter: var(--glass-blur);
   padding: var(--space-8);
   border-radius: var(--radius-xl);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--color-border);
 }
 
 @media (min-width: 768px) {
@@ -85,7 +85,7 @@
 .bannerValue {
   display: block;
   font-weight: 700;
-  color: #FFFFFF;
+  color: var(--text-primary);
   font-size: 15px;
 }
 
@@ -117,10 +117,10 @@
   width: 100%;
   padding: 12px 16px;
   border-radius: var(--radius-md);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--color-border);
   font-size: var(--text-sm);
-  color: #FFFFFF;
-  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-primary);
+  background: var(--color-bg-card);
   font-family: var(--font-sans);
   transition: all 0.3s ease;
 }
@@ -129,7 +129,7 @@
 .formGroup textarea:focus {
   outline: none;
   border-color: var(--color-gold-500);
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--color-bg-card);
   box-shadow: 0 0 12px rgba(6, 182, 212, 0.15);
 }
 
@@ -172,13 +172,13 @@
 
 /* Info Card */
 .infoCard {
-  background: rgba(16, 22, 47, 0.45);
+  background: var(--color-bg-card);
   backdrop-filter: var(--glass-blur);
-  color: #FFFFFF;
+  color: var(--text-primary);
   padding: var(--space-8);
   border-radius: var(--radius-xl);
   height: fit-content;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--color-border);
   transition: all 0.3s ease;
 }
 
@@ -191,12 +191,12 @@
   font-family: var(--font-serif);
   font-size: var(--text-xl);
   margin-bottom: 24px;
-  color: #FFFFFF;
+  color: var(--text-primary);
 }
 
 .benefits {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 24px;
   margin-bottom: 32px;
 }
@@ -236,14 +236,17 @@
 }
 
 .contactFooter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
   padding-top: var(--space-6);
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  border-top: 1px solid var(--color-border);
   font-size: 13px;
   color: var(--text-secondary);
 }
 
 .contactFooter strong {
-  color: #FFFFFF;
+  color: var(--text-primary);
 }
 
 .contactFooter p {
@@ -259,9 +262,9 @@
 }
 
 .successCard {
-  background: rgba(16, 22, 47, 0.45);
+  background: var(--color-bg-card);
   backdrop-filter: var(--glass-blur);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--color-border);
   padding: 50px 30px;
   border-radius: var(--radius-xl);
   max-width: 480px;
@@ -275,7 +278,7 @@
 }
 
 .successCard h1 {
-  color: #FFFFFF;
+  color: var(--text-primary);
   font-size: var(--text-2xl);
   margin: 0 0 10px;
 }
@@ -317,5 +320,84 @@
 }
 
 .resetBtn:hover {
-  color: #FFFFFF;
+  color: var(--text-primary);
+}
+
+/* Full Product Layout (Outside Form) */
+.productLayout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  margin-bottom: 60px;
+}
+@media (min-width: 900px) {
+  .productLayout {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+}
+.gallerySection {
+  display: flex;
+  flex-direction: column;
+}
+.magnifierContainer {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3/4;
+  overflow: hidden;
+  cursor: crosshair;
+  border: 1px solid var(--color-pitch-black);
+}
+.mainImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.magnifierOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-size: 250%;
+  pointer-events: none;
+  z-index: 10;
+}
+.detailsSection {
+  display: flex;
+  flex-direction: column;
+}
+.category {
+  font-size: var(--zara-caption, 11px);
+  text-transform: uppercase;
+  color: var(--color-subtle-gray);
+  margin-bottom: 8px;
+}
+.productTitle {
+  font-size: var(--text-2xl, 24px);
+  font-weight: 400;
+  color: var(--color-pitch-black);
+  margin-bottom: 8px;
+  margin-top: 0;
+}
+.sku {
+  font-size: var(--zara-caption, 11px);
+  color: var(--color-subtle-gray);
+  margin-bottom: 24px;
+}
+.pricingBox {
+  margin-bottom: 32px;
+}
+.priceLabel {
+  font-size: var(--zara-caption, 11px);
+  color: var(--color-subtle-gray);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.priceValue {
+  font-size: var(--text-xl, 20px);
+  font-weight: 400;
+  color: var(--color-pitch-black);
 }

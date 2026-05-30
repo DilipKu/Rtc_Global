@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Phone, Mail, MapPin, MessageSquare } from 'lucide-react';
+import { Phone, Mail, MapPin, MessageSquare, Youtube } from 'lucide-react';
 import { brandConfig } from '../../../config/brandConfig';
 import styles from './KristFooter.module.css';
 
@@ -48,7 +48,7 @@ const BrandLogoFooter = () => (
       <img
         src="/rtc_logo.png"
         alt={brandConfig.brand_name}
-        style={{ maxWidth: 200, height: 'auto', display: 'block' }}
+        style={{ maxWidth: 140, height: 'auto', display: 'block' }}
       />
     </a>
   </div>
@@ -96,9 +96,6 @@ const KristFooter = () => {
             {/* Brand column */}
             <div className={styles.brandCol}>
               <BrandLogoFooter />
-              <p className={styles.brandDesc}>
-                Factory-direct wholesale fashion supplier. Serving 500+ retailers across 10+ cities in India since 2019.
-              </p>
 
               <ul className={styles.contactList}>
                 <li>
@@ -131,6 +128,9 @@ const KristFooter = () => {
                 </a>
                 <a href={brandConfig.instagram_url} className={styles.socialLink} aria-label="Instagram" target="_blank" rel="noopener noreferrer">
                   <InstagramIcon size={15} />
+                </a>
+                <a href={brandConfig.youtube_url || '#'} className={styles.socialLink} aria-label="YouTube" target="_blank" rel="noopener noreferrer">
+                  <Youtube size={15} />
                 </a>
                 <a href={brandConfig.whatsapp_chat_url} className={`${styles.socialLink} ${styles.socialWhatsapp}`} aria-label="WhatsApp" target="_blank" rel="noopener noreferrer">
                   <WhatsAppIcon size={15} />

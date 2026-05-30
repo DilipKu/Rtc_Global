@@ -56,7 +56,7 @@
 
 .card:hover {
   transform: translateY(-5px);
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--color-bg-card);
   border-color: var(--color-gold-500);
   box-shadow: 0 10px 40px var(--color-glass-glow);
 }
@@ -64,7 +64,7 @@
 .iconWrap {
   width: 56px;
   height: 56px;
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--color-bg-card);
   color: var(--color-gold-500);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
@@ -139,7 +139,7 @@
 }
 
 .ctaSecondary:hover {
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--color-bg-card);
   border-color: var(--color-gold-500);
   color: var(--color-gold-500);
   transform: translateY(-3px);

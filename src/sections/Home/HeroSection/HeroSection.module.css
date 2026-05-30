@@ -58,10 +58,10 @@
   background:
     linear-gradient(
       100deg,
-      color-mix(in srgb, var(--color-bg) 97%, transparent) 0%,
-      color-mix(in srgb, var(--color-bg) 90%, transparent) 35%,
-      color-mix(in srgb, var(--color-bg) 60%, transparent) 55%,
-      color-mix(in srgb, var(--color-bg) 25%, transparent) 70%,
+      color-mix(in srgb, var(--color-bg) 85%, transparent) 0%,
+      color-mix(in srgb, var(--color-bg) 70%, transparent) 35%,
+      color-mix(in srgb, var(--color-bg) 40%, transparent) 55%,
+      color-mix(in srgb, var(--color-bg) 15%, transparent) 70%,
       transparent 85%
     );
 }
@@ -243,7 +243,7 @@
   align-items: center;
   gap: 8px;
   padding: 12px 24px;
-  color: rgba(255, 255, 255, 0.78);
+  color: var(--text-secondary);
   font-family: 'Inter', sans-serif;
   font-size: 13.5px;
   font-weight: 600;
@@ -610,9 +610,10 @@
   .bgGradLeft {
     background: linear-gradient(
       180deg,
-      color-mix(in srgb, var(--color-bg) 55%, transparent) 0%,
-      color-mix(in srgb, var(--color-bg) 90%, transparent) 50%,
-      color-mix(in srgb, var(--color-bg) 98%, transparent) 100%
+      transparent 0%,
+      color-mix(in srgb, var(--color-bg) 40%, transparent) 40%,
+      color-mix(in srgb, var(--color-bg) 85%, transparent) 70%,
+      var(--color-bg) 100%
     );
   }
 

@@ -71,7 +71,7 @@ const CollectionDetailPage = () => {
                 <Phone size={20} />
                 Get Bulk Price
               </a>
-              <Link to="/enquiry" className={styles.secondaryAction}>
+              <Link to={`/enquiry?product=${encodeURIComponent(product.collection)}&sku=${product.sku || ''}&category=${encodeURIComponent(product.category)}&image=${encodeURIComponent(product.image)}`} className={styles.secondaryAction}>
                 <MessageSquare size={20} />
                 Enquire Now
               </Link>

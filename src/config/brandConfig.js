@@ -58,9 +58,10 @@ export const brandConfig = {
   cta_catalog: 'Request Sourcing Catalog',
 
   // Social Media Links
-  instagram_url: 'https://www.instagram.com/rtc_global/',
-  facebook_url: 'https://facebook.com/rtcglobalapparel',
+  instagram_url: 'https://www.instagram.com/rtcglobalapparelspvt.ltd/',
+  facebook_url: 'https://www.facebook.com/profile.php?id=61590172570259',
   whatsapp_chat_url: 'https://wa.me/919818598651',
+  youtube_url: 'https://www.youtube.com/@RTCGlobalApparelsPvtLtd',
 
   // Catalog
   catalog_download_url: '/catalog.pdf',
@@ -78,9 +79,9 @@ export const brandConfig = {
       "RTC Global Apparels Pvt. Ltd. emerged as a structured B2B distributor focused on bridging international-quality manufacturing with local retailers. Founded on a commitement to transparency and reliability, we have grown into a nationwide network connecting top textile mills with wholesale buyers.",
       "Today, we operate a strategic distribution framework covering over <strong>800+ District Headquarters</strong>. We are proud to serve as a trusted <strong>B2B bridge</strong>, enabling retailers to access top-tier apparel brands with flexible procurement options and verified quality controls."
     ],
-    founder_quote: "By establishing regional purchase desks and centralizing accounts, we ensure that every stakeholder enjoys complete transparency, on-time delivery, and high-margin inventory.",
-    founder_name: "Executive Council",
-    founder_title: "Board of Directors",
+    founder_quote: "At RTC Global Apparels Pvt. Ltd., we believe strong partnerships are built on trust, quality, and consistency. Inspired by Rajasthan’s rich textile heritage and powered by Delhi’s business excellence, we are committed to delivering premium fashion solutions with transparency, timely delivery, and long-term value for our partners across India.",
+    founder_name: "Mr. Abhay Ranka",
+    founder_title: "Founder and Managing Director",
     why_choose_heading: "THE RTC GLOBAL ADVANTAGE",
     why_choose_cards: [
       {

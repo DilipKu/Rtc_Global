@@ -23,7 +23,7 @@
 
 .headerSubtitle {
   font-size: var(--text-lg);
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--text-secondary);
   max-width: 700px;
   margin: 0 auto var(--space-12);
   line-height: 1.6;
@@ -43,8 +43,8 @@
   font-size: var(--text-xs);
   font-weight: 700;
   color: white;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-full);
   cursor: pointer;
   transition: all var(--transition-fast);
@@ -53,7 +53,7 @@
 }
 
 .tab:hover {
-  background: rgba(255, 255, 255, 0.15);
+  background: var(--color-bg-card);
   border-color: var(--color-gold-400);
 }
 

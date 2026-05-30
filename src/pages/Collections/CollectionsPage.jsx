@@ -53,93 +53,97 @@ const CollectionsPage = () => {
 
   return (
     <main className={styles.page}>
-      <header className={styles.header}>
-        <div className="container">
-          <h1 className="heading-xl">Our Categories</h1>
-          <p className="text-body text-dim">{pageSubtitle}</p>
-        </div>
-      </header>
-
       <section className={styles.content}>
         <div className="container">
-
-          {/* ── Category Filters ── */}
-          <div className={styles.filterGroup}>
-            <span className={styles.filterLabel}>Category</span>
-            <div className={styles.filters}>
-              <button
-                className={`${styles.filterBtn} ${categoryId === 'all' ? styles.active : ''}`}
-                onClick={() => handleCategoryFilter('all')}
-              >
-                All
-              </button>
-              {!categoriesLoading && categories.map((cat) => (
-                <button
-                  key={cat.id}
-                  className={`${styles.filterBtn} ${categoryId === cat.id ? styles.active : ''}`}
-                  onClick={() => handleCategoryFilter(cat.id)}
-                >
-                  {cat.name}
-                </button>
-              ))}
-            </div>
+          <div className={styles.showingStrip}>
+            <p>{pageSubtitle}</p>
           </div>
 
-          {/* ── Brand Filters ── */}
-          {!brandsLoading && brands.length > 0 && (
-            <div className={styles.filterGroup}>
-              <span className={styles.filterLabel}>Brand</span>
-              <div className={styles.filters}>
-                <button
-                  className={`${styles.filterBtn} ${brandSlug === 'all' ? styles.active : ''}`}
-                  onClick={() => handleBrandFilter('all', '')}
-                >
-                  All Brands
-                </button>
-                {brands.map((brand) => (
+          <div className={styles.layoutWrapper}>
+            {/* ── Sidebar Filters ── */}
+            <aside className={styles.sidebar}>
+              {/* ── Category Filters ── */}
+              <div className={styles.filterGroup}>
+                <span className={styles.filterLabel}>Category</span>
+                <div className={styles.filters}>
                   <button
-                    key={brand.id}
-                    className={`${styles.filterBtn} ${brandSlug === brand.slug ? styles.activeBrand : ''}`}
-                    onClick={() => handleBrandFilter(brand.slug, brand.name)}
+                    className={`${styles.filterBtn} ${categoryId === 'all' ? styles.active : ''}`}
+                    onClick={() => handleCategoryFilter('all')}
                   >
-                    {brand.name}
+                    All
                   </button>
-                ))}
+                  {!categoriesLoading && categories.map((cat) => (
+                    <button
+                      key={cat.id}
+                      className={`${styles.filterBtn} ${categoryId === cat.id ? styles.active : ''}`}
+                      onClick={() => handleCategoryFilter(cat.id)}
+                    >
+                      {cat.name}
+                    </button>
+                  ))}
+                </div>
               </div>
-            </div>
-          )}
 
-          {/* ── Products Grid ── */}
-          {productsLoading ? (
-            <div className={styles.loaderWrapper}>
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#0B1A2F]"></div>
-            </div>
-          ) : (
-            <>
-              <div className={styles.grid}>
-                {products.map((product) => (
-                  <div key={product.id} className={styles.cardWrapper}>
-                    <Link
-                      to={`/enquiry?product=${encodeURIComponent(product.collection)}&sku=${product.sku}`}
-                      className={styles.linkOverlay}
-                      aria-label={`Enquiry for ${product.collection}`}
-                    />
-                    <ProductCard {...product} />
+              {/* ── Brand Filters ── */}
+              {!brandsLoading && brands.length > 0 && (
+                <div className={styles.filterGroup}>
+                  <span className={styles.filterLabel}>Brand</span>
+                  <div className={styles.filters}>
+                    <button
+                      className={`${styles.filterBtn} ${brandSlug === 'all' ? styles.active : ''}`}
+                      onClick={() => handleBrandFilter('all', '')}
+                    >
+                      All Brands
+                    </button>
+                    {brands.map((brand) => (
+                      <button
+                        key={brand.id}
+                        className={`${styles.filterBtn} ${brandSlug === brand.slug ? styles.activeBrand : ''}`}
+                        onClick={() => handleBrandFilter(brand.slug, brand.name)}
+                      >
+                        {brand.name}
+                      </button>
+                    ))}
                   </div>
-                ))}
-              </div>
-
-              {products.length === 0 && (
-                <div className={styles.noResults}>
-                  <p>
-                    {brandSlug !== 'all'
-                      ? `No products found for brand "${activeBrandName}".`
-                      : 'No products found in this category.'}
-                  </p>
                 </div>
               )}
-            </>
-          )}
+            </aside>
+
+            {/* ── Main Content ── */}
+            <div className={styles.mainContent}>
+              {/* ── Products Grid ── */}
+              {productsLoading ? (
+                <div className={styles.loaderWrapper}>
+                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#0B1A2F]"></div>
+                </div>
+              ) : (
+                <>
+                  <div className={styles.grid}>
+                    {products.map((product) => (
+                      <div key={product.id} className={styles.cardWrapper}>
+                        <Link
+                          to={`/enquiry?product=${encodeURIComponent(product.collection)}&sku=${product.sku}&category=${encodeURIComponent(product.category)}&image=${encodeURIComponent(product.image)}`}
+                          className={styles.linkOverlay}
+                          aria-label={`Enquiry for ${product.collection}`}
+                        />
+                        <ProductCard {...product} />
+                      </div>
+                    ))}
+                  </div>
+
+                  {products.length === 0 && (
+                    <div className={styles.noResults}>
+                      <p>
+                        {brandSlug !== 'all'
+                          ? `No products found for brand "${activeBrandName}".`
+                          : 'No products found in this category.'}
+                      </p>
+                    </div>
+                  )}
+                </>
+              )}
+            </div>
+          </div>
         </div>
       </section>
     </main>
