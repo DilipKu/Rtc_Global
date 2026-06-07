@@ -1,23 +1,53 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Phone, MessageSquare, ShieldCheck, Truck, Package } from 'lucide-react';
-import { products } from '../../data/mockData';
+import { Phone, MessageSquare, ShieldCheck, Truck, Package, Loader2 } from 'lucide-react';
 import brandConfig from '../../config/brandConfig';
+import { productService } from '../../services/productService';
 import styles from './CollectionDetailPage.module.css';
 
 const CollectionDetailPage = () => {
   const { id } = useParams();
   const [activeImage, setActiveImage] = useState(0);
+  const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  // Find product or fallback to a default/first product
-  const product = products.find(p => p.id === parseInt(id)) || products[0];
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        setLoading(true);
+        const data = await productService.getProductById(id);
+        setProduct(data);
+      } catch (err) {
+        console.error("Failed to fetch product:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchProduct();
+  }, [id]);
 
-  const images = [
-    product.image,
-    // Add some dummy extra images based on the first one
-    product.image.replace('?w=400', '?w=401'),
-    product.image.replace('?w=400', '?w=402'),
-  ];
+  if (loading) {
+    return (
+      <main className={styles.page}>
+        <div className="container" style={{ display: 'flex', justifyContent: 'center', padding: '100px 0' }}>
+          <Loader2 className="animate-spin text-[#0B1A2F]" size={48} />
+        </div>
+      </main>
+    );
+  }
+
+  if (!product) {
+    return (
+      <main className={styles.page}>
+        <div className="container" style={{ textAlign: 'center', padding: '100px 0' }}>
+          <h2>Product Not Found</h2>
+          <Link to="/collections">Back to Collections</Link>
+        </div>
+      </main>
+    );
+  }
+
+  const images = product.images?.length > 0 ? product.images : [product.image];
 
   return (
     <main className={styles.page}>

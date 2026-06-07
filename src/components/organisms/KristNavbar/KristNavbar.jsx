@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Phone, ChevronDown, Menu, X, Moon, Sun } from 'lucide-react';
+import { Phone, ChevronDown, Menu, X, Moon, Sun, ShieldCheck } from 'lucide-react';
 import { brandConfig } from '../../../config/brandConfig';
 import { useTheme } from '../../../context/ThemeContext';
 import { useCategories } from '../../../hooks/useCategories';
+import { useAuth } from '../../../context/AuthContext';
 import styles from './KristNavbar.module.css';
 
 const mainNavLinks = [
@@ -43,6 +44,7 @@ const KristNavbar = () => {
   const navigate = useNavigate();
   const { categories } = useCategories();
   const { theme, toggleTheme } = useTheme();
+  const { isAdmin } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const isDark = theme === 'dark';
@@ -116,6 +118,13 @@ const KristNavbar = () => {
 
             {/* Actions */}
           <div className={styles.actions}>
+            {/* Admin Dashboard Icon */}
+            {isAdmin && (
+              <Link to="/admin/dashboard" className={styles.iconBtn} aria-label="Admin Dashboard" title="Admin Dashboard">
+                <ShieldCheck size={18} />
+              </Link>
+            )}
+
             {/* Phone Icon */}
             <a href={`tel:${phoneNumbers[0]}`} className={styles.iconBtn} aria-label="Call us">
               <Phone size={18} />

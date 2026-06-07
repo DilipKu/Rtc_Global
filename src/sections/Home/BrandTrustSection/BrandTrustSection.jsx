@@ -77,7 +77,7 @@ const BrandTrustSection = () => {
                 {/* Background image */}
                 <div className={styles.cardBg}>
                   <img
-                    src={brand.src}
+                    src={brand.logoUrl}
                     alt={brand.name}
                     className={styles.cardImg}
                     loading="lazy"

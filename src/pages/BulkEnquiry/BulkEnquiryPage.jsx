@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Send, CheckCircle, Package, Loader2 } from 'lucide-react';
-import { products } from '../../data/mockData';
 import brandConfig from '../../config/brandConfig';
 import { enquiryService } from '../../services/enquiryService';
+import { productService } from '../../services/productService';
 import styles from './BulkEnquiryPage.module.css';
 
 const BulkEnquiryPage = () => {
@@ -28,8 +28,11 @@ const BulkEnquiryPage = () => {
     const image = searchParams.get('image');
     
     if (sku) {
-      const found = products.find(p => p.sku === sku);
-      if (found) setFullProduct(found);
+      productService.getProductBySku(sku)
+        .then(found => {
+          if (found) setFullProduct(found);
+        })
+        .catch(err => console.error("Failed to fetch product by sku:", err));
     }
 
     if (product) {
@@ -90,8 +93,10 @@ const BulkEnquiryPage = () => {
       const primaryPhone = brandConfig.phone_number.split(',')[0].trim().replace(/\D/g, '');
       const whatsappUrl = `https://wa.me/91${primaryPhone}?text=${message}`;
 
-      // 3. Open WhatsApp
-      window.open(whatsappUrl, '_blank');
+      // 3. Ask for WhatsApp confirmation
+      if (window.confirm("Your enquiry has been successfully submitted! Do you want to continue to WhatsApp to chat with our representative now?")) {
+        window.open(whatsappUrl, '_blank');
+      }
       
       // 4. Show success state
       setIsSubmitted(true);

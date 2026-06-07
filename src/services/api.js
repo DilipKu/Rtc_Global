@@ -1,83 +1,140 @@
-import { categories, products, branchLocations } from '../data/mockData';
-
-const mockBrands = [
-  { id: 'b1', name: 'Ascent Textiles', slug: 'ascent', logoUrl: 'https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?w=200&q=80', isActive: true },
-  { id: 'b2', name: 'Apex Denim', slug: 'apex', logoUrl: 'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=200&q=80', isActive: true },
-  { id: 'b3', name: 'Loom Craft', slug: 'loomcraft', logoUrl: 'https://images.unsplash.com/photo-1544816155-12df9643f363?w=200&q=80', isActive: true },
-  { id: 'b4', name: 'Vellum Weaves', slug: 'vellum', logoUrl: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=200&q=80', isActive: true },
-  { id: 'b5', name: 'ProTextile Solutions', slug: 'protextile', logoUrl: 'https://images.unsplash.com/photo-1601924994987-69e26d50dc26?w=200&q=80', isActive: true }
-];
-
-const mockSlides = [
-  {
-    imageUrl: 'https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=1600&q=80',
-    tagline: 'GLOBAL APPAREL SOURCING',
-    headingLine1: 'RTC GLOBAL',
-    headingLine2: 'Textile Sourcing Network',
-    highlight: 'All Leading Brands',
-    subtext: 'A structured, transparent distribution network operating across 800+ District Headquarters in India.'
-  },
-  {
-    imageUrl: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1600&q=80',
-    tagline: 'FACTORY-DIRECT INTEGRATION',
-    headingLine1: 'SCALE LOGISTICS',
-    headingLine2: 'Optimized procurement MOQs',
-    highlight: 'Direct Purchase Desk',
-    subtext: 'Get direct mobile contact channels to regional purchase managers to source high-margin inventories.'
-  },
-  {
-    imageUrl: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1600&q=80',
-    tagline: 'CENTRALIZED OPERATIONS',
-    headingLine1: 'VERIFIED ACCOUNTING',
-    headingLine2: 'Centralized audits & dispatch',
-    highlight: '100% Transparency',
-    subtext: 'Strict quality control runs on every cargo batch. Direct billing and dedicated accounts helpdesk.'
-  }
-];
+import { supabase } from '../config/supabaseClient';
 
 export const api = {
   get: async (endpoint) => {
-    // Delay slightly to simulate a natural smooth premium transition
-    await new Promise((resolve) => setTimeout(resolve, 300));
-    
-    const cleanEndpoint = endpoint.split('?')[0];
-    
-    if (cleanEndpoint === '/hero/slides') {
-      return mockSlides;
-    }
-    if (cleanEndpoint === '/brands') {
-      return mockBrands;
-    }
-    if (cleanEndpoint === '/categories') {
-      return categories;
-    }
-    if (cleanEndpoint === '/branches') {
-      return branchLocations;
-    }
-    if (cleanEndpoint === '/products') {
-      // Handle optional category filtering in query parameters
-      const urlParams = new URLSearchParams(endpoint.split('?')[1] || '');
-      const catId = urlParams.get('category');
+    try {
+      const cleanEndpoint = endpoint.split('?')[0];
       
-      if (catId) {
-        const foundCategory = categories.find(c => String(c.id) === String(catId));
-        if (foundCategory) {
-          return products.filter(p => p.category.toLowerCase().includes(foundCategory.label.toLowerCase()) || p.category.toLowerCase().includes(foundCategory.name.toLowerCase()));
-        }
+      if (cleanEndpoint === '/hero/slides') {
+        const { data, error } = await supabase.from('hero_slides').select('*').eq('is_active', true).order('sort_order');
+        if (error) throw error;
+        // Transform snake_case to camelCase
+        return data.map(slide => ({
+          ...slide,
+          imageUrl: slide.image_url,
+          headingLine1: slide.heading_line_1,
+          headingLine2: slide.heading_line_2,
+          sortOrder: slide.sort_order
+        }));
       }
-      return products;
+      
+      if (cleanEndpoint === '/brands') {
+        const { data, error } = await supabase.from('brands').select('*').eq('is_active', true).eq('is_deleted', false).order('sort_order');
+        if (error) throw error;
+        return data.map(b => ({ ...b, logoUrl: b.logo_url }));
+      }
+      
+      if (cleanEndpoint === '/categories') {
+        const { data, error } = await supabase.from('categories').select('*').eq('is_active', true);
+        if (error) throw error;
+        return data.map(c => ({ id: c.id, name: c.name, slug: c.slug, label: c.name, image: c.image_url }));
+      }
+      
+      if (cleanEndpoint === '/branches') {
+        const { data, error } = await supabase.from('branches').select('*').eq('is_active', true).eq('is_deleted', false);
+        if (error) throw error;
+        return data.map(b => ({ ...b, phoneNumbers: b.phone_numbers, imageUrl: b.image_url }));
+      }
+      
+      if (cleanEndpoint === '/products') {
+        let query = supabase.from('products').select('*, brand:brands(name, slug), category:categories(name, slug)').eq('is_active', true).eq('is_deleted', false);
+        
+        const urlParams = new URLSearchParams(endpoint.split('?')[1] || '');
+        const catId = urlParams.get('category');
+        
+        if (catId) {
+          query = query.eq('category_id', catId);
+        }
+        
+        const { data, error } = await query;
+        if (error) throw error;
+        
+        return data.map(p => ({
+          id: p.id,
+          sku: p.sku || p.slug,
+          name: p.name,
+          collection: p.name,
+          slug: p.slug,
+          price: p.price,
+          category: p.category?.name || 'Uncategorized',
+          brand: p.brand?.name || 'Unknown',
+          images: p.images || [],
+          image: (p.images && p.images.length > 0) ? p.images[0] : '',
+          tag: p.tag === 'NONE' ? null : p.tag,
+          badge: p.tag === 'BEST_SELLER' ? 'Best Seller' : (p.tag === 'NEW' ? 'New Arrival' : (p.tag === 'HOT' ? 'Hot' : '')),
+          isNewArrival: p.tag === 'NEW',
+          isBestSeller: p.tag === 'BEST_SELLER'
+        }));
+      }
+
+      if (cleanEndpoint.startsWith('/products/id/')) {
+        const id = cleanEndpoint.split('/').pop();
+        const { data, error } = await supabase.from('products').select('*, brand:brands(name, slug), category:categories(name, slug)').eq('id', id).single();
+        if (error) throw error;
+        
+        return {
+          id: data.id,
+          sku: data.sku || data.slug,
+          name: data.name,
+          collection: data.name,
+          slug: data.slug,
+          price: data.price,
+          category: data.category?.name || 'Uncategorized',
+          brand: data.brand?.name || 'Unknown',
+          images: data.images || [],
+          image: (data.images && data.images.length > 0) ? data.images[0] : '',
+          tag: data.tag === 'NONE' ? null : data.tag,
+          badge: data.tag === 'BEST_SELLER' ? 'Best Seller' : (data.tag === 'NEW' ? 'New Arrival' : (data.tag === 'HOT' ? 'Hot' : '')),
+          isNewArrival: data.tag === 'NEW',
+          isBestSeller: data.tag === 'BEST_SELLER'
+        };
+      }
+
+      if (cleanEndpoint.startsWith('/products/sku/')) {
+        const sku = cleanEndpoint.split('/').pop();
+        const { data, error } = await supabase.from('products').select('*, brand:brands(name, slug), category:categories(name, slug)').eq('sku', sku).single();
+        if (error) throw error;
+        
+        return {
+          id: data.id,
+          sku: data.sku || data.slug,
+          name: data.name,
+          collection: data.name,
+          slug: data.slug,
+          price: data.price,
+          category: data.category?.name || 'Uncategorized',
+          brand: data.brand?.name || 'Unknown',
+          images: data.images || [],
+          image: (data.images && data.images.length > 0) ? data.images[0] : '',
+          tag: data.tag === 'NONE' ? null : data.tag,
+          badge: data.tag === 'BEST_SELLER' ? 'Best Seller' : (data.tag === 'NEW' ? 'New Arrival' : (data.tag === 'HOT' ? 'Hot' : '')),
+          isNewArrival: data.tag === 'NEW',
+          isBestSeller: data.tag === 'BEST_SELLER'
+        };
+      }
+      
+      return [];
+    } catch (err) {
+      console.error(`API Fetch Error [${endpoint}]:`, err);
+      return [];
     }
-    
-    return [];
   },
   post: async (endpoint, data) => {
-    await new Promise((resolve) => setTimeout(resolve, 800));
-    console.log(`Mock API POST request to ${endpoint}:`, data);
-    return { success: true, message: 'Enquiry submitted successfully' };
+    try {
+      if (endpoint === '/enquiries') {
+        const { error } = await supabase.from('enquiries').insert([data]);
+        if (error) throw error;
+        return { success: true, message: 'Enquiry submitted successfully' };
+      }
+      return { success: false, message: 'Endpoint not supported' };
+    } catch (err) {
+      console.error(`API POST Error [${endpoint}]:`, err);
+      return { success: false, message: 'Failed to submit enquiry. Please try again.' };
+    }
   },
   formatImageUrl: (url) => {
     if (!url) return '';
-    return url; // Directly return URLs since we use high-quality external mockup assets
+    return url;
   }
 };
 

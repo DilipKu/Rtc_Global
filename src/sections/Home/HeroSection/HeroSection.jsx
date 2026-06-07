@@ -8,6 +8,7 @@ import styles from './HeroSection.module.css';
 import hero1 from '../../../assets/images/hero1.webp';
 import hero2 from '../../../assets/images/hero2.webp';
 import hero3 from '../../../assets/images/hero3.webp';
+import { useHeroSlides } from '../../../hooks/useHeroSlides';
 
 /* ── Stat cards data ── */
 const stats = [
@@ -16,8 +17,8 @@ const stats = [
   { value: '24–48h', label: 'Dispatch Time',        icon: Zap     },
 ];
 
-/* ── Slides ── */
-const slides = [
+/* ── Default Slides ── */
+const defaultSlides = [
   {
     tagline:      'GLOBAL APPAREL SOURCING',
     heading:      'Enterprise\nFashion\nSourcing.',
@@ -52,7 +53,6 @@ const useCounter = (target, duration = 1200) => {
   useEffect(() => {
     if (started.current) return;
     started.current = true;
-    // Skip animation for range values like '24–48h' or non-numeric strings
     if (/[–-]/.test(target) || !/\d+/.test(target)) { setCount(target); return; }
     const numericTarget = parseInt(target.replace(/\D/g, ''), 10);
     if (!numericTarget) { setCount(target); return; }
@@ -89,11 +89,27 @@ const StatCard = ({ stat }) => {
 };
 
 const HeroSection = () => {
+  const { slides: apiSlides } = useHeroSlides();
+  
+  const slides = apiSlides && apiSlides.length > 0 ? apiSlides.map((s, i) => ({
+    tagline: s.tagline,
+    heading: s.headingLine1 + (s.headingLine2 ? '\n' + s.headingLine2 : ''),
+    highlight: s.highlight,
+    sub: s.subtext,
+    image: s.image,
+    accent: ['#D4A017', '#06B6D4', '#8B5CF6', '#10B981', '#F59E0B'][i % 5]
+  })) : defaultSlides;
+
   const [current, setCurrent] = useState(0);
   const [prev, setPrev] = useState(null);
   const [transitioning, setTransitioning] = useState(false);
   const [touchStart, setTouchStart] = useState(null);
   const intervalRef = useRef(null);
+
+  // Safely ensure current index doesn't exceed new slides length when dynamic slides load
+  useEffect(() => {
+    if (current >= slides.length) setCurrent(0);
+  }, [slides.length, current]);
 
   const goTo = (idx) => {
     if (transitioning || idx === current) return;
@@ -128,7 +144,7 @@ const HeroSection = () => {
     setTouchStart(null);
   };
 
-  const slide = slides[current];
+  const slide = slides[current] || slides[0];
 
   return (
     <section
