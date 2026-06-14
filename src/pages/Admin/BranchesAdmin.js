@@ -9,7 +9,7 @@ const BranchesAdmin = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [currentBranch, setCurrentBranch] = useState(null);
   
-  const [formData, setFormData] = useState({ name: '', code: '', type: 'Franchise', city: '', state: '', address: '', image_url: '', is_active: true });
+  const [formData, setFormData] = useState({ name: '', code: '', type: 'Franchise', city: '', state: '', address: '', phone_numbers: '', image_url: '', is_active: true });
   const [file, setFile] = useState(null);
   const [uploading, setUploading] = useState(false);
 
@@ -24,14 +24,24 @@ const BranchesAdmin = () => {
   };
 
   const handleAddNew = () => {
-    setFormData({ name: '', code: '', type: 'Franchise', city: '', state: '', address: '', image_url: '', is_active: true });
+    setFormData({ name: '', code: '', type: 'Franchise', city: '', state: '', address: '', phone_numbers: '', image_url: '', is_active: true });
     setFile(null);
     setCurrentBranch(null);
     setIsEditing(true);
   };
 
   const handleEdit = (branch) => {
-    setFormData(branch);
+    const addr = branch.address || {};
+    // Handle case where address might accidentally be a string from old test data
+    const parsedAddr = typeof addr === 'string' ? { street: addr } : addr;
+
+    setFormData({
+      ...branch,
+      phone_numbers: branch.phone_numbers ? branch.phone_numbers.join(', ') : '',
+      city: parsedAddr.city || branch.city || '', // fallback to branch.city if data is malformed
+      state: parsedAddr.state || branch.state || '',
+      address: parsedAddr.street || (typeof addr === 'string' ? addr : '')
+    });
     setFile(null);
     setCurrentBranch(branch);
     setIsEditing(true);
@@ -53,7 +63,26 @@ const BranchesAdmin = () => {
         finalImageUrl = await uploadService.uploadImage(file, 'branches');
       }
 
-      const payload = { ...formData, image_url: finalImageUrl };
+      const phoneNumbersArray = formData.phone_numbers 
+        ? formData.phone_numbers.split(',').map(n => n.trim()).filter(n => n) 
+        : [];
+      
+      const payload = { 
+        ...formData, 
+        image_url: finalImageUrl, 
+        phone_numbers: phoneNumbersArray,
+        address: {
+          street: formData.address,
+          city: formData.city,
+          state: formData.state,
+          postalCode: '',
+          country: 'India'
+        }
+      };
+      
+      // Clean up top-level properties not in the schema
+      delete payload.city;
+      delete payload.state;
       
       if (currentBranch) {
         await supabase.from('branches').update(payload).eq('id', currentBranch.id);
@@ -108,6 +137,11 @@ const BranchesAdmin = () => {
               <div className="form-group">
                 <label className="admin-label">State</label>
                 <input required type="text" value={formData.state} onChange={e => setFormData({...formData, state: e.target.value})} className="admin-input" />
+              </div>
+
+              <div className="form-group">
+                <label className="admin-label">Mobile / Phone Numbers</label>
+                <input type="text" placeholder="Comma separated, e.g. 9876543210" value={formData.phone_numbers || ''} onChange={e => setFormData({...formData, phone_numbers: e.target.value})} className="admin-input" />
               </div>
 
               <div className="form-group">
@@ -170,7 +204,7 @@ const BranchesAdmin = () => {
                           <div className="text-muted">{branch.code} - {branch.type}</div>
                         </td>
                         <td>
-                          {branch.city}, {branch.state}
+                          {(branch.address?.city) || branch.city || 'N/A'}, {(branch.address?.state) || branch.state || ''}
                         </td>
                         <td>
                           <span className={`admin-badge ${branch.is_active ? 'badge-active' : 'badge-inactive'}`}>

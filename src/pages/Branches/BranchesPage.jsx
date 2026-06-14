@@ -175,7 +175,7 @@ const BranchesPage = () => {
                   >
                     {/* Monument Image in corner */}
                     <img 
-                      src={getMonumentImage(loc.city)} 
+                      src={loc.image || getMonumentImage(loc.city)} 
                       alt={`Monument representing ${loc.city}`} 
                       className={styles.monumentImg} 
                     />

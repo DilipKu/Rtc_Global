@@ -21,8 +21,8 @@ export const useBranches = () => {
                   .filter(Boolean)
                   .join(', ')
               : b.address || '',
-            phones: b.phones || b.phoneNumbers || (b.phone ? [b.phone] : []),
-            image: branchService.formatImageUrl(b.imageUrl || b.image),
+            phones: b.phones || b.phoneNumbers || (b.phone ? [b.phone] : (b.mobile ? [b.mobile] : [])),
+            image: branchService.formatImageUrl(b.image_url || b.imageUrl || b.image),
             isHeadOffice: b.isHeadOffice || false,
             size: b.displaySize || 'normal' // large, tall, normal
           }));
