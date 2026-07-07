@@ -478,7 +478,7 @@ export const purchaseManagers = [
 
 export const accountsDirectory = [
   { name: "RAMKARAN JI", mobile: "8860498651" },
-  { name: "RAMPRASAD SHARMA", mobile: "8209405211" },
+  { name: "RAMPRASAD SHARMA", mobile: "8209045211" },
   { name: "DEV JINDAL", mobile: "9015933964" },
   { name: "MADAN UPADHYAY", mobile: "9625647655" },
   { name: "NEHA SHARMA", mobile: "9315631153" },
