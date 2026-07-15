@@ -2,7 +2,7 @@ import { HashRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import './App.css';
 import { ThemeProvider } from './context/ThemeContext';
 import { AuthProvider } from './context/AuthContext';
-import { AdminRoute, PrivateRoute } from './components/auth/ProtectedRoutes';
+import { AdminRoute } from './components/auth/ProtectedRoutes';
 import Login from './pages/Auth/Login';
 import ProfilePage from './pages/Auth/ProfilePage';
 import AdminDashboard from './pages/Admin/AdminDashboard';

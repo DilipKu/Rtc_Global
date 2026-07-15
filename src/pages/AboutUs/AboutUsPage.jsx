@@ -23,12 +23,12 @@ const IconMapper = ({ iconName, ...props }) => {
 
 const AboutUsPage = () => {
   const [aboutUsData, setAboutUsData] = useState(brandConfig.about_us);
-  const [loading, setLoading] = useState(true);
+
 
   useEffect(() => {
     const fetchAboutData = async () => {
       try {
-        const { data, error } = await supabase
+        const { data } = await supabase
           .from('dynamic_pages')
           .select('content')
           .eq('page_key', 'about_us')
@@ -40,8 +40,6 @@ const AboutUsPage = () => {
         }
       } catch (err) {
         console.error("Failed to fetch about us data", err);
-      } finally {
-        setLoading(false);
       }
     };
     fetchAboutData();
