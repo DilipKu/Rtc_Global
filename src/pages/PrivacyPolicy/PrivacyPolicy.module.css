@@ -1,12 +1,14 @@
 .page {
   min-height: 100vh;
-  background-color: #f8f9fa;
+  background-color: var(--color-bg);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
   padding-bottom: var(--space-20);
 }
 
 .header {
   padding: 80px 0 60px;
-  background-color: #F8F8F6;
+  background-color: var(--color-surface);
   text-align: center;
   border-bottom: 1px solid var(--color-border);
 }
@@ -15,7 +17,7 @@
   font-size: clamp(1.5rem, 4vw, 2.5rem);
   font-family: var(--font-serif);
   margin-bottom: var(--space-2);
-  color: var(--color-primary-900);
+  color: var(--text-primary);
   letter-spacing: -0.01em;
 }
 
@@ -33,7 +35,7 @@
 }
 
 .card {
-  background: white;
+  background: var(--color-surface);
   padding: var(--space-10) var(--space-12);
   border-radius: var(--radius-xl);
   box-shadow: var(--shadow-lg);
@@ -48,7 +50,7 @@
 .section h2 {
   font-size: var(--text-xl);
   font-weight: 700;
-  color: var(--color-primary-900);
+  color: var(--text-primary);
   margin-bottom: var(--space-4);
   border-bottom: 2px solid var(--color-gold-400);
   display: inline-block;

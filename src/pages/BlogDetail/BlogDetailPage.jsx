@@ -1,17 +1,52 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { mockBlogs } from '../../data/mockBlogs';
+import { supabase } from '../../config/supabaseClient';
 import { Calendar, Clock, ChevronLeft, User, Share2 } from 'lucide-react';
 import styles from './BlogDetailPage.module.css';
 
 const BlogDetailPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const blog = mockBlogs.find(b => b.id === id);
+  const [blog, setBlog] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const fetchBlog = async () => {
+      try {
+        const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(id);
+        let query = supabase.from('blogs').select('*');
+        
+        if (isUuid) {
+          query = query.or(`id.eq.${id},slug.eq.${id}`);
+        } else {
+          query = query.eq('slug', id);
+        }
+        
+        const { data, error } = await query.single();
+        
+        if (!error && data) {
+          setBlog({
+            id: data.id,
+            title: data.title,
+            image: data.image_url || 'https://via.placeholder.com/1200x600?text=Blog',
+            category: 'Industry Update',
+            date: new Date(data.created_at).toLocaleDateString(),
+            readTime: '5 min read',
+            content: data.content,
+            author: data.author || 'RTC Admin'
+          });
+        }
+      } catch (e) {
+        console.error("Error fetching blog:", e);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchBlog();
     window.scrollTo(0, 0);
   }, [id]);
+
+  if (loading) return <main className={styles.page}><div className="container" style={{ padding: '100px 0', textAlign: 'center' }}>Loading...</div></main>;
 
   if (!blog) {
     return (

@@ -5,13 +5,14 @@ import { brandConfig } from '../../../config/brandConfig';
 import { useTheme } from '../../../context/ThemeContext';
 import { useCategories } from '../../../hooks/useCategories';
 import { useAuth } from '../../../context/AuthContext';
+import { User as UserIcon } from 'lucide-react';
 import styles from './KristNavbar.module.css';
 
 const mainNavLinks = [
   { label: 'Home', href: '/' },
   { label: 'Categories', href: '/collections', hasDropdown: true },
   { label: 'Branches', href: '/branches' },
-  { label: 'Garment Fair', href: '/gallery' },
+  { label: 'Garment Fairs', href: '/fairs' },
   { label: 'Blog', href: '/blog' },
   { label: 'About Us', href: '/about' },
   { label: 'Contact', href: '/contact' },
@@ -19,19 +20,24 @@ const mainNavLinks = [
 
 const secondaryLinks = [];
 
-const BrandLogo = () => (
-  <Link to="/" className={styles.logoLink} aria-label={`${brandConfig.brand_name} Home`}>
-    <img
-      src="/rtc_logo.png"
-      alt={brandConfig.brand_name}
-      className={styles.logoImg}
-    />
-    <div className={styles.logoText}>
-      <span className={styles.logoName}>RTC GLOBAL</span>
-      <span className={styles.logoTagline}>APPARELS PVT. LTD.</span>
-    </div>
-  </Link>
-);
+const BrandLogo = ({ isScrolled, isDark }) => {
+  const useTransparent = !isScrolled && !isDark;
+  const logoSrc = useTransparent ? "/logo-transparent.png" : "/logo-solid.png";
+
+  return (
+    <Link to="/" className={styles.logoLink} aria-label={`${brandConfig.brand_name} Home`}>
+      <img
+        src={logoSrc}
+        alt={brandConfig.brand_name}
+        className={styles.logoImg}
+      />
+      <div className={styles.logoText}>
+        <span className={styles.logoName}>RTC GLOBAL</span>
+        <span className={styles.logoTagline}>APPARELS PVT. LTD.</span>
+      </div>
+    </Link>
+  );
+};
 
 const WhatsAppIcon = ({ size = 16 }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -44,7 +50,7 @@ const KristNavbar = () => {
   const navigate = useNavigate();
   const { categories } = useCategories();
   const { theme, toggleTheme } = useTheme();
-  const { isAdmin } = useAuth();
+  const { isAdmin, user } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const isDark = theme === 'dark';
@@ -73,7 +79,7 @@ const KristNavbar = () => {
       <header className={`${styles.navbar} ${isScrolled ? styles.scrolled : ''}`} role="banner">
         <div className={styles.container}>
           {/* Logo */}
-          <BrandLogo />
+          <BrandLogo isScrolled={isScrolled} isDark={isDark} />
 
           {/* Desktop Navigation Group */}
           <div className={styles.navGroup}>
@@ -122,6 +128,13 @@ const KristNavbar = () => {
             {isAdmin && (
               <Link to="/admin/dashboard" className={styles.iconBtn} aria-label="Admin Dashboard" title="Admin Dashboard">
                 <ShieldCheck size={18} />
+              </Link>
+            )}
+
+            {/* User Auth Icon */}
+            {!isAdmin && (
+              <Link to={user ? "/profile" : "/login"} className={styles.iconBtn} aria-label={user ? "My Account" : "Login/Register"} title={user ? "My Account" : "Login"}>
+                <UserIcon size={18} />
               </Link>
             )}
 
@@ -183,7 +196,7 @@ const KristNavbar = () => {
         aria-label="Mobile navigation"
       >
         <div className={styles.drawerHeader}>
-          <BrandLogo />
+          <BrandLogo isScrolled={true} isDark={isDark} />
           <button
             className={styles.closeBtn}
             onClick={() => setIsMenuOpen(false)}

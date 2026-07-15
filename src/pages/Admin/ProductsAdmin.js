@@ -12,6 +12,7 @@ const ProductsAdmin = () => {
   const [loading, setLoading] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
   const [currentProduct, setCurrentProduct] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
   
   const [formData, setFormData] = useState({ 
     name: '', sku: '', slug: '', description: '', 
@@ -30,7 +31,7 @@ const ProductsAdmin = () => {
   const fetchData = async () => {
     setLoading(true);
     const [prodRes, catRes, brandRes, branchRes] = await Promise.all([
-      supabase.from('products').select('*, brand:brands(name), category:categories(name)').eq('is_deleted', false).order('created_at', { ascending: false }),
+      supabase.from('products').select('*, brand:brands(name), category:categories(name)').eq('is_deleted', false).order('created_at', { ascending: false }).order('id', { ascending: false }),
       supabase.from('categories').select('id, name').eq('is_active', true),
       supabase.from('brands').select('id, name').eq('is_active', true),
       supabase.from('branches').select('id, name').eq('is_active', true)
@@ -228,10 +229,18 @@ const ProductsAdmin = () => {
           </div>
         ) : (
           <div className="admin-card">
-            <div className="admin-actions">
+            <div className="admin-actions" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <button onClick={handleAddNew} className="admin-btn-primary">
                 + Add New Product
               </button>
+              <input 
+                type="text" 
+                placeholder="Search products..." 
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="admin-input"
+                style={{ width: '250px', marginBottom: 0 }}
+              />
             </div>
             {loading ? <p>Loading...</p> : (
               <div className="admin-table-container">
@@ -247,7 +256,11 @@ const ProductsAdmin = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {products.map((prod) => (
+                    {products.filter(p => 
+                      p.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                      p.sku?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                      p.category?.name?.toLowerCase().includes(searchTerm.toLowerCase())
+                    ).map((prod) => (
                       <tr key={prod.id}>
                         <td>
                           {prod.images && prod.images.length > 0 ? (
@@ -275,7 +288,7 @@ const ProductsAdmin = () => {
                         </td>
                       </tr>
                     ))}
-                    {products.length === 0 && (
+                    {products.filter(p => p.name.toLowerCase().includes(searchTerm.toLowerCase())).length === 0 && (
                       <tr><td colSpan="6" style={{ textAlign: 'center', padding: '2rem' }} className="text-muted">No products found.</td></tr>
                     )}
                   </tbody>

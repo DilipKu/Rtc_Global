@@ -8,6 +8,7 @@ const BranchesAdmin = () => {
   const [loading, setLoading] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
   const [currentBranch, setCurrentBranch] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
   
   const [formData, setFormData] = useState({ name: '', code: '', type: 'Franchise', city: '', state: '', address: '', phone_numbers: '', image_url: '', is_active: true });
   const [file, setFile] = useState(null);
@@ -172,10 +173,18 @@ const BranchesAdmin = () => {
           </div>
         ) : (
           <div className="admin-card">
-            <div className="admin-actions">
+            <div className="admin-actions" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <button onClick={handleAddNew} className="admin-btn-primary">
                 + Add New Branch
               </button>
+              <input 
+                type="text" 
+                placeholder="Search branches..." 
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="admin-input"
+                style={{ width: '250px', marginBottom: 0 }}
+              />
             </div>
             {loading ? <p>Loading...</p> : (
               <div className="admin-table-container">
@@ -190,7 +199,11 @@ const BranchesAdmin = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {branches.map((branch) => (
+                    {branches.filter(b => 
+                      b.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                      b.code?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                      b.city?.toLowerCase().includes(searchTerm.toLowerCase())
+                    ).map((branch) => (
                       <tr key={branch.id}>
                         <td>
                           {branch.image_url ? (
@@ -217,7 +230,7 @@ const BranchesAdmin = () => {
                         </td>
                       </tr>
                     ))}
-                    {branches.length === 0 && (
+                    {branches.filter(b => b.name.toLowerCase().includes(searchTerm.toLowerCase())).length === 0 && (
                       <tr><td colSpan="5" style={{ textAlign: 'center', padding: '2rem' }} className="text-muted">No branches found.</td></tr>
                     )}
                   </tbody>

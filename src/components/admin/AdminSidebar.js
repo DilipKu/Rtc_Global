@@ -10,7 +10,10 @@ import {
   ChevronLeft,
   ChevronRight,
   LogOut,
-  MessageSquare
+  MessageSquare,
+  FileJson,
+  FileText,
+  Calendar
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import '../../pages/Admin/Admin.css';
@@ -27,6 +30,9 @@ const AdminSidebar = ({ isCollapsed, setIsCollapsed }) => {
     { path: '/admin/brands', icon: Briefcase, label: 'Brands' },
     { path: '/admin/branches', icon: MapPin, label: 'Branches' },
     { path: '/admin/hero', icon: ImageIcon, label: 'Hero Slides' },
+    { path: '/admin/pages', icon: FileJson, label: 'Dynamic Pages' },
+    { path: '/admin/blogs', icon: FileText, label: 'Blogs' },
+    { path: '/admin/fairs', icon: Calendar, label: 'Fairs & Events' },
   ];
 
   const handleLogout = async () => {

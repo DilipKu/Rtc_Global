@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { heroService } from '../services/heroService';
+import { supabase } from '../config/supabaseClient';
 
 const INTERVAL_MS = 5000;
 
@@ -18,14 +18,21 @@ export const useHeroSlides = () => {
     const loadSlides = async () => {
       try {
         setLoading(true);
-        const data = await heroService.getSlides();
+        const { data, error } = await supabase
+          .from('hero_slides')
+          .select('*')
+          .eq('is_active', true)
+          .order('sort_order');
+          
+        if (error) throw error;
         
         if (data && data.length > 0) {
           const mappedSlides = data.map(s => ({
-            image: heroService.formatImageUrl(s.imageUrl),
+            image: s.image_url,
+            video: s.video_url,
             tagline: s.tagline,
-            headingLine1: s.headingLine1,
-            headingLine2: s.headingLine2,
+            headingLine1: s.heading_line_1,
+            headingLine2: s.heading_line_2,
             highlight: s.highlight,
             subtext: s.subtext
           }));

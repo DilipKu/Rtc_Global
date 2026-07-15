@@ -41,9 +41,16 @@ export const api = {
         
         const urlParams = new URLSearchParams(endpoint.split('?')[1] || '');
         const catId = urlParams.get('category');
+        const limit = urlParams.get('limit');
         
         if (catId) {
           query = query.eq('category_id', catId);
+        }
+        
+        query = query.order('created_at', { ascending: false }).order('id', { ascending: false });
+
+        if (limit) {
+          query = query.limit(parseInt(limit, 10));
         }
         
         const { data, error } = await query;

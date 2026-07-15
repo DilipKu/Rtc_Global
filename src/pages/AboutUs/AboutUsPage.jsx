@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Eye, Star, Users } from "lucide-react";
 import styles from "./AboutUsPage.module.css";
 import storyBanner from "../../assets/images/story_banner.png";
 import ownerImage from "../../assets/images/rtc_about.png";
+import { supabase } from "../../config/supabaseClient";
 import brandConfig from "../../config/brandConfig";
 
 
@@ -21,7 +22,32 @@ const IconMapper = ({ iconName, ...props }) => {
 };
 
 const AboutUsPage = () => {
-  const { about_us } = brandConfig;
+  const [aboutUsData, setAboutUsData] = useState(brandConfig.about_us);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchAboutData = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('dynamic_pages')
+          .select('content')
+          .eq('page_key', 'about_us')
+          .single();
+          
+        if (data && data.content) {
+          // Merge with fallback to ensure all keys exist
+          setAboutUsData({ ...brandConfig.about_us, ...data.content });
+        }
+      } catch (err) {
+        console.error("Failed to fetch about us data", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchAboutData();
+  }, []);
+
+  const about_us = aboutUsData;
 
   return (
     <main className={styles.page}>

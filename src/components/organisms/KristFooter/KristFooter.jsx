@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Phone, Mail, MapPin, MessageSquare, Youtube } from 'lucide-react';
 import { brandConfig } from '../../../config/brandConfig';
+import { useTheme } from '../../../context/ThemeContext';
 import styles from './KristFooter.module.css';
 
 const WhatsAppIcon = ({ size = 16 }) => (
@@ -42,11 +43,11 @@ const quickLinks = [
   { label: 'Privacy Policy', href: '/privacy' },
 ];
 
-const BrandLogoFooter = () => (
+const BrandLogoFooter = ({ isDark }) => (
   <div className={styles.logoWrapper}>
     <a href="/" aria-label={`${brandConfig.brand_name} Home`}>
       <img
-        src="/rtc_logo.png"
+        src={isDark ? "/logo-transparent.png" : "/logo-solid.png"}
         alt={brandConfig.brand_name}
         style={{ maxWidth: 140, height: 'auto', display: 'block' }}
       />
@@ -56,6 +57,8 @@ const BrandLogoFooter = () => (
 
 const KristFooter = () => {
   const navigate = useNavigate();
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
 
   const handleCatalogClick = (e) => {
     e.preventDefault();
@@ -95,7 +98,7 @@ const KristFooter = () => {
           <div className={styles.grid}>
             {/* Brand column */}
             <div className={styles.brandCol}>
-              <BrandLogoFooter />
+              <BrandLogoFooter isDark={isDark} />
 
               <ul className={styles.contactList}>
                 <li>

@@ -11,9 +11,10 @@ const HeroAdmin = () => {
   
   const [formData, setFormData] = useState({ 
     heading_line_1: '', heading_line_2: '', tagline: '', 
-    subtext: '', highlight: '', image_url: '', sort_order: 0, is_active: true 
+    subtext: '', highlight: '', image_url: '', video_url: '', sort_order: 0, is_active: true 
   });
   const [file, setFile] = useState(null);
+  const [videoFile, setVideoFile] = useState(null);
   const [uploading, setUploading] = useState(false);
 
   useEffect(() => {
@@ -27,11 +28,13 @@ const HeroAdmin = () => {
   };
 
   const handleAddNew = () => {
+    const nextSortOrder = slides.length > 0 ? Math.max(...slides.map(s => s.sort_order || 0)) + 1 : 0;
     setFormData({ 
       heading_line_1: '', heading_line_2: '', tagline: '', 
-      subtext: '', highlight: '', image_url: '', sort_order: 0, is_active: true 
+      subtext: '', highlight: '', image_url: '', video_url: '', sort_order: nextSortOrder, is_active: true 
     });
     setFile(null);
+    setVideoFile(null);
     setCurrentSlide(null);
     setIsEditing(true);
   };
@@ -39,6 +42,7 @@ const HeroAdmin = () => {
   const handleEdit = (slide) => {
     setFormData(slide);
     setFile(null);
+    setVideoFile(null);
     setCurrentSlide(slide);
     setIsEditing(true);
   };
@@ -55,22 +59,35 @@ const HeroAdmin = () => {
     setUploading(true);
     try {
       let finalImageUrl = formData.image_url;
+      let finalVideoUrl = formData.video_url;
+      
       if (file) {
         finalImageUrl = await uploadService.uploadImage(file, 'hero');
       }
+      if (videoFile) {
+        finalVideoUrl = await uploadService.uploadVideo(videoFile, 'hero_videos');
+      }
 
-      const payload = { ...formData, image_url: finalImageUrl };
+      const payload = { ...formData, image_url: finalImageUrl, video_url: finalVideoUrl };
       
+      let response;
       if (currentSlide) {
-        await supabase.from('hero_slides').update(payload).eq('id', currentSlide.id);
+        response = await supabase.from('hero_slides').update(payload).eq('id', currentSlide.id);
       } else {
-        await supabase.from('hero_slides').insert([payload]);
+        response = await supabase.from('hero_slides').insert([payload]);
+      }
+      
+      if (response.error) {
+        console.error("Supabase Error:", response.error);
+        alert(`Failed to save slide: ${response.error.message || response.error.details || 'Unknown error'}`);
+        return;
       }
       
       setIsEditing(false);
       fetchSlides();
     } catch (error) {
-      alert('Error saving slide');
+      console.error("Exception:", error);
+      alert(`Error saving slide: ${error.message || 'Unknown exception'}`);
     } finally {
       setUploading(false);
     }
@@ -111,6 +128,13 @@ const HeroAdmin = () => {
               <div className="form-group">
                 <label className="admin-label">Subtext</label>
                 <textarea rows="2" value={formData.subtext} onChange={e => setFormData({...formData, subtext: e.target.value})} className="admin-textarea"></textarea>
+              </div>
+
+              <div className="form-group">
+                <label className="admin-label">Video URL (Optional - Replaces Image if provided)</label>
+                <input type="text" placeholder="https://example.com/video.mp4" value={formData.video_url || ''} onChange={e => setFormData({...formData, video_url: e.target.value})} className="admin-input" />
+                <div style={{ marginTop: '8px', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>Or upload a video file:</div>
+                <input type="file" accept="video/mp4,video/webm,video/ogg" onChange={e => setVideoFile(e.target.files[0])} className="admin-input" />
               </div>
 
               <div className="form-group">

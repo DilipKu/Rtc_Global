@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { MapPin, Phone, Mail, Send, MessageCircle, AlertCircle, CheckCircle } from 'lucide-react';
+import { supabase } from '../../config/supabaseClient';
 import brandConfig from '../../config/brandConfig';
 import { accountsDirectory } from '../../data/mockData';
 import styles from './ContactPage.module.css';
@@ -8,7 +9,34 @@ const ContactPage = () => {
   const [formData, setFormData] = useState({ name: '', phone: '', firmName: '', address: '', gst: '', message: '' });
   const [isSuccess, setIsSuccess] = useState(false);
 
-  const phoneNumbers = brandConfig.phone_number.split(',').map(n => n.trim());
+  const [contactData, setContactData] = useState({
+    phone_number: brandConfig.phone_number,
+    whatsapp_number: brandConfig.whatsapp_number,
+    email: brandConfig.email,
+    business_address: brandConfig.business_address,
+    business_hours: brandConfig.business_hours
+  });
+
+  useEffect(() => {
+    const fetchContactData = async () => {
+      try {
+        const { data } = await supabase
+          .from('dynamic_pages')
+          .select('content')
+          .eq('page_key', 'contact')
+          .single();
+          
+        if (data && data.content) {
+          setContactData(prev => ({ ...prev, ...data.content }));
+        }
+      } catch (err) {
+        console.error("Failed to fetch contact data", err);
+      }
+    };
+    fetchContactData();
+  }, []);
+
+  const phoneNumbers = contactData.phone_number.split(',').map(n => n.trim());
   const primaryPhone = phoneNumbers[0];
 
   const handleChange = (e) => setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
@@ -98,10 +126,10 @@ const ContactPage = () => {
               <p className={styles.quickText}>Instant Corporate Response</p>
             </a>
             
-            <a href={`mailto:${brandConfig.email}`} className={styles.quickCard}>
+            <a href={`mailto:${contactData.email}`} className={styles.quickCard}>
               <div className={styles.quickIconWrapper}><Mail size={20} /></div>
               <h3 className={styles.quickTitle}>Email Desk</h3>
-              <p className={styles.quickText}>{brandConfig.email}</p>
+              <p className={styles.quickText}>{contactData.email}</p>
             </a>
           </div>
 
@@ -121,7 +149,7 @@ const ContactPage = () => {
                   <div className={styles.infoIcon}><MapPin size={18} /></div>
                   <div className={styles.infoCardContent}>
                     <h3 className={styles.infoCardLabel}>Corporate Address</h3>
-                    <p className={styles.infoCardValue}>{brandConfig.business_address}</p>
+                    <p className={styles.infoCardValue}>{contactData.business_address}</p>
                   </div>
                 </div>
 
@@ -129,7 +157,7 @@ const ContactPage = () => {
                   <div className={styles.infoIcon}><Phone size={18} /></div>
                   <div className={styles.infoCardContent}>
                     <h3 className={styles.infoCardLabel}>Hotlines</h3>
-                    <p className={styles.infoCardValue}>{brandConfig.phone_number}</p>
+                    <p className={styles.infoCardValue}>{contactData.phone_number}</p>
                   </div>
                 </div>
 
@@ -137,7 +165,7 @@ const ContactPage = () => {
                   <div className={styles.infoIcon}><Mail size={18} /></div>
                   <div className={styles.infoCardContent}>
                     <h3 className={styles.infoCardLabel}>Email Inbox</h3>
-                    <p className={styles.infoCardValue}>{brandConfig.email}</p>
+                    <p className={styles.infoCardValue}>{contactData.email}</p>
                   </div>
                 </div>
 

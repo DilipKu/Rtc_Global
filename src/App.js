@@ -2,8 +2,9 @@ import { HashRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import './App.css';
 import { ThemeProvider } from './context/ThemeContext';
 import { AuthProvider } from './context/AuthContext';
-import { AdminRoute } from './components/auth/ProtectedRoutes';
+import { AdminRoute, PrivateRoute } from './components/auth/ProtectedRoutes';
 import Login from './pages/Auth/Login';
+import ProfilePage from './pages/Auth/ProfilePage';
 import AdminDashboard from './pages/Admin/AdminDashboard';
 import HeroAdmin from './pages/Admin/HeroAdmin';
 import BrandsAdmin from './pages/Admin/BrandsAdmin';
@@ -11,6 +12,9 @@ import BranchesAdmin from './pages/Admin/BranchesAdmin';
 import CategoriesAdmin from './pages/Admin/CategoriesAdmin';
 import ProductsAdmin from './pages/Admin/ProductsAdmin';
 import EnquiriesAdmin from './pages/Admin/EnquiriesAdmin';
+import DynamicPagesAdmin from './pages/Admin/DynamicPagesAdmin';
+import BlogsAdmin from './pages/Admin/BlogsAdmin';
+import FairsAdmin from './pages/Admin/FairsAdmin';
 import MainLayout from './layouts/MainLayout';
 import HomePage from './pages/Home/HomePage';
 import CollectionsPage from './pages/Collections/CollectionsPage';
@@ -25,6 +29,7 @@ import TermsAndConditionsPage from './pages/TermsAndConditions/TermsAndCondition
 import PrivacyPolicyPage from './pages/PrivacyPolicy/PrivacyPolicy';
 import BlogPage from './pages/Blog/BlogPage';
 import BlogDetailPage from './pages/BlogDetail/BlogDetailPage';
+import FairsPage from './pages/Fairs/FairsPage';
 import ScrollToTop from './components/atoms/ScrollToTop';
 
 import AdminLayout from './layouts/AdminLayout';
@@ -49,12 +54,14 @@ function App() {
               <Route path="/gallery" element={<GalleryPage />} />
               <Route path="/blog" element={<BlogPage />} />
               <Route path="/blog/:id" element={<BlogDetailPage />} />
+              <Route path="/fairs" element={<FairsPage />} />
               <Route path="/terms" element={<TermsAndConditionsPage />} />
               <Route path="/privacy" element={<PrivacyPolicyPage />} />
 
               {/* Auth Routes */}
               <Route path="/login" element={<Login />} />
               <Route path="/admin/login" element={<Login isAdminRoute={true} />} />
+              <Route path="/profile" element={<ProfilePage />} />
               
               {/* Admin Protected Routes */}
               <Route element={<AdminRoute />}>
@@ -67,6 +74,9 @@ function App() {
                   <Route path="/admin/branches" element={<BranchesAdmin />} />
                   <Route path="/admin/categories" element={<CategoriesAdmin />} />
                   <Route path="/admin/products" element={<ProductsAdmin />} />
+                  <Route path="/admin/pages" element={<DynamicPagesAdmin />} />
+                  <Route path="/admin/blogs" element={<BlogsAdmin />} />
+                  <Route path="/admin/fairs" element={<FairsAdmin />} />
                 </Route>
               </Route>
             </Route>

@@ -97,6 +97,7 @@ const HeroSection = () => {
     highlight: s.highlight,
     sub: s.subtext,
     image: s.image,
+    video: s.video,
     accent: ['#D4A017', '#06B6D4', '#8B5CF6', '#10B981', '#F59E0B'][i % 5]
   })) : defaultSlides;
 
@@ -160,7 +161,18 @@ const HeroSection = () => {
             key={idx}
             className={`${styles.bgSlide} ${idx === current ? styles.bgActive : ''} ${idx === prev ? styles.bgPrev : ''}`}
           >
-            <img src={s.image} alt="" className={styles.bgImg} loading={idx === 0 ? 'eager' : 'lazy'} />
+            {s.video ? (
+              <video 
+                src={s.video} 
+                className={styles.bgImg} 
+                autoPlay 
+                loop 
+                muted 
+                playsInline 
+              />
+            ) : (
+              <img src={s.image} alt="" className={styles.bgImg} loading={idx === 0 ? 'eager' : 'lazy'} />
+            )}
           </div>
         ))}
         {/* Dark gradient layers */}
