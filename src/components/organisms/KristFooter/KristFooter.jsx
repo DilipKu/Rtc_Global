@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Phone, Mail, MapPin, MessageSquare, Youtube } from 'lucide-react';
+import { Phone, Mail, MapPin, MessageSquare, Youtube, ChevronDown } from 'lucide-react';
 import { brandConfig } from '../../../config/brandConfig';
 import { useTheme } from '../../../context/ThemeContext';
 import styles from './KristFooter.module.css';
@@ -43,6 +43,33 @@ const quickLinks = [
   { label: 'Privacy Policy', href: '/privacy' },
 ];
 
+const faqItems = [
+  {
+    question: 'What is the minimum order quantity (MOQ)?',
+    answer: 'We offer flexible MOQ starting from 24 pieces per design, making wholesale accessible for small retailers. Larger orders receive better pricing.'
+  },
+  {
+    question: 'Do you offer customization and private labeling?',
+    answer: 'Yes! We provide custom manufacturing, private labeling, and design customization. Please connect via WhatsApp for details.'
+  },
+  {
+    question: 'What are the payment terms?',
+    answer: 'We accept 50% advance payment with order confirmation and balance before dispatch. GST invoices provided for all B2B transactions.'
+  },
+  {
+    question: 'How long is the delivery time?',
+    answer: 'Standard delivery is 7-14 days pan-India. Express delivery options available for urgent orders. Same-city pickup possible from our Delhi hub.'
+  },
+  {
+    question: 'Do you provide samples?',
+    answer: 'Yes, samples are available on demand. Sample charges may apply, which will be adjusted if you proceed with bulk orders.'
+  },
+  {
+    question: 'What quality standards do you follow?',
+    answer: 'All products undergo strict quality checks. We use premium fabrics and ensure superior stitching. Returns within 7 days if quality issues found.'
+  }
+];
+
 const BrandLogoFooter = ({ isDark }) => (
   <div className={styles.logoWrapper}>
     <a href="/" aria-label={`${brandConfig.brand_name} Home`}>
@@ -55,10 +82,25 @@ const BrandLogoFooter = ({ isDark }) => (
   </div>
 );
 
+const FAQItem = ({ question, answer, isOpen, onToggle }) => (
+  <div className={styles.faqItem}>
+    <button 
+      className={styles.faqQuestion}
+      onClick={onToggle}
+      aria-expanded={isOpen}
+    >
+      <span>{question}</span>
+      <ChevronDown size={18} className={`${styles.faqIcon} ${isOpen ? styles.faqIconOpen : ''}`} />
+    </button>
+    {isOpen && <div className={styles.faqAnswer}>{answer}</div>}
+  </div>
+);
+
 const KristFooter = () => {
   const navigate = useNavigate();
   const { theme } = useTheme();
   const isDark = theme === 'dark';
+  const [openFAQIndex, setOpenFAQIndex] = React.useState(null);
 
   const handleCatalogClick = (e) => {
     e.preventDefault();
@@ -68,6 +110,10 @@ const KristFooter = () => {
   const handleInternalFooterLink = (href) => (e) => {
     e.preventDefault();
     navigate(href, { state: { navTimestamp: Date.now() } });
+  };
+
+  const toggleFAQ = (index) => {
+    setOpenFAQIndex(openFAQIndex === index ? null : index);
   };
 
   return (
@@ -188,6 +234,24 @@ const KristFooter = () => {
                 <p className={styles.hoursValue}>{brandConfig.business_hours}</p>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+
+      {/* FAQ Section */}
+      <div className={styles.faqSection}>
+        <div className={styles.container}>
+          <h2 className={styles.faqTitle}>Frequently Asked Questions</h2>
+          <div className={styles.faqGrid}>
+            {faqItems.map((item, index) => (
+              <FAQItem
+                key={index}
+                question={item.question}
+                answer={item.answer}
+                isOpen={openFAQIndex === index}
+                onToggle={() => toggleFAQ(index)}
+              />
+            ))}
           </div>
         </div>
       </div>
