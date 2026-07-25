@@ -42,9 +42,20 @@ export const api = {
         const urlParams = new URLSearchParams(endpoint.split('?')[1] || '');
         const catId = urlParams.get('category');
         const limit = urlParams.get('limit');
+        const brandSlug = urlParams.get('brand');
         
         if (catId) {
           query = query.eq('category_id', catId);
+        }
+
+        if (brandSlug) {
+          const { data: brandData } = await supabase.from('brands').select('id').eq('slug', brandSlug).single();
+          if (brandData) {
+            query = query.eq('brand_id', brandData.id);
+          } else {
+            // Force no results if brand slug is invalid
+            query = query.eq('id', '00000000-0000-0000-0000-000000000000'); 
+          }
         }
         
         query = query.order('created_at', { ascending: false }).order('id', { ascending: false });

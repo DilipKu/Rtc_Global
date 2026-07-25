@@ -14,7 +14,8 @@ const ContactPage = () => {
     whatsapp_number: brandConfig.whatsapp_number,
     email: brandConfig.email,
     business_address: brandConfig.business_address,
-    business_hours: brandConfig.business_hours
+    business_hours: brandConfig.business_hours,
+    accountsDirectory: accountsDirectory
   });
 
   useEffect(() => {
@@ -27,7 +28,11 @@ const ContactPage = () => {
           .single();
           
         if (data && data.content) {
-          setContactData(prev => ({ ...prev, ...data.content }));
+          setContactData(prev => ({ 
+            ...prev, 
+            ...data.content,
+            accountsDirectory: data.content.accountsDirectory || prev.accountsDirectory 
+          }));
         }
       } catch (err) {
         console.error("Failed to fetch contact data", err);
@@ -36,8 +41,8 @@ const ContactPage = () => {
     fetchContactData();
   }, []);
 
-  const phoneNumbers = contactData.phone_number.split(',').map(n => n.trim());
-  const primaryPhone = phoneNumbers[0];
+  const phoneNumbers = (contactData.phone_number || '').split(',').map(n => n.trim());
+  const primaryPhone = phoneNumbers[0] || brandConfig.phone_number;
 
   const handleChange = (e) => setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
   
@@ -66,6 +71,7 @@ const ContactPage = () => {
   };
 
   const getWhatsappLink = (phone, name) => {
+    if (!phone) return '#';
     const cleanPhone = phone.replace(/\D/g, '');
     const fullPhone = cleanPhone.startsWith('91') && cleanPhone.length > 10 ? cleanPhone : `91${cleanPhone}`;
     const text = encodeURIComponent(`Hello ${name}, I am a partner of RTC Global Apparels connecting regarding B2B accounts/billing query.`);
@@ -181,7 +187,7 @@ const ContactPage = () => {
                       rel="noopener noreferrer" 
                       className={styles.infoWhatsappLink}
                     >
-                      +91 98185 98651
+                      {contactData.whatsapp_number || '+91 98185 98651'}
                     </a>
                   </div>
                 </div>
@@ -298,7 +304,7 @@ const ContactPage = () => {
               Direct communication desks for billing status, payment verification, ledger reports, and accounts reconciliation.
             </p>
             <div className={styles.accountsGrid}>
-              {accountsDirectory.map((acc, idx) => (
+              {contactData.accountsDirectory.map((acc, idx) => (
                 <div key={idx} className={styles.accountsCard}>
                   <div className={styles.accountsCardHeader}>
                     <h3 className={styles.accountsName}>{acc.name}</h3>

@@ -44,7 +44,7 @@ const CategorySection = () => {
             const isHero = idx === 0;
             return (
               <Link 
-                to="/collections" 
+                to={`/collections?category=${cat.id}`}
                 key={cat.id} 
                 className={`${styles.categoryCard} ${isHero ? styles.cardHero : ''} reveal stagger-${(idx % 6) + 1}`}
               >

@@ -3,12 +3,11 @@
   "name": "rtc",
   "compatibility_date": "2026-07-16",
   "observability": {
-    "enabled": true
+    "enabled": true,
   },
   "assets": {
-    "directory": "build"
+    "directory": "build",
+    "not_found_handling": "single-page-application",
   },
-  "compatibility_flags": [
-    "nodejs_compat"
-  ]
+  "compatibility_flags": ["nodejs_compat"],
 }
