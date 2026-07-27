@@ -33,7 +33,11 @@ const BlogDetailPage = () => {
             date: new Date(data.created_at).toLocaleDateString(),
             readTime: '5 min read',
             content: data.content,
-            author: data.author || 'RTC Admin'
+            author: data.author || 'RTC Admin',
+            meta_title: data.meta_title,
+            meta_description: data.meta_description,
+            meta_keywords: data.meta_keywords,
+            canonical_url: data.canonical_url
           });
         }
       } catch (e) {
@@ -45,6 +49,58 @@ const BlogDetailPage = () => {
     fetchBlog();
     window.scrollTo(0, 0);
   }, [id]);
+
+  useEffect(() => {
+    if (!blog) return;
+    
+    const originalTitle = document.title;
+    const metaDescription = document.querySelector('meta[name="description"]');
+    const originalMetaDescription = metaDescription ? metaDescription.getAttribute('content') : '';
+
+    let metaKeywords = document.querySelector('meta[name="keywords"]');
+    let canonical = document.querySelector('link[rel="canonical"]');
+
+    if (blog.meta_title) {
+      document.title = blog.meta_title;
+    } else {
+      document.title = `${blog.title} | RTC Global Apparels Pvt. Ltd.`;
+    }
+    
+    if (metaDescription && blog.meta_description) {
+      metaDescription.setAttribute('content', blog.meta_description);
+    }
+    
+    if (blog.meta_keywords) {
+      if (!metaKeywords) {
+        metaKeywords = document.createElement('meta');
+        metaKeywords.name = "keywords";
+        document.head.appendChild(metaKeywords);
+      }
+      metaKeywords.setAttribute('content', blog.meta_keywords);
+    }
+    
+    if (blog.canonical_url) {
+      if (!canonical) {
+        canonical = document.createElement('link');
+        canonical.rel = "canonical";
+        document.head.appendChild(canonical);
+      }
+      canonical.setAttribute('href', blog.canonical_url);
+    }
+
+    return () => {
+      document.title = originalTitle;
+      if (metaDescription && originalMetaDescription) {
+        metaDescription.setAttribute('content', originalMetaDescription);
+      }
+      if (metaKeywords && blog.meta_keywords) {
+        metaKeywords.remove();
+      }
+      if (canonical && blog.canonical_url) {
+        canonical.remove();
+      }
+    };
+  }, [blog]);
 
   if (loading) return <main className={styles.page}><div className="container" style={{ padding: '100px 0', textAlign: 'center' }}>Loading...</div></main>;
 
