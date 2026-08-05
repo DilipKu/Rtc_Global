@@ -9,6 +9,47 @@ const BlogPage = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // Set document title and SEO meta tags
+    document.title = 'Our Latest Blog - RTC Global Apparels';
+
+    const setMeta = (name, content, isProperty = false) => {
+      const attr = isProperty ? 'property' : 'name';
+      let element = document.querySelector(`meta[${attr}="${name}"]`);
+      if (!element) {
+        element = document.createElement('meta');
+        element.setAttribute(attr, name);
+        document.head.appendChild(element);
+      }
+      element.setAttribute('content', content);
+    };
+
+    const setLink = (rel, href) => {
+      let element = document.querySelector(`link[rel="${rel}"]`);
+      if (!element) {
+        element = document.createElement('link');
+        element.setAttribute('rel', rel);
+        document.head.appendChild(element);
+      }
+      element.setAttribute('href', href);
+    };
+
+    setMeta('description', 'Read the latest garment industry blogs, fashion trends, wholesale sourcing tips, and apparel business insights from RTC Global Apparels.');
+    setMeta('keywords', 'Wholesale Garment Sourcing & Distribution, Wholesale Western Wear Suppliers, Wholesale Ethnic Wear Suppliers, Wholesale Kurti Suppliers, Wholesale Saree Suppliers, Ladies Garment Wholesaler, Mens Garment Wholesaler, Kids Garment Wholesaler');
+    
+    setMeta('og:title', 'Our Latest Blog - RTC Global Apparels', true);
+    setMeta('og:description', 'Read the latest garment industry blogs, fashion trends, wholesale sourcing tips, and apparel business insights from RTC Global Apparels.', true);
+    setMeta('og:type', 'website', true);
+    setMeta('og:url', 'https://rtcglobalapparels.com/blog', true);
+    setMeta('og:image', 'https://rtcglobalapparels.com/logo-solid.png', true);
+    setMeta('og:site_name', 'RTC Global Apparels Pvt Ltd', true);
+
+    setMeta('twitter:card', 'summary_large_image');
+    setMeta('twitter:title', 'Our Latest Blog - RTC Global Apparels');
+    setMeta('twitter:description', 'Read the latest garment industry blogs, fashion trends, wholesale sourcing tips, and apparel business insights from RTC Global Apparels.');
+    setMeta('twitter:image', 'https://rtcglobalapparels.com/logo-solid.png');
+
+    setLink('canonical', 'https://rtcglobalapparels.com/blog');
+
     const fetchBlogs = async () => {
       try {
         const { data, error } = await supabase

@@ -45,6 +45,19 @@ function App() {
             <Route element={<MainLayout />}>
               <Route path="/" element={<HomePage />} />
               <Route path="/collections" element={<CollectionsPage />} />
+              
+              {/* SEO-friendly Category Routes */}
+              <Route path="/wholesale-kurti-suppliers-india" element={<CollectionsPage categorySlug="wholesale-kurti-suppliers-india" />} />
+              <Route path="/wholesale-saree-suppliers-india" element={<CollectionsPage categorySlug="wholesale-saree-suppliers-india" />} />
+              <Route path="/wholesale-western-wear-india" element={<CollectionsPage categorySlug="wholesale-western-wear-india" />} />
+              <Route path="/wholesale-ethnic-wear-india" element={<CollectionsPage categorySlug="wholesale-ethnic-wear-india" />} />
+              <Route path="/wholesale-ladies-wear-india" element={<CollectionsPage categorySlug="wholesale-ladies-wear-india" />} />
+              <Route path="/wholesale-mens-wear-india" element={<CollectionsPage categorySlug="wholesale-mens-wear-india" />} />
+              <Route path="/wholesale-kids-wear-india" element={<CollectionsPage categorySlug="wholesale-kids-wear-india" />} />
+              <Route path="/wholesale-blankets-home-india" element={<CollectionsPage categorySlug="wholesale-blankets-home-india" />} />
+              <Route path="/collections/category/:categorySlug" element={<CollectionsPage />} />
+              <Route path="/c/:categorySlug" element={<CollectionsPage />} />
+
               <Route path="/collections/:id" element={<CollectionDetailPage />} />
               <Route path="/enquiry" element={<BulkEnquiryPage />} />
               <Route path="/about" element={<AboutUsPage />} />

@@ -1,4 +1,5 @@
 import { supabase } from '../config/supabaseClient';
+import { resolveCategoryFromSlug } from '../utils/categorySlug';
 
 export const api = {
   get: async (endpoint) => {
@@ -40,12 +41,25 @@ export const api = {
         let query = supabase.from('products').select('*, brand:brands(name, slug), category:categories(name, slug)').eq('is_active', true).eq('is_deleted', false);
         
         const urlParams = new URLSearchParams(endpoint.split('?')[1] || '');
-        const catId = urlParams.get('category');
+        const catParam = urlParams.get('category');
         const limit = urlParams.get('limit');
         const brandSlug = urlParams.get('brand');
         
-        if (catId) {
-          query = query.eq('category_id', catId);
+        if (catParam) {
+          let resolvedCatId = catParam;
+          const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(catParam);
+          if (!isUuid) {
+            const { data: catList } = await supabase.from('categories').select('id, name, slug').eq('is_active', true);
+            if (catList && catList.length > 0) {
+              const matched = resolveCategoryFromSlug(catParam, catList);
+              if (matched) {
+                resolvedCatId = matched.id;
+              } else {
+                resolvedCatId = '00000000-0000-0000-0000-000000000000';
+              }
+            }
+          }
+          query = query.eq('category_id', resolvedCatId);
         }
 
         if (brandSlug) {

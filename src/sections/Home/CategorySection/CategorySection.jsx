@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowUpRight, ArrowRight } from 'lucide-react';
 import { useCategories } from '../../../hooks/useCategories';
+import { getCategorySeoUrl } from '../../../utils/categorySlug';
 import styles from './CategorySection.module.css';
 
 const CategorySection = () => {
@@ -42,9 +43,10 @@ const CategorySection = () => {
         <div className={styles.bentoGrid}>
           {categories.slice(0, 6).map((cat, idx) => {
             const isHero = idx === 0;
+            const targetUrl = cat.seoUrl || getCategorySeoUrl(cat);
             return (
               <Link 
-                to={`/collections?category=${cat.id}`}
+                to={targetUrl}
                 key={cat.id} 
                 className={`${styles.categoryCard} ${isHero ? styles.cardHero : ''} reveal stagger-${(idx % 6) + 1}`}
               >

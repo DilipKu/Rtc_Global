@@ -4,6 +4,7 @@ import { Phone, ChevronDown, Menu, X, Moon, Sun, ShieldCheck } from 'lucide-reac
 import { brandConfig } from '../../../config/brandConfig';
 import { useTheme } from '../../../context/ThemeContext';
 import { useCategories } from '../../../hooks/useCategories';
+import { getCategorySeoUrl } from '../../../utils/categorySlug';
 import { useAuth } from '../../../context/AuthContext';
 import { User as UserIcon } from 'lucide-react';
 import styles from './KristNavbar.module.css';
@@ -92,16 +93,19 @@ const KristNavbar = () => {
                   </Link>
                   {hasDropdown && categories.length > 0 && (
                     <div className={styles.dropdownMenu}>
-                      {categories.map((cat) => (
-                        <a
-                          key={cat.id}
-                          href={`/collections?category=${cat.id}`}
-                          className={styles.dropdownItem}
-                          onClick={handleInternalNavLink(`/collections?category=${cat.id}`)}
-                        >
-                          {cat.name}
-                        </a>
-                      ))}
+                      {categories.map((cat) => {
+                        const targetUrl = cat.seoUrl || getCategorySeoUrl(cat);
+                        return (
+                          <a
+                            key={cat.id}
+                            href={targetUrl}
+                            className={styles.dropdownItem}
+                            onClick={handleInternalNavLink(targetUrl)}
+                          >
+                            {cat.name}
+                          </a>
+                        );
+                      })}
                       <Link to="/collections" className={styles.dropdownItem} style={{fontWeight: 'bold', borderTop: '1px solid #eee', marginTop: '5px', paddingTop: '8px'}}>
                         View All Categories
                       </Link>

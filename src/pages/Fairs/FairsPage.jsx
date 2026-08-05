@@ -9,6 +9,47 @@ const FairsPage = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // Set document title and SEO meta tags
+    document.title = 'Garment Fairs & Events - RTC Global Apparels';
+
+    const setMeta = (name, content, isProperty = false) => {
+      const attr = isProperty ? 'property' : 'name';
+      let element = document.querySelector(`meta[${attr}="${name}"]`);
+      if (!element) {
+        element = document.createElement('meta');
+        element.setAttribute(attr, name);
+        document.head.appendChild(element);
+      }
+      element.setAttribute('content', content);
+    };
+
+    const setLink = (rel, href) => {
+      let element = document.querySelector(`link[rel="${rel}"]`);
+      if (!element) {
+        element = document.createElement('link');
+        element.setAttribute('rel', rel);
+        document.head.appendChild(element);
+      }
+      element.setAttribute('href', href);
+    };
+
+    setMeta('description', 'Discover upcoming garment fairs showcasing wholesale apparel, trending collections, business networking, and sourcing opportunities across India.');
+    setMeta('keywords', 'Wholesale Garment Sourcing & Distribution, Wholesale Western Wear Suppliers, Wholesale Ethnic Wear Suppliers, Wholesale Kurti Suppliers, Wholesale Saree Suppliers, Ladies Garment Wholesaler, Mens Garment Wholesaler, Kids Garment Wholesaler');
+    
+    setMeta('og:title', 'Garment Fairs & Events - RTC Global Apparels', true);
+    setMeta('og:description', 'Discover upcoming garment fairs showcasing wholesale apparel, trending collections, business networking, and sourcing opportunities across India.', true);
+    setMeta('og:type', 'website', true);
+    setMeta('og:url', 'https://rtcglobalapparels.com/fairs', true);
+    setMeta('og:image', 'https://rtcglobalapparels.com/logo-solid.png', true);
+    setMeta('og:site_name', 'RTC Global Apparels Pvt Ltd', true);
+
+    setMeta('twitter:card', 'summary_large_image');
+    setMeta('twitter:title', 'Garment Fairs & Events - RTC Global Apparels');
+    setMeta('twitter:description', 'Discover upcoming garment fairs showcasing wholesale apparel, trending collections, business networking, and sourcing opportunities across India.');
+    setMeta('twitter:image', 'https://rtcglobalapparels.com/logo-solid.png');
+
+    setLink('canonical', 'https://rtcglobalapparels.com/fairs');
+
     const fetchFairs = async () => {
       try {
         const { data, error } = await supabase

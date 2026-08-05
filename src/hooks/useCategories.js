@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { categoryService } from '../services/categoryService';
+import { getCategorySlug } from '../utils/categorySlug';
 
 // Map raw category labels/names to more professional display names
 const CATEGORY_DISPLAY_MAP = {
@@ -27,10 +28,13 @@ export const useCategories = () => {
           const mapped = data.map(cat => {
             const rawLabel = cat.label || cat.name || '';
             const displayName = CATEGORY_DISPLAY_MAP[rawLabel] || rawLabel;
+            const seoSlug = getCategorySlug({ ...cat, name: displayName, label: rawLabel });
             return {
               id: cat._id || cat.id,
               name: displayName,
               label: rawLabel,
+              slug: cat.slug || seoSlug,
+              seoUrl: `/${seoSlug}`,
               tag: cat.tag || 'NEW',
               image: categoryService.formatImageUrl(cat.image),
               moq: cat.moq || 'Contact for MOQ'
