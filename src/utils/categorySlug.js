@@ -1,54 +1,55 @@
 // SEO Slug mapping for categories
 export const CATEGORY_SEO_MAPPINGS = {
   // Key: normalized category label/id/slug -> Value: clean SEO slug
-  'saree': 'wholesale-saree-suppliers-india',
-  'sarees': 'wholesale-saree-suppliers-india',
-  'saree collection': 'wholesale-saree-suppliers-india',
-  'artisanal heritage sarees': 'wholesale-saree-suppliers-india',
+  'saree': 'wholesale-saree-suppliers',
+  'sarees': 'wholesale-saree-suppliers',
+  'saree collection': 'wholesale-saree-suppliers',
+  'artisanal heritage sarees': 'wholesale-saree-suppliers',
   
   'kurti': 'wholesale-kurti-suppliers-india',
   'kurtis': 'wholesale-kurti-suppliers-india',
   'kurti collection': 'wholesale-kurti-suppliers-india',
   
-  'western': 'wholesale-western-wear-india',
-  'western wear': 'wholesale-western-wear-india',
-  'womenswear': 'wholesale-western-wear-india',
-  'ladies collection': 'wholesale-western-wear-india',
-  "women's collection": 'wholesale-western-wear-india',
-  'ladies': 'wholesale-western-wear-india',
+  'western': 'wholesale-western-wear-suppliers',
+  'western wear': 'wholesale-western-wear-suppliers',
+  'womenswear': 'wholesale-western-wear-suppliers',
+  'ladies collection': 'wholesale-ladies-wear-suppliers',
+  "women's collection": 'wholesale-ladies-wear-suppliers',
+  'ladies': 'wholesale-ladies-wear-suppliers',
   
-  'ethnic': 'wholesale-ethnic-wear-india',
-  'ethnic wear': 'wholesale-ethnic-wear-india',
-  'ethnic collection': 'wholesale-ethnic-wear-india',
-  'contemporary festive wear': 'wholesale-ethnic-wear-india',
+  'ethnic': 'wholesale-ethnic-wear-suppliers',
+  'ethnic wear': 'wholesale-ethnic-wear-suppliers',
+  'ethnic collection': 'wholesale-ethnic-wear-suppliers',
+  'contemporary festive wear': 'wholesale-ethnic-wear-suppliers',
 
-  'men': 'wholesale-mens-wear-india',
-  'menswear': 'wholesale-mens-wear-india',
-  "men's collection": 'wholesale-mens-wear-india',
-  'menswear essentials': 'wholesale-mens-wear-india',
+  'men': 'wholesale-mens-wear-suppliers',
+  'menswear': 'wholesale-mens-wear-suppliers',
+  "men's collection": 'wholesale-mens-wear-suppliers',
+  'menswear essentials': 'wholesale-mens-wear-suppliers',
 
-  'kids': 'wholesale-kids-wear-india',
-  'kids wear': 'wholesale-kids-wear-india',
-  "kids' wear": 'wholesale-kids-wear-india',
-  'kids collection': 'wholesale-kids-wear-india',
-  'organic kids wear': 'wholesale-kids-wear-india',
+  'kids': 'wholesale-kids-wear-suppliers',
+  'kids wear': 'wholesale-kids-wear-suppliers',
+  "kids' wear": 'wholesale-kids-wear-suppliers',
+  'kids collection': 'wholesale-kids-wear-suppliers',
+  'organic kids wear': 'wholesale-kids-wear-suppliers',
 
-  'blanket': 'wholesale-blankets-home-india',
-  'blankets': 'wholesale-blankets-home-india',
-  'blanket collection': 'wholesale-blankets-home-india',
-  'blankets & home': 'wholesale-blankets-home-india',
-  'luxe home textiles': 'wholesale-blankets-home-india'
+  'blanket': 'wholesale-blanket-suppliers',
+  'blankets': 'wholesale-blanket-suppliers',
+  'blanket collection': 'wholesale-blanket-suppliers',
+  'blankets & home': 'wholesale-blanket-suppliers',
+  'luxe home textiles': 'wholesale-blanket-suppliers'
 };
 
 // Map SEO slug back to friendly display key or category keywords
 export const REVERSE_SEO_MAPPINGS = {
-  'wholesale-saree-suppliers-india': ['saree', 'sarees', 'artisanal heritage sarees'],
+  'wholesale-saree-suppliers': ['saree', 'sarees', 'artisanal heritage sarees'],
   'wholesale-kurti-suppliers-india': ['kurti', 'kurtis'],
-  'wholesale-western-wear-india': ['western', 'womenswear', 'ladies collection', "women's collection", 'ladies'],
-  'wholesale-ethnic-wear-india': ['ethnic', 'ethnic wear', 'contemporary festive wear'],
-  'wholesale-mens-wear-india': ['men', 'menswear', "men's collection", 'menswear essentials'],
-  'wholesale-kids-wear-india': ['kids', 'kids wear', "kids' wear", 'kids collection', 'organic kids wear'],
-  'wholesale-blankets-home-india': ['blanket', 'blankets', 'blankets & home', 'luxe home textiles']
+  'wholesale-western-wear-suppliers': ['western', 'womenswear', 'western wear'],
+  'wholesale-ladies-wear-suppliers': ['ladies collection', "women's collection", 'ladies'],
+  'wholesale-ethnic-wear-suppliers': ['ethnic', 'ethnic wear', 'contemporary festive wear'],
+  'wholesale-mens-wear-suppliers': ['men', 'menswear', "men's collection", 'menswear essentials'],
+  'wholesale-kids-wear-suppliers': ['kids', 'kids wear', "kids' wear", 'kids collection', 'organic kids wear'],
+  'wholesale-blanket-suppliers': ['blanket', 'blankets', 'blankets & home', 'luxe home textiles']
 };
 
 /**

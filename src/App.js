@@ -31,6 +31,7 @@ import BlogPage from './pages/Blog/BlogPage';
 import BlogDetailPage from './pages/BlogDetail/BlogDetailPage';
 import FairsPage from './pages/Fairs/FairsPage';
 import ScrollToTop from './components/atoms/ScrollToTop';
+import NotFoundPage from './pages/NotFound/NotFoundPage';
 
 import AdminLayout from './layouts/AdminLayout';
 
@@ -48,13 +49,14 @@ function App() {
               
               {/* SEO-friendly Category Routes */}
               <Route path="/wholesale-kurti-suppliers-india" element={<CollectionsPage categorySlug="wholesale-kurti-suppliers-india" />} />
-              <Route path="/wholesale-saree-suppliers-india" element={<CollectionsPage categorySlug="wholesale-saree-suppliers-india" />} />
-              <Route path="/wholesale-western-wear-india" element={<CollectionsPage categorySlug="wholesale-western-wear-india" />} />
-              <Route path="/wholesale-ethnic-wear-india" element={<CollectionsPage categorySlug="wholesale-ethnic-wear-india" />} />
-              <Route path="/wholesale-ladies-wear-india" element={<CollectionsPage categorySlug="wholesale-ladies-wear-india" />} />
-              <Route path="/wholesale-mens-wear-india" element={<CollectionsPage categorySlug="wholesale-mens-wear-india" />} />
-              <Route path="/wholesale-kids-wear-india" element={<CollectionsPage categorySlug="wholesale-kids-wear-india" />} />
-              <Route path="/wholesale-blankets-home-india" element={<CollectionsPage categorySlug="wholesale-blankets-home-india" />} />
+              <Route path="/wholesale-saree-suppliers" element={<CollectionsPage categorySlug="wholesale-saree-suppliers" />} />
+              <Route path="/wholesale-ladies-wear-suppliers" element={<CollectionsPage categorySlug="wholesale-ladies-wear-suppliers" />} />
+              <Route path="/wholesale-ethnic-wear-suppliers" element={<CollectionsPage categorySlug="wholesale-ethnic-wear-suppliers" />} />
+              <Route path="/wholesale-ladies-wear-suppliers" element={<CollectionsPage categorySlug="wholesale-ladies-wear-suppliers" />} />
+              <Route path="/wholesale-mens-wear-suppliers" element={<CollectionsPage categorySlug="wholesale-mens-wear-suppliers" />} />
+              <Route path="/wholesale-kids-wear-suppliers" element={<CollectionsPage categorySlug="wholesale-kids-wear-suppliers" />} />
+              <Route path="/wholesale-blanket-suppliers" element={<CollectionsPage categorySlug="wholesale-blanket-suppliers" />} />
+              <Route path="/wholesale-western-wear-suppliers" element={<CollectionsPage categorySlug="wholesale-western-wear-suppliers" />} />
               <Route path="/collections/category/:categorySlug" element={<CollectionsPage />} />
               <Route path="/c/:categorySlug" element={<CollectionsPage />} />
 
@@ -93,6 +95,9 @@ function App() {
                 </Route>
               </Route>
             </Route>
+
+            {/* 404 - Catch-all for unmatched routes */}
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Router>
       </ThemeProvider>

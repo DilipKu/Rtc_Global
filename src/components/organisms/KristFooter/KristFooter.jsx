@@ -27,12 +27,12 @@ const InstagramIcon = ({ size = 16 }) => (
 );
 
 const collectionsLinks = [
-  { label: "Women's Collection", href: '/wholesale-western-wear-india' },
-  { label: "Men's Collection", href: '/wholesale-mens-wear-india' },
-  { label: "Kids Collection", href: '/wholesale-kids-wear-india' },
-  { label: "Sarees", href: '/wholesale-saree-suppliers-india' },
-  { label: "Blankets & Home", href: '/wholesale-blankets-home-india' },
-  { label: "Ethnic Wear", href: '/wholesale-ethnic-wear-india' },
+  { label: "Women's Collection", href: '/wholesale-ladies-wear-suppliers' },
+  { label: "Men's Collection", href: '/wholesale-mens-wear-suppliers' },
+  { label: "Kids Collection", href: '/wholesale-kids-wear-suppliers' },
+  { label: "Sarees", href: '/wholesale-saree-suppliers' },
+  { label: "Blankets & Home", href: '/wholesale-blanket-suppliers' },
+  { label: "Ethnic Wear", href: '/wholesale-ethnic-wear-suppliers' },
 ];
 
 const quickLinks = [
