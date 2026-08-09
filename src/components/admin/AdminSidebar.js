@@ -33,6 +33,7 @@ const AdminSidebar = ({ isCollapsed, setIsCollapsed }) => {
     { path: '/admin/pages', icon: FileJson, label: 'Dynamic Pages' },
     { path: '/admin/blogs', icon: FileText, label: 'Blogs' },
     { path: '/admin/fairs', icon: Calendar, label: 'Fairs & Events' },
+    { path: '/admin/seo', icon: FileJson, label: 'SEO Settings' },
   ];
 
   const handleLogout = async () => {

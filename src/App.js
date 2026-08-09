@@ -15,6 +15,7 @@ import EnquiriesAdmin from './pages/Admin/EnquiriesAdmin';
 import DynamicPagesAdmin from './pages/Admin/DynamicPagesAdmin';
 import BlogsAdmin from './pages/Admin/BlogsAdmin';
 import FairsAdmin from './pages/Admin/FairsAdmin';
+import SeoAdmin from './pages/Admin/SeoAdmin';
 import MainLayout from './layouts/MainLayout';
 import HomePage from './pages/Home/HomePage';
 import CollectionsPage from './pages/Collections/CollectionsPage';
@@ -92,6 +93,7 @@ function App() {
                   <Route path="/admin/pages" element={<DynamicPagesAdmin />} />
                   <Route path="/admin/blogs" element={<BlogsAdmin />} />
                   <Route path="/admin/fairs" element={<FairsAdmin />} />
+                  <Route path="/admin/seo" element={<SeoAdmin />} />
                 </Route>
               </Route>
             </Route>

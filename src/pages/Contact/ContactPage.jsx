@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { MapPin, Phone, Mail, Send, MessageCircle, AlertCircle, CheckCircle } from 'lucide-react';
+import { useDynamicSeo } from '../../hooks/useDynamicSeo';
 import { supabase } from '../../config/supabaseClient';
 import brandConfig from '../../config/brandConfig';
 import { accountsDirectory } from '../../data/mockData';
@@ -18,48 +19,9 @@ const ContactPage = () => {
     accountsDirectory: accountsDirectory
   });
 
+  const seoHelmet = useDynamicSeo('/contact');
+
   useEffect(() => {
-    // Set document title and SEO meta tags
-    document.title = 'Get in touch with RTC Global Apparels';
-
-    const setMeta = (name, content, isProperty = false) => {
-      const attr = isProperty ? 'property' : 'name';
-      let element = document.querySelector(`meta[${attr}="${name}"]`);
-      if (!element) {
-        element = document.createElement('meta');
-        element.setAttribute(attr, name);
-        document.head.appendChild(element);
-      }
-      element.setAttribute('content', content);
-    };
-
-    const setLink = (rel, href) => {
-      let element = document.querySelector(`link[rel="${rel}"]`);
-      if (!element) {
-        element = document.createElement('link');
-        element.setAttribute('rel', rel);
-        document.head.appendChild(element);
-      }
-      element.setAttribute('href', href);
-    };
-
-    setMeta('description', 'Get in touch with RTC Global Apparels for bulk garment orders, wholesale clothing enquiries, and expert B2B sourcing assistance.');
-    setMeta('keywords', 'Wholesale Garment Sourcing & Distribution, Wholesale Western Wear Suppliers, Wholesale Ethnic Wear Suppliers, Wholesale Kurti Suppliers, Wholesale Saree Suppliers, Ladies Garment Wholesaler, Mens Garment Wholesaler, Kids Garment Wholesaler');
-    
-    setMeta('og:title', 'Get in touch with RTC Global Apparels', true);
-    setMeta('og:description', 'Get in touch with RTC Global Apparels for bulk garment orders, wholesale clothing enquiries, and expert B2B sourcing assistance.', true);
-    setMeta('og:type', 'website', true);
-    setMeta('og:url', 'https://rtcglobalapparels.com/contact', true);
-    setMeta('og:image', 'https://rtcglobalapparels.com/logo-solid.png', true);
-    setMeta('og:site_name', 'RTC Global Apparels Pvt Ltd', true);
-
-    setMeta('twitter:card', 'summary_large_image');
-    setMeta('twitter:title', 'Get in touch with RTC Global Apparels');
-    setMeta('twitter:description', 'Get in touch with RTC Global Apparels for bulk garment orders, wholesale clothing enquiries, and expert B2B sourcing assistance.');
-    setMeta('twitter:image', 'https://rtcglobalapparels.com/logo-solid.png');
-
-    setLink('canonical', 'https://rtcglobalapparels.com/contact');
-
     const fetchContactData = async () => {
       try {
         const { data } = await supabase
@@ -139,6 +101,7 @@ const ContactPage = () => {
 
   return (
     <main className={styles.page}>
+      {seoHelmet}
       {/* 1. HERO SECTION */}
       <header className={styles.header}>
         <div className="container">

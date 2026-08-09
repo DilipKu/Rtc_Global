@@ -4,6 +4,7 @@ import { Send, CheckCircle, Package, Loader2 } from 'lucide-react';
 import brandConfig from '../../config/brandConfig';
 import { enquiryService } from '../../services/enquiryService';
 import { productService } from '../../services/productService';
+import { useDynamicSeo } from '../../hooks/useDynamicSeo';
 import styles from './BulkEnquiryPage.module.css';
 
 const BulkEnquiryPage = () => {
@@ -19,6 +20,8 @@ const BulkEnquiryPage = () => {
     itemOfInterest: '',
     message: ''
   });
+  
+  const seoHelmet = useDynamicSeo('/bulk-enquiry');
 
   // Auto-populate from URL
   useEffect(() => {
@@ -202,6 +205,7 @@ const BulkEnquiryPage = () => {
   if (isSubmitted) {
     return (
       <main className={styles.page}>
+        {seoHelmet}
          <section className={styles.successSection}>
             <div className={styles.successCard}>
                <CheckCircle size={64} className={styles.successIcon} />
@@ -217,6 +221,7 @@ const BulkEnquiryPage = () => {
 
   return (
     <main className={styles.page}>
+      {seoHelmet}
       <header className={styles.header}>
         <div className="container">
           <div className={styles.badge}>B2B Wholesale Portal</div>

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useDynamicSeo } from '../../hooks/useDynamicSeo';
 import styles from './GalleryPage.module.css';
 
 // Import local images
@@ -49,6 +50,7 @@ const categories = ['All', 'Garment Fair'];
 
 const GalleryPage = () => {
   const [activeTab, setActiveTab] = useState('All');
+  const seoHelmet = useDynamicSeo('/gallery');
 
   const filteredEvents = activeTab === 'All' 
     ? eventsData 
@@ -56,6 +58,7 @@ const GalleryPage = () => {
 
   return (
     <main className={styles.page}>
+      {seoHelmet}
       <header className={styles.header}>
         <div className="container">
           <h1 className={styles.headerTitle}>Garment Fair & Events</h1>

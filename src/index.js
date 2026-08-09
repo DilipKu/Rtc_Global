@@ -4,10 +4,17 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import { HelmetProvider } from 'react-helmet-async';
+import { SeoProvider } from './context/SeoContext';
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <HelmetProvider>
+      <SeoProvider>
+        <App />
+      </SeoProvider>
+    </HelmetProvider>
   </React.StrictMode>
 );
 

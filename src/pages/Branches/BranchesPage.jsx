@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { MapPin, Phone, ChevronRight, User, Globe, Grid, Map as MapIcon, Search, Send } from 'lucide-react';
 import styles from './BranchesPage.module.css';
 import { useBranches } from '../../hooks/useBranches';
+import { useDynamicSeo } from '../../hooks/useDynamicSeo';
 
 const REGIONS = [
   { id: 'all', name: 'All India' },
@@ -55,52 +56,12 @@ const BranchesPage = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedRegion, setSelectedRegion] = useState('all');
 
-  // Set document title and SEO meta tags
-  useEffect(() => {
-    document.title = 'Our Branches - RTC Global Apparels';
-
-    const setMeta = (name, content, isProperty = false) => {
-      const attr = isProperty ? 'property' : 'name';
-      let element = document.querySelector(`meta[${attr}="${name}"]`);
-      if (!element) {
-        element = document.createElement('meta');
-        element.setAttribute(attr, name);
-        document.head.appendChild(element);
-      }
-      element.setAttribute('content', content);
-    };
-
-    const setLink = (rel, href) => {
-      let element = document.querySelector(`link[rel="${rel}"]`);
-      if (!element) {
-        element = document.createElement('link');
-        element.setAttribute('rel', rel);
-        document.head.appendChild(element);
-      }
-      element.setAttribute('href', href);
-    };
-
-    setMeta('description', 'Explore RTC Global Apparels branches across India, connecting retailers with reliable wholesale garment sourcing and regional B2B support.');
-    setMeta('keywords', 'Wholesale Garment Sourcing & Distribution, Wholesale Western Wear Suppliers, Wholesale Ethnic Wear Suppliers, Wholesale Kurti Suppliers, Wholesale Saree Suppliers, Ladies Garment Wholesaler, Mens Garment Wholesaler, Kids Garment Wholesaler');
-    
-    setMeta('og:title', 'Our Branches - RTC Global Apparels', true);
-    setMeta('og:description', 'Explore RTC Global Apparels branches across India, connecting retailers with reliable wholesale garment sourcing and regional B2B support.', true);
-    setMeta('og:type', 'website', true);
-    setMeta('og:url', 'https://rtcglobalapparels.com/branches', true);
-    setMeta('og:image', 'https://rtcglobalapparels.com/logo-solid.png', true);
-    setMeta('og:site_name', 'RTC Global Apparels Pvt Ltd', true);
-
-    setMeta('twitter:card', 'summary_large_image');
-    setMeta('twitter:title', 'Our Branches - RTC Global Apparels');
-    setMeta('twitter:description', 'Explore RTC Global Apparels branches across India, connecting retailers with reliable wholesale garment sourcing and regional B2B support.');
-    setMeta('twitter:image', 'https://rtcglobalapparels.com/logo-solid.png');
-
-    setLink('canonical', 'https://rtcglobalapparels.com/branches');
-  }, []);
+  const seoHelmet = useDynamicSeo('/branches');
 
   if (loading && branches.length === 0) {
     return (
       <div className={styles.loaderWrapper} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '60vh' }}>
+        {seoHelmet}
         <div style={{
           width: 48,
           height: 48,
@@ -141,6 +102,7 @@ const BranchesPage = () => {
 
   return (
     <main className={styles.page}>
+      {seoHelmet}
       {/* 🔝 1. Hero Section */}
       <section className={styles.hero}>
         <div className={styles.container}>

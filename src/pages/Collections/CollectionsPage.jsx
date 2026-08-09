@@ -1,10 +1,11 @@
 import React, { useMemo, useEffect } from 'react';
 import { Link, useParams, useSearchParams, useNavigate } from 'react-router-dom';
+import { useDynamicSeo } from '../../hooks/useDynamicSeo';
 import ProductCard from '../../components/molecules/ProductCard/ProductCard';
 import { useCategories } from '../../hooks/useCategories';
 import { useProducts } from '../../hooks/useProducts';
 import { useBrands } from '../../hooks/useBrands';
-import { getCategorySeoUrl, resolveCategoryFromSlug } from '../../utils/categorySlug';
+import { getCategorySeoUrl, resolveCategoryFromSlug, getCategorySlug } from '../../utils/categorySlug';
 import styles from './CollectionsPage.module.css';
 
 const CollectionsPage = ({ categorySlug: propCategorySlug }) => {
@@ -41,197 +42,15 @@ const CollectionsPage = ({ categorySlug: propCategorySlug }) => {
 
   const { products, loading: productsLoading } = useProducts(productParams);
 
-  // Set document title and SEO meta tags
-  useEffect(() => {
-    const catTitle = activeCategory ? activeCategory.name : (pathCategorySlug ? pathCategorySlug.replace(/-/g, ' ') : '');
-    
-    // Helper functions for meta tags
-    const setMeta = (name, content, isProperty = false) => {
-      const attr = isProperty ? 'property' : 'name';
-      let element = document.querySelector(`meta[${attr}="${name}"]`);
-      if (!element) {
-        element = document.createElement('meta');
-        element.setAttribute(attr, name);
-        document.head.appendChild(element);
-      }
-      element.setAttribute('content', content);
-    };
-
-    const setLink = (rel, href) => {
-      let element = document.querySelector(`link[rel="${rel}"]`);
-      if (!element) {
-        element = document.createElement('link');
-        element.setAttribute('rel', rel);
-        document.head.appendChild(element);
-      }
-      element.setAttribute('href', href);
-    };
-
-    const categorySlug = activeCategory ? activeCategory.slug : pathCategorySlug;
-
-    if (categorySlug === 'wholesale-ladies-wear-suppliers') {
-      document.title = 'Wholesale Ladies Wear Suppliers - RTC Global Apparels';
-      
-      setMeta('description', 'Find trusted Wholesale Ladies Wear Suppliers with RTC Global Apparels. Quality ladies wear sourcing, bulk supply, and reliable distribution across India.');
-      setMeta('keywords', 'Wholesale Ladies Wear Suppliers, Wholesale Ladies Wear Dealers, Wholesale Ladies Wear Distributor');
-      
-      setMeta('og:title', 'Wholesale Ladies Wear Suppliers - RTC Global Apparels', true);
-      setMeta('og:description', 'Find trusted Wholesale Ladies Wear Suppliers with RTC Global Apparels. Quality ladies wear sourcing, bulk supply, and reliable distribution across India.', true);
-      setMeta('og:type', 'website', true);
-      setMeta('og:url', 'https://rtcglobalapparels.com/wholesale-ladies-wear-suppliers', true);
-      setMeta('og:image', 'https://rtcglobalapparels.com/logo-solid.png', true);
-      setMeta('og:site_name', 'RTC Global Apparels Pvt Ltd', true);
-
-      setMeta('twitter:card', 'summary_large_image');
-      setMeta('twitter:title', 'Wholesale Ladies Wear Suppliers - RTC Global Apparels');
-      setMeta('twitter:description', 'Find trusted Wholesale Ladies Wear Suppliers with RTC Global Apparels. Quality ladies wear sourcing, bulk supply, and reliable distribution across India.');
-      setMeta('twitter:image', 'https://rtcglobalapparels.com/logo-solid.png');
-
-      setLink('canonical', 'https://rtcglobalapparels.com/wholesale-ladies-wear-suppliers');
-    } else if (categorySlug === 'wholesale-kids-wear-suppliers') {
-      document.title = 'Wholesale Kids Wear Suppliers - RTC Global Apparels';
-      
-      setMeta('description', 'Choose RTC Global Apparels for trusted Wholesale Kids Wear Suppliers offering quality kidswear sourcing, bulk supply, and reliable distribution across India.');
-      setMeta('keywords', 'Wholesale Kids Wear Suppliers, Wholesale Kids Wear Dealers, Wholesale Kids Wear Distributor');
-      
-      setMeta('og:title', 'Wholesale Kids Wear Suppliers - RTC Global Apparels', true);
-      setMeta('og:description', 'Choose RTC Global Apparels for trusted Wholesale Kids Wear Suppliers offering quality kidswear sourcing, bulk supply, and reliable distribution across India.', true);
-      setMeta('og:type', 'website', true);
-      setMeta('og:url', 'https://rtcglobalapparels.com/wholesale-kids-wear-suppliers', true);
-      setMeta('og:image', 'https://rtcglobalapparels.com/logo-solid.png', true);
-      setMeta('og:site_name', 'RTC Global Apparels Pvt Ltd', true);
-
-      setMeta('twitter:card', 'summary_large_image');
-      setMeta('twitter:title', 'Wholesale Kids Wear Suppliers - RTC Global Apparels');
-      setMeta('twitter:description', 'Choose RTC Global Apparels for trusted Wholesale Kids Wear Suppliers offering quality kidswear sourcing, bulk supply, and reliable distribution across India.');
-      setMeta('twitter:image', 'https://rtcglobalapparels.com/logo-solid.png');
-
-      setLink('canonical', 'https://rtcglobalapparels.com/wholesale-kids-wear-suppliers');
-    } else if (categorySlug === 'wholesale-mens-wear-suppliers') {
-      document.title = 'Wholesale Mens Wear Suppliers - RTC Global Apparels';
-      
-      setMeta('description', 'Find trusted Wholesale Mens Wear Suppliers at RTC Global Apparels. We offer quality men\'s apparel sourcing, bulk supply, and reliable distribution across India.');
-      setMeta('keywords', 'Wholesale Mens Wear Suppliers, Wholesale Mens Wear Dealers, Wholesale Mens Wear Distributor');
-      
-      setMeta('og:title', 'Wholesale Mens Wear Suppliers - RTC Global Apparels', true);
-      setMeta('og:description', 'Find trusted Wholesale Mens Wear Suppliers at RTC Global Apparels. We offer quality men\'s apparel sourcing, bulk supply, and reliable distribution across India.', true);
-      setMeta('og:type', 'website', true);
-      setMeta('og:url', 'https://rtcglobalapparels.com/wholesale-mens-wear-suppliers', true);
-      setMeta('og:image', 'https://rtcglobalapparels.com/logo-solid.png', true);
-      setMeta('og:site_name', 'RTC Global Apparels Pvt Ltd', true);
-
-      setMeta('twitter:card', 'summary_large_image');
-      setMeta('twitter:title', 'Wholesale Mens Wear Suppliers - RTC Global Apparels');
-      setMeta('twitter:description', 'Find trusted Wholesale Mens Wear Suppliers at RTC Global Apparels. We offer quality men\'s apparel sourcing, bulk supply, and reliable distribution across India.');
-      setMeta('twitter:image', 'https://rtcglobalapparels.com/logo-solid.png');
-
-      setLink('canonical', 'https://rtcglobalapparels.com/wholesale-mens-wear-suppliers');
-    } else if (categorySlug === 'wholesale-blanket-suppliers') {
-      document.title = 'Wholesale Blanket Suppliers - RTC Global Apparels';
-      
-      setMeta('description', 'Looking for Wholesale Blanket Suppliers? RTC Global Apparels delivers premium blankets with dependable bulk sourcing, competitive pricing, and timely supply.');
-      setMeta('keywords', 'Wholesale Blanket Suppliers, Wholesale Blanket Dealers, Wholesale Blanket Distributor');
-      
-      setMeta('og:title', 'Wholesale Blanket Suppliers - RTC Global Apparels', true);
-      setMeta('og:description', 'Looking for Wholesale Blanket Suppliers? RTC Global Apparels delivers premium blankets with dependable bulk sourcing, competitive pricing, and timely supply.', true);
-      setMeta('og:type', 'website', true);
-      setMeta('og:url', 'https://rtcglobalapparels.com/wholesale-blanket-suppliers', true);
-      setMeta('og:image', 'https://rtcglobalapparels.com/logo-solid.png', true);
-      setMeta('og:site_name', 'RTC Global Apparels Pvt Ltd', true);
-
-      setMeta('twitter:card', 'summary_large_image');
-      setMeta('twitter:title', 'Wholesale Blanket Suppliers - RTC Global Apparels');
-      setMeta('twitter:description', 'Looking for Wholesale Blanket Suppliers? RTC Global Apparels delivers premium blankets with dependable bulk sourcing, competitive pricing, and timely supply.');
-      setMeta('twitter:image', 'https://rtcglobalapparels.com/logo-solid.png');
-
-      setLink('canonical', 'https://rtcglobalapparels.com/wholesale-blanket-suppliers');
-    } else if (categorySlug === 'wholesale-saree-suppliers') {
-      document.title = 'Wholesale Saree Suppliers - RTC Global Apparels';
-      
-      setMeta('description', 'Discover trusted Wholesale Saree Suppliers at RTC Global Apparels. Source quality sarees in bulk with reliable supply, competitive pricing, and consistent service.');
-      setMeta('keywords', 'Wholesale Saree Suppliers, Wholesale Saree Dealers, Wholesale Saree Distributor');
-      
-      setMeta('og:title', 'Wholesale Saree Suppliers - RTC Global Apparels', true);
-      setMeta('og:description', 'Discover trusted Wholesale Saree Suppliers at RTC Global Apparels. Source quality sarees in bulk with reliable supply, competitive pricing, and consistent service.', true);
-      setMeta('og:type', 'website', true);
-      setMeta('og:url', 'https://rtcglobalapparels.com/wholesale-saree-suppliers', true);
-      setMeta('og:image', 'https://rtcglobalapparels.com/logo-solid.png', true);
-      setMeta('og:site_name', 'RTC Global Apparels Pvt Ltd', true);
-
-      setMeta('twitter:card', 'summary_large_image');
-      setMeta('twitter:title', 'Wholesale Saree Suppliers - RTC Global Apparels');
-      setMeta('twitter:description', 'Discover trusted Wholesale Saree Suppliers at RTC Global Apparels. Source quality sarees in bulk with reliable supply, competitive pricing, and consistent service.');
-      setMeta('twitter:image', 'https://rtcglobalapparels.com/logo-solid.png');
-
-      setLink('canonical', 'https://rtcglobalapparels.com/wholesale-saree-suppliers');
-    } else if (categorySlug === 'wholesale-ethnic-wear-suppliers') {
-      document.title = 'Wholesale Ethnic Wear Suppliers - RTC Global Apparels';
-      
-      setMeta('description', 'Choose RTC Global Apparels for Wholesale Ethnic Wear Suppliers offering premium ethnic apparel, reliable bulk sourcing, consistent quality, and timely delivery.');
-      setMeta('keywords', 'Wholesale Ethnic Wear Suppliers, Wholesale Ethnic Wear Dealers, Wholesale Ethnic Wear Distributor');
-      
-      setMeta('og:title', 'Wholesale Ethnic Wear Suppliers - RTC Global Apparels', true);
-      setMeta('og:description', 'Choose RTC Global Apparels for Wholesale Ethnic Wear Suppliers offering premium ethnic apparel, reliable bulk sourcing, consistent quality, and timely delivery.', true);
-      setMeta('og:type', 'website', true);
-      setMeta('og:url', 'https://rtcglobalapparels.com/wholesale-ethnic-wear-suppliers', true);
-      setMeta('og:image', 'https://rtcglobalapparels.com/logo-solid.png', true);
-      setMeta('og:site_name', 'RTC Global Apparels Pvt Ltd', true);
-
-      setMeta('twitter:card', 'summary_large_image');
-      setMeta('twitter:title', 'Wholesale Ethnic Wear Suppliers - RTC Global Apparels');
-      setMeta('twitter:description', 'Choose RTC Global Apparels for Wholesale Ethnic Wear Suppliers offering premium ethnic apparel, reliable bulk sourcing, consistent quality, and timely delivery.');
-      setMeta('twitter:image', 'https://rtcglobalapparels.com/logo-solid.png');
-
-      setLink('canonical', 'https://rtcglobalapparels.com/wholesale-ethnic-wear-suppliers');
-    } else if (categorySlug === 'wholesale-western-wear-suppliers') {
-      document.title = 'Wholesale Western Wear Suppliers - RTC Global Apparels';
-      
-      setMeta('description', 'Get premium western apparel from trusted Wholesale Western Wear Suppliers at RTC Global Apparels with reliable bulk sourcing and timely supply.');
-      setMeta('keywords', 'Wholesale Western Wear Suppliers, Wholesale Western Wear Dealers, Wholesale Western Wear Distributor');
-      
-      setMeta('og:title', 'Wholesale Western Wear Suppliers - RTC Global Apparels', true);
-      setMeta('og:description', 'Get premium western apparel from trusted Wholesale Western Wear Suppliers at RTC Global Apparels with reliable bulk sourcing and timely supply.', true);
-      setMeta('og:type', 'website', true);
-      setMeta('og:url', 'https://rtcglobalapparels.com/wholesale-western-wear-suppliers', true);
-      setMeta('og:image', 'https://rtcglobalapparels.com/logo-solid.png', true);
-      setMeta('og:site_name', 'RTC Global Apparels Pvt Ltd', true);
-
-      setMeta('twitter:card', 'summary_large_image');
-      setMeta('twitter:title', 'Wholesale Western Wear Suppliers - RTC Global Apparels');
-      setMeta('twitter:description', 'Get premium western apparel from trusted Wholesale Western Wear Suppliers at RTC Global Apparels with reliable bulk sourcing and timely supply.');
-      setMeta('twitter:image', 'https://rtcglobalapparels.com/logo-solid.png');
-
-      setLink('canonical', 'https://rtcglobalapparels.com/wholesale-western-wear-suppliers');
-    } else if (catTitle) {
-      document.title = `${catTitle} - Wholesale Suppliers India | RTC Global`;
-      // Minimal SEO for sub-categories
-      setMeta('description', `Explore wholesale ${catTitle} collections at RTC Global.`);
-      setMeta('og:title', `${catTitle} - Wholesale Suppliers India | RTC Global`, true);
-      if (categorySlug) {
-        setLink('canonical', `https://rtcglobalapparels.com/collections/${categorySlug}`);
-      }
-    } else {
-      // Main Collections Page SEO
-      document.title = 'Our Latest Collection - RTC Global Apparels';
-      
-      setMeta('description', 'Explore wholesale garment collections with trending styles for men, women, kids, sarees, and ethnic wear, backed by reliable B2B supply.');
-      setMeta('keywords', 'Wholesale Garment Sourcing & Distribution, Wholesale Western Wear Suppliers, Wholesale Ethnic Wear Suppliers, Wholesale Kurti Suppliers, Wholesale Saree Suppliers, Ladies Garment Wholesaler, Mens Garment Wholesaler, Kids Garment Wholesaler');
-      
-      setMeta('og:title', 'Our Latest Collection - RTC Global Apparels', true);
-      setMeta('og:description', 'Explore wholesale garment collections with trending styles for men, women, kids, sarees, and ethnic wear, backed by reliable B2B supply.', true);
-      setMeta('og:type', 'website', true);
-      setMeta('og:url', 'https://rtcglobalapparels.com/collections', true);
-      setMeta('og:image', 'https://rtcglobalapparels.com/logo-solid.png', true);
-      setMeta('og:site_name', 'RTC Global Apparels Pvt Ltd', true);
-
-      setMeta('twitter:card', 'summary_large_image');
-      setMeta('twitter:title', 'Our Latest Collection - RTC Global Apparels');
-      setMeta('twitter:description', 'Explore wholesale garment collections with trending styles for men, women, kids, sarees, and ethnic wear, backed by reliable B2B supply.');
-      setMeta('twitter:image', 'https://rtcglobalapparels.com/logo-solid.png');
-
-      setLink('canonical', 'https://rtcglobalapparels.com/collections');
-    }
-  }, [activeCategory, pathCategorySlug]);
+  const categorySlug = activeCategory ? activeCategory.slug : pathCategorySlug;
+  const seoKey = activeCategory ? getCategorySlug(activeCategory) : pathCategorySlug;
+  const catTitle = activeCategory ? activeCategory.name : (pathCategorySlug ? pathCategorySlug.replace(/-/g, ' ') : '');
+  
+  const seoHelmet = useDynamicSeo(seoKey || '/collections', {
+    title: catTitle ? `${catTitle} - Wholesale Suppliers India | RTC Global` : 'Our Latest Collection - RTC Global Apparels',
+    description: catTitle ? `Explore wholesale ${catTitle} collections at RTC Global.` : 'Explore wholesale garment collections.',
+    canonical: categorySlug ? `https://rtcglobalapparels.com/collections/${categorySlug}` : 'https://rtcglobalapparels.com/collections'
+  });
 
   // Filter handlers
   const handleCategoryFilter = (cat) => {
@@ -278,6 +97,7 @@ const CollectionsPage = ({ categorySlug: propCategorySlug }) => {
 
   return (
     <main className={styles.page}>
+      {seoHelmet}
       <section className={styles.content}>
         <div className="container">
           <div className={styles.showingStrip}>

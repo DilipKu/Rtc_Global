@@ -1,10 +1,14 @@
 import React from 'react';
 import { brandConfig } from '../../config/brandConfig';
+import { useDynamicSeo } from '../../hooks/useDynamicSeo';
 import styles from './PrivacyPolicy.module.css';
 
 const PrivacyPolicy = () => {
+  const seoHelmet = useDynamicSeo('/privacy');
+
   return (
     <main className={styles.page}>
+      {seoHelmet}
       <header className={styles.header}>
         <div className="container">
           <h1 className={styles.title}>Privacy Policy</h1>

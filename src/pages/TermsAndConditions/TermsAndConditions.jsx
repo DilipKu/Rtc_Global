@@ -1,10 +1,14 @@
 import React from 'react';
 import { brandConfig } from '../../config/brandConfig';
+import { useDynamicSeo } from '../../hooks/useDynamicSeo';
 import styles from './TermsAndConditions.module.css';
 
 const TermsAndConditions = () => {
+  const seoHelmet = useDynamicSeo('/terms');
+
   return (
     <main className={styles.page}>
+      {seoHelmet}
       <header className={styles.header}>
         <div className="container">
           <h1 className={styles.title}>Terms & Conditions</h1>

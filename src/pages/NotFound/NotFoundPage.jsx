@@ -1,30 +1,16 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useDynamicSeo } from '../../hooks/useDynamicSeo';
 import styles from './NotFoundPage.module.css';
 
 const NotFoundPage = () => {
   const navigate = useNavigate();
 
-  useEffect(() => {
-    document.title = 'Page Not Found - RTC Global Apparels';
-
-    const setMeta = (name, content, isProperty = false) => {
-      const attr = isProperty ? 'property' : 'name';
-      let element = document.querySelector(`meta[${attr}="${name}"]`);
-      if (!element) {
-        element = document.createElement('meta');
-        element.setAttribute(attr, name);
-        document.head.appendChild(element);
-      }
-      element.setAttribute('content', content);
-    };
-
-    setMeta('robots', 'noindex, nofollow');
-    setMeta('description', 'The page you are looking for does not exist. Please return to RTC Global Apparels homepage.');
-  }, []);
+  const seoHelmet = useDynamicSeo('/404');
 
   return (
     <main className={styles.page}>
+      {seoHelmet}
       <div className={styles.container}>
         {/* Animated 404 */}
         <div className={styles.errorCode}>

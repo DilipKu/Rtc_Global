@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Eye, Star, Users } from "lucide-react";
+import { useDynamicSeo } from '../../hooks/useDynamicSeo';
 import styles from "./AboutUsPage.module.css";
 import storyBanner from "../../assets/images/story_banner.png";
 import ownerImage from "../../assets/images/rtc_about.png";
@@ -26,46 +27,6 @@ const AboutUsPage = () => {
 
 
   useEffect(() => {
-    // Set document title and SEO meta tags
-    document.title = 'About Us - RTC Global Apparels';
-
-    const setMeta = (name, content, isProperty = false) => {
-      const attr = isProperty ? 'property' : 'name';
-      let element = document.querySelector(`meta[${attr}="${name}"]`);
-      if (!element) {
-        element = document.createElement('meta');
-        element.setAttribute(attr, name);
-        document.head.appendChild(element);
-      }
-      element.setAttribute('content', content);
-    };
-
-    const setLink = (rel, href) => {
-      let element = document.querySelector(`link[rel="${rel}"]`);
-      if (!element) {
-        element = document.createElement('link');
-        element.setAttribute('rel', rel);
-        document.head.appendChild(element);
-      }
-      element.setAttribute('href', href);
-    };
-
-    setMeta('description', 'RTC Global Apparels delivers trusted wholesale garment sourcing with quality products, efficient supply, and customer-focused B2B services.');
-    setMeta('keywords', 'Wholesale Garment Sourcing & Distribution, Wholesale Western Wear Suppliers, Wholesale Ethnic Wear Suppliers, Wholesale Kurti Suppliers, Wholesale Saree Suppliers, Ladies Garment Wholesaler, Mens Garment Wholesaler, Kids Garment Wholesaler');
-    
-    setMeta('og:title', 'About Us - RTC Global Apparels', true);
-    setMeta('og:description', 'RTC Global Apparels delivers trusted wholesale garment sourcing with quality products, efficient supply, and customer-focused B2B services.', true);
-    setMeta('og:type', 'website', true);
-    setMeta('og:url', 'https://rtcglobalapparels.com/about', true);
-    setMeta('og:image', 'https://rtcglobalapparels.com/logo-solid.png', true);
-    setMeta('og:site_name', 'RTC Global Apparels Pvt Ltd', true);
-
-    setMeta('twitter:card', 'summary_large_image');
-    setMeta('twitter:title', 'About Us - RTC Global Apparels');
-    setMeta('twitter:description', 'RTC Global Apparels delivers trusted wholesale garment sourcing with quality products, efficient supply, and customer-focused B2B services.');
-    setMeta('twitter:image', 'https://rtcglobalapparels.com/logo-solid.png');
-
-    setLink('canonical', 'https://rtcglobalapparels.com/about');
 
     const fetchAboutData = async () => {
       try {
@@ -87,9 +48,11 @@ const AboutUsPage = () => {
   }, []);
 
   const about_us = aboutUsData;
+  const seoHelmet = useDynamicSeo('/about');
 
   return (
     <main className={styles.page}>
+      {seoHelmet}
       <section className={styles.content}>
         <div className="container">
           {/* 2. STORY SECTION */}

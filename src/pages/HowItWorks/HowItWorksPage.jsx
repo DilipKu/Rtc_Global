@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Search, ShoppingCart, CreditCard, Truck } from 'lucide-react';
+import { useDynamicSeo } from '../../hooks/useDynamicSeo';
 import styles from './HowItWorksPage.module.css';
 
 const steps = [
@@ -27,8 +28,11 @@ const steps = [
 ];
 
 const HowItWorksPage = () => {
+  const seoHelmet = useDynamicSeo('/how-it-works');
+
   return (
     <main className={styles.page}>
+      {seoHelmet}
       <header className={styles.header}>
         <div className="container">
           <h1 className="heading-xl">How It Works</h1>
