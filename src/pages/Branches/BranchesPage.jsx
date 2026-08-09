@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { MapPin, Phone, ChevronRight, User, Globe, Grid, Map as MapIcon, Search, Send } from 'lucide-react';
 import styles from './BranchesPage.module.css';

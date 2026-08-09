@@ -1,4 +1,4 @@
-import React, { useMemo, useEffect } from 'react';
+import React, { useMemo } from 'react';
 import { Link, useParams, useSearchParams, useNavigate } from 'react-router-dom';
 import { useDynamicSeo } from '../../hooks/useDynamicSeo';
 import ProductCard from '../../components/molecules/ProductCard/ProductCard';

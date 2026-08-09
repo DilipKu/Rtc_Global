@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { useSeoContext } from '../context/SeoContext';
 
 export const useDynamicSeo = (routeIdentifier, fallbackConfig = {}) => {
-  const { seoRules, loading } = useSeoContext();
+  const { seoRules } = useSeoContext();
   
   // Try to find the exact route
   let config = seoRules[routeIdentifier];
