@@ -112,6 +112,7 @@ export const api = {
           slug: data.slug,
           price: data.price,
           category: data.category?.name || 'Uncategorized',
+          categorySlug: data.category?.slug,
           brand: data.brand?.name || 'Unknown',
           images: data.images || [],
           image: (data.images && data.images.length > 0) ? data.images[0] : '',

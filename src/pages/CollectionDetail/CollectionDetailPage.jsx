@@ -3,6 +3,8 @@ import { useParams, Link } from 'react-router-dom';
 import { Phone, MessageSquare, ShieldCheck, Truck, Package, Loader2 } from 'lucide-react';
 import brandConfig from '../../config/brandConfig';
 import { productService } from '../../services/productService';
+import { useProducts } from '../../hooks/useProducts';
+import ProductCard from '../../components/molecules/ProductCard/ProductCard';
 import styles from './CollectionDetailPage.module.css';
 
 const CollectionDetailPage = () => {
@@ -24,7 +26,14 @@ const CollectionDetailPage = () => {
       }
     };
     fetchProduct();
+    window.scrollTo(0, 0);
   }, [id]);
+
+  const { products: fetchedSimilar } = useProducts(
+    product?.category ? { category: product.category, limit: 10 } : {}
+  );
+  const similarProducts = fetchedSimilar.filter(p => p.id !== id).slice(0, 4);
+
 
   if (loading) {
     return (
@@ -138,6 +147,19 @@ const CollectionDetailPage = () => {
 
           </div>
         </div>
+
+        {/* Similar Products Section */}
+        {similarProducts.length > 0 && (
+          <div className={styles.similarSection}>
+            <h2 className={styles.similarTitle}>Similar Collections</h2>
+            <div className={styles.similarGrid}>
+              {similarProducts.map((p) => (
+                <ProductCard key={p.id} product={p} />
+              ))}
+            </div>
+          </div>
+        )}
+
       </div>
     </main>
   );

@@ -334,6 +334,26 @@ const ContactPage = () => {
             </div>
           </div>
 
+          {/* 6. MAP SECTION */}
+          <div className={styles.mapSection}>
+            <h2 className={styles.accountsHeading}>Office Location</h2>
+            <p className={styles.accountsSubtext}>
+              X/2210, Gali No. 10, Kailash Nagar, Gandhi Nagar, Delhi-110031
+            </p>
+            <div className={styles.mapWrapper}>
+              <iframe 
+                src="https://www.google.com/maps?q=X/2210,+Gali+No.+10,+Kailash+Nagar,+Gandhi+Nagar,+Delhi-110031&output=embed"
+                width="100%" 
+                height="100%" 
+                style={{ border: 0 }} 
+                allowFullScreen="" 
+                loading="lazy" 
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Office Location Map"
+              ></iframe>
+            </div>
+          </div>
+
         </div>
       </section>
     </main>

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { supabase } from '../../config/supabaseClient';
-import { Calendar, Clock, ChevronLeft, User, Share2 } from 'lucide-react';
 import styles from './BlogDetailPage.module.css';
 
 const BlogDetailPage = () => {
@@ -61,9 +60,6 @@ const BlogDetailPage = () => {
           <p style={{ color: 'var(--text-secondary)', marginBottom: '20px' }}>
             The blog post you're looking for doesn't exist.
           </p>
-          <button onClick={() => navigate('/blog')} className={styles.backBtn}>
-            <ChevronLeft size={16} /> Back to Blog
-          </button>
         </div>
       </main>
     );
@@ -92,33 +88,7 @@ const BlogDetailPage = () => {
         </div>
         
         <div className={`container ${styles.headerContent}`}>
-          <button onClick={() => navigate('/blog')} className={styles.backLink}>
-            <ChevronLeft size={16} /> Back to Blog
-          </button>
-          
-          <div className={styles.metaTop}>
-            <span className={styles.category}>{blog.category}</span>
-          </div>
-          
           <h1 className={styles.title}>{blog.title}</h1>
-          
-          <div className={styles.metaBottom}>
-            <div className={styles.authorInfo}>
-              <div className={styles.avatar}>
-                <User size={18} />
-              </div>
-              <div className={styles.authorText}>
-                <span className={styles.authorName}>{blog.author}</span>
-                <span className={styles.dateRead}>
-                  <Calendar size={12} /> {blog.date} &nbsp;•&nbsp; <Clock size={12} /> {blog.readTime}
-                </span>
-              </div>
-            </div>
-            
-            <button className={styles.shareBtn} aria-label="Share Article">
-              <Share2 size={16} /> Share
-            </button>
-          </div>
         </div>
       </header>
 
