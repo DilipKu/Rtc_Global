@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { supabase } from '../../config/supabaseClient';
 import styles from './BlogDetailPage.module.css';
 
 const BlogDetailPage = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
   const [blog, setBlog] = useState(null);
   const [loading, setLoading] = useState(true);
+
 
   useEffect(() => {
     const fetchBlog = async () => {
