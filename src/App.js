@@ -69,7 +69,7 @@ function App() {
               <Route path="/how-it-works" element={<HowItWorksPage />} />
               <Route path="/gallery" element={<GalleryPage />} />
               <Route path="/blog" element={<BlogPage />} />
-              <Route path="/blog/:id" element={<BlogDetailPage />} />
+              <Route path="/:id" element={<BlogDetailPage />} />
               <Route path="/fairs" element={<FairsPage />} />
               <Route path="/terms" element={<TermsAndConditionsPage />} />
               <Route path="/privacy" element={<PrivacyPolicyPage />} />
