@@ -143,6 +143,13 @@ const ContactPage = () => {
             </a>
           </div>
 
+          <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+            <p style={{ color: 'var(--text-secondary)', marginBottom: '1rem' }}>Have general questions about MOQs, shipping, or payments?</p>
+            <a href="/faq" className={styles.submitBtn} style={{ display: 'inline-flex', width: 'auto', padding: '0.75rem 2rem' }}>
+              View Frequently Asked Questions
+            </a>
+          </div>
+
           <div className={`${styles.layout} reveal stagger-3`}>
             
             {/* 3. MAIN CONTACT INFO (LEFT) */}
@@ -332,6 +339,19 @@ const ContactPage = () => {
                 </div>
               ))}
             </div>
+          </div>
+
+          {/* 6. MAP SECTION */}
+          <div className={styles.mapSection}>
+            <iframe 
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3500.7513548189077!2d77.2568135742396!3d28.66716277564581!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x84bdef149464cc51%3A0xa77361abbbec615!2sRTC%20Global%20Apparels%20Pvt%20Ltd!5e0!3m2!1sen!2sin!4v1786869764021!5m2!1sen!2sin" 
+              className={styles.mapIframe}
+              style={{ border: 0 }} 
+              allowFullScreen="" 
+              loading="lazy" 
+              referrerPolicy="no-referrer-when-downgrade"
+              title="RTC Global Apparels Location"
+            ></iframe>
           </div>
 
         </div>

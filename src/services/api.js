@@ -34,7 +34,14 @@ export const api = {
       if (cleanEndpoint === '/branches') {
         const { data, error } = await supabase.from('branches').select('*').eq('is_active', true).eq('is_deleted', false);
         if (error) throw error;
-        return data.map(b => ({ ...b, phoneNumbers: b.phone_numbers, imageUrl: b.image_url }));
+        return data.map(b => ({ ...b, phoneNumbers: b.phone_numbers, imageUrl: b.image_url, directionUrl: b.direction_url, embedMapUrl: b.embed_map_url }));
+      }
+
+      if (cleanEndpoint.startsWith('/branches/id/')) {
+        const id = cleanEndpoint.split('/').pop();
+        const { data, error } = await supabase.from('branches').select('*').eq('id', id).single();
+        if (error) throw error;
+        return { ...data, phoneNumbers: data.phone_numbers, imageUrl: data.image_url, directionUrl: data.direction_url, embedMapUrl: data.embed_map_url };
       }
       
       if (cleanEndpoint === '/products') {
@@ -44,7 +51,12 @@ export const api = {
         const catParam = urlParams.get('category');
         const limit = urlParams.get('limit');
         const brandSlug = urlParams.get('brand');
+        const branchParam = urlParams.get('branch');
         
+        if (branchParam) {
+          query = query.eq('branch_id', branchParam);
+        }
+
         if (catParam) {
           let resolvedCatId = catParam;
           const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(catParam);
@@ -89,6 +101,7 @@ export const api = {
           slug: p.slug,
           price: p.price,
           category: p.category?.name || 'Uncategorized',
+          categoryId: p.category_id,
           brand: p.brand?.name || 'Unknown',
           images: p.images || [],
           image: (p.images && p.images.length > 0) ? p.images[0] : '',
@@ -112,6 +125,7 @@ export const api = {
           slug: data.slug,
           price: data.price,
           category: data.category?.name || 'Uncategorized',
+          categoryId: data.category_id,
           brand: data.brand?.name || 'Unknown',
           images: data.images || [],
           image: (data.images && data.images.length > 0) ? data.images[0] : '',
@@ -135,6 +149,7 @@ export const api = {
           slug: data.slug,
           price: data.price,
           category: data.category?.name || 'Uncategorized',
+          categoryId: data.category_id,
           brand: data.brand?.name || 'Unknown',
           images: data.images || [],
           image: (data.images && data.images.length > 0) ? data.images[0] : '',

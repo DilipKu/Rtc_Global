@@ -5,6 +5,7 @@ import brandConfig from '../../config/brandConfig';
 import { enquiryService } from '../../services/enquiryService';
 import { productService } from '../../services/productService';
 import { useDynamicSeo } from '../../hooks/useDynamicSeo';
+import ProductCard from '../../components/molecules/ProductCard/ProductCard';
 import styles from './BulkEnquiryPage.module.css';
 
 const BulkEnquiryPage = () => {
@@ -12,6 +13,7 @@ const BulkEnquiryPage = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [zoomStyle, setZoomStyle] = useState({ display: 'none' });
   const [fullProduct, setFullProduct] = useState(null);
+  const [similarProducts, setSimilarProducts] = useState([]);
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -33,7 +35,16 @@ const BulkEnquiryPage = () => {
     if (sku) {
       productService.getProductBySku(sku)
         .then(found => {
-          if (found) setFullProduct(found);
+          if (found) {
+            setFullProduct(found);
+            // Fetch similar products using categoryId
+            productService.getProducts({ category: found.categoryId })
+              .then(results => {
+                const similar = results.filter(p => p.sku !== sku).slice(0, 4);
+                setSimilarProducts(similar);
+              })
+              .catch(err => console.error("Failed to fetch similar products:", err));
+          }
         })
         .catch(err => console.error("Failed to fetch product by sku:", err));
     }
@@ -257,6 +268,18 @@ const BulkEnquiryPage = () => {
                  {enquiryForm}
                </div>
             </div>
+            
+            {similarProducts.length > 0 && (
+              <div className={styles.similarSection}>
+                <h2 className={styles.similarTitle}>Similar Products</h2>
+                <div className={styles.similarGrid}>
+                  {similarProducts.map((p) => (
+                    <ProductCard key={p.sku} {...p} />
+                  ))}
+                </div>
+              </div>
+            )}
+
             <div style={{ marginTop: '40px' }}>
               {infoCardContent}
             </div>

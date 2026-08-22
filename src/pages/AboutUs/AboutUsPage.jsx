@@ -168,6 +168,27 @@ const AboutUsPage = () => {
               ))}
             </div>
           </div>
+
+          <div style={{ textAlign: 'center', marginTop: '4rem', marginBottom: '2rem' }}>
+            <p style={{ color: 'var(--text-secondary)', marginBottom: '1rem' }}>Want to learn more about our wholesale process?</p>
+            <a href="/faq" style={{ 
+              display: 'inline-flex', 
+              padding: '0.875rem 2rem', 
+              backgroundColor: 'var(--color-primary-900)', 
+              color: 'var(--text-primary)', 
+              borderRadius: '100px',
+              textDecoration: 'none',
+              fontWeight: '700',
+              textTransform: 'uppercase',
+              fontSize: '0.875rem',
+              letterSpacing: '0.05em',
+              boxShadow: 'var(--shadow-sm)',
+              border: '1px solid var(--color-gold-500)'
+            }}>
+              View Frequently Asked Questions
+            </a>
+          </div>
+
         </div>
       </section>
     </main>

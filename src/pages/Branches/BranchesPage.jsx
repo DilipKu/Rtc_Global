@@ -212,17 +212,25 @@ const BranchesPage = () => {
                         </div>
                       </div>
 
-                      {/* Direct WhatsApp Call Actions */}
+                      {/* Direct Actions */}
                       <div className={styles.actionRow}>
+                        <Link to={`/branches/${loc.id}`} className={styles.cardDetailBtn}>
+                          <Grid size={12} />
+                          View Details
+                        </Link>
                         <a href={`tel:${loc.phones[0]}`} className={styles.cardCallBtn}>
                           <Phone size={12} />
                           Call Desk
                         </a>
+                      </div>
+                      
+                      <div className={styles.actionRow} style={{ marginTop: '8px' }}>
                         <a 
                           href={getWhatsappLink(loc.phones[0], loc.city)} 
                           className={styles.cardWaBtn}
                           target="_blank"
                           rel="noopener noreferrer"
+                          style={{ width: '100%' }}
                         >
                           <Send size={12} />
                           WhatsApp

@@ -94,14 +94,14 @@ const BlogPage = () => {
                     </div>
                     
                     <h2 className={styles.blogTitle}>
-                      <Link to={`/blog/${blog.id}`}>{blog.title}</Link>
+                      <Link to={`/${blog.id}`}>{blog.title}</Link>
                     </h2>
                     
                     <p className={styles.blogSnippet}>{blog.snippet}</p>
                     
                     <div className={styles.cardFooter}>
                       <span className={styles.author}>By {blog.author}</span>
-                      <Link to={`/blog/${blog.id}`} className={styles.readMoreBtn}>
+                      <Link to={`/${blog.id}`} className={styles.readMoreBtn}>
                         Read Article <ChevronRight size={16} />
                       </Link>
                     </div>

@@ -26,11 +26,13 @@ import ContactPage from './pages/Contact/ContactPage';
 import HowItWorksPage from './pages/HowItWorks/HowItWorksPage';
 import GalleryPage from './pages/Gallery/GalleryPage';
 import BranchesPage from './pages/Branches/BranchesPage';
+import BranchDetailPage from './pages/BranchDetail/BranchDetailPage';
 import TermsAndConditionsPage from './pages/TermsAndConditions/TermsAndConditions';
 import PrivacyPolicyPage from './pages/PrivacyPolicy/PrivacyPolicy';
 import BlogPage from './pages/Blog/BlogPage';
 import BlogDetailPage from './pages/BlogDetail/BlogDetailPage';
 import FairsPage from './pages/Fairs/FairsPage';
+import FAQPage from './pages/FAQ/FAQPage';
 import ScrollToTop from './components/atoms/ScrollToTop';
 import NotFoundPage from './pages/NotFound/NotFoundPage';
 
@@ -65,14 +67,16 @@ function App() {
               <Route path="/enquiry" element={<BulkEnquiryPage />} />
               <Route path="/about" element={<AboutUsPage />} />
               <Route path="/branches" element={<BranchesPage />} />
+              <Route path="/branches/:id" element={<BranchDetailPage />} />
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/how-it-works" element={<HowItWorksPage />} />
               <Route path="/gallery" element={<GalleryPage />} />
               <Route path="/blog" element={<BlogPage />} />
-              <Route path="/blog/:id" element={<BlogDetailPage />} />
+              <Route path="/:id" element={<BlogDetailPage />} />
               <Route path="/fairs" element={<FairsPage />} />
               <Route path="/terms" element={<TermsAndConditionsPage />} />
               <Route path="/privacy" element={<PrivacyPolicyPage />} />
+              <Route path="/faq" element={<FAQPage />} />
 
               {/* Auth Routes */}
               <Route path="/login" element={<Login />} />

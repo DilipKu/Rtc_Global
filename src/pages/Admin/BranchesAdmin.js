@@ -10,7 +10,7 @@ const BranchesAdmin = () => {
   const [currentBranch, setCurrentBranch] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   
-  const [formData, setFormData] = useState({ name: '', code: '', type: 'Franchise', city: '', state: '', address: '', phone_numbers: '', image_url: '', is_active: true });
+  const [formData, setFormData] = useState({ name: '', code: '', type: 'Franchise', city: '', state: '', address: '', phone_numbers: '', email: '', manager: '', image_url: '', direction_url: '', embed_map_url: '', is_active: true });
   const [file, setFile] = useState(null);
   const [uploading, setUploading] = useState(false);
 
@@ -25,7 +25,7 @@ const BranchesAdmin = () => {
   };
 
   const handleAddNew = () => {
-    setFormData({ name: '', code: '', type: 'Franchise', city: '', state: '', address: '', phone_numbers: '', image_url: '', is_active: true });
+    setFormData({ name: '', code: '', type: 'Franchise', city: '', state: '', address: '', phone_numbers: '', email: '', manager: '', image_url: '', direction_url: '', embed_map_url: '', is_active: true });
     setFile(null);
     setCurrentBranch(null);
     setIsEditing(true);
@@ -41,7 +41,11 @@ const BranchesAdmin = () => {
       phone_numbers: branch.phone_numbers ? branch.phone_numbers.join(', ') : '',
       city: parsedAddr.city || branch.city || '', // fallback to branch.city if data is malformed
       state: parsedAddr.state || branch.state || '',
-      address: parsedAddr.street || (typeof addr === 'string' ? addr : '')
+      address: parsedAddr.street || (typeof addr === 'string' ? addr : ''),
+      email: branch.email || '',
+      manager: branch.manager || '',
+      direction_url: branch.direction_url || '',
+      embed_map_url: branch.embed_map_url || ''
     });
     setFile(null);
     setCurrentBranch(branch);
@@ -78,7 +82,9 @@ const BranchesAdmin = () => {
           state: formData.state,
           postalCode: '',
           country: 'India'
-        }
+        },
+        direction_url: formData.direction_url,
+        embed_map_url: formData.embed_map_url
       };
       
       // Clean up top-level properties not in the schema
@@ -145,9 +151,33 @@ const BranchesAdmin = () => {
                 <input type="text" placeholder="Comma separated, e.g. 9876543210" value={formData.phone_numbers || ''} onChange={e => setFormData({...formData, phone_numbers: e.target.value})} className="admin-input" />
               </div>
 
+              <div className="form-row">
+                <div className="form-group">
+                  <label className="admin-label">Manager Name</label>
+                  <input type="text" value={formData.manager || ''} onChange={e => setFormData({...formData, manager: e.target.value})} className="admin-input" />
+                </div>
+                <div className="form-group">
+                  <label className="admin-label">Email</label>
+                  <input type="email" value={formData.email || ''} onChange={e => setFormData({...formData, email: e.target.value})} className="admin-input" />
+                </div>
+              </div>
+
               <div className="form-group">
                 <label className="admin-label">Address</label>
                 <textarea rows="2" value={formData.address} onChange={e => setFormData({...formData, address: e.target.value})} className="admin-textarea"></textarea>
+              </div>
+
+              <div className="form-group">
+                <label className="admin-label">Direction URL (Google Maps Link)</label>
+                <input type="text" placeholder="https://maps.google.com/..." value={formData.direction_url} onChange={e => setFormData({...formData, direction_url: e.target.value})} className="admin-input" />
+              </div>
+
+              <div className="form-group">
+                <label className="admin-label">Embed Map URL (iframe src)</label>
+                <input type="text" placeholder="https://www.google.com/maps/embed?..." value={formData.embed_map_url} onChange={e => setFormData({...formData, embed_map_url: e.target.value})} className="admin-input" />
+                <p style={{ fontSize: '12px', color: '#666', marginTop: '4px' }}>
+                  * Go to Google Maps {'>'} Share {'>'} Embed a map {'>'} Copy the link inside the src="..." attribute. (Do not use the regular sharing link).
+                </p>
               </div>
 
               <div className="form-group">

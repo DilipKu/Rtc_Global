@@ -236,7 +236,7 @@ const BlogsAdmin = () => {
 
                 <div className="form-group">
                   <label className="admin-label">Canonical Tag</label>
-                  <input type="url" placeholder="https://example.com/blog/post-slug" value={formData.canonical_tag} onChange={e => setFormData({...formData, canonical_tag: e.target.value})} className="admin-input" />
+                  <input type="url" placeholder="https://example.com/post-slug" value={formData.canonical_url} onChange={e => setFormData({...formData, canonical_url: e.target.value})} className="admin-input" />
                   <small className="form-help-text">Canonical URL to prevent duplicate content issues</small>
                 </div>
               </fieldset>
