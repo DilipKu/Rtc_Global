@@ -51,7 +51,7 @@
   width: 56px;
   height: 56px;
   background: var(--color-whatsapp);
-  color: var(--text-primary);
+  color: #fff;
   border-radius: var(--radius-full);
   display: flex;
   align-items: center;

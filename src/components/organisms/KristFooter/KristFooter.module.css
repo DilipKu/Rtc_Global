@@ -198,25 +198,29 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--text-secondary);
-  border: 1px solid var(--color-border);
+  color: #fff;
   border-radius: 50%;
   text-decoration: none;
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.socialLink:hover {
-  color: var(--color-primary-900);
-  border-color: var(--color-gold-500);
-  background-color: var(--color-gold-500);
-  transform: translateY(-3px) rotate(8deg);
-  box-shadow: 0 5px 15px var(--color-glass-glow);
+.socialFacebook {
+  background-color: #1877f2;
+}
+.socialInstagram {
+  background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+}
+.socialYoutube {
+  background-color: #ff0000;
+}
+.socialWhatsapp {
+  background-color: #25d366;
 }
 
-.socialWhatsapp:hover {
-  background-color: var(--color-whatsapp);
-  border-color: var(--color-whatsapp);
-  color: var(--text-primary);
+.socialLink:hover {
+  transform: translateY(-3px) rotate(8deg);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  filter: brightness(1.1);
 }
 
 /* ── Link Columns ── */
