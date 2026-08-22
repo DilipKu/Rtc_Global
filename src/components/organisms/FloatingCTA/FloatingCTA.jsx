@@ -1,12 +1,18 @@
 import React, { useState } from 'react';
 import { MessageCircle, Phone, FileText, X } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { brandConfig } from '../../../config/brandConfig';
 import styles from './FloatingCTA.module.css';
 
 const FloatingCTA = () => {
   const [isExpanded, setIsExpanded] = useState(false);
   const primaryPhone = brandConfig.phone_number.split(',')[0].trim();
+  const location = useLocation();
+
+  // Hide floating CTA on blog detail pages
+  const isBlogDetail = /^\/blog\/.+/.test(location.pathname);
+  if (isBlogDetail) return null;
+
 
   return (
     <div 
