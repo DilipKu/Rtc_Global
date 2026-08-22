@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { MapPin, Phone, Smartphone, Mail, User, Loader2 } from 'lucide-react';
+import { MapPin, Mail, Smartphone, User, Loader2 } from 'lucide-react';
 import { useDynamicSeo } from '../../hooks/useDynamicSeo';
 import api from '../../services/api';
 import ProductCard from '../../components/molecules/ProductCard/ProductCard';
